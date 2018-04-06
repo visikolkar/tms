@@ -1,0 +1,38 @@
+<div class="main">
+  <mat-card class="login-card" flex="50">
+    <!-- <mat-card-header>
+      <div mat-card-avatar class="login-header-image"></div>
+      <mat-card-title>Shiba Inu</mat-card-title>
+      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    </mat-card-header> -->
+    <img mat-card-image src="../assets/images/log.jpg" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <h2 class="title" style="text-align:center;">Login with your AD account</h2>
+      <form class="login-form">
+        <mat-form-field class="login-full-width">
+          <input matInput placeholder="Email" type="email" [formControl]="emailFormControl">
+          <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailFormControl.hasError('required')">
+            Email is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="login-full-width">
+          <input matInput placeholder="password" type="password" [formControl]="passwordFormControl">
+          <mat-error *ngIf="passwordFormControl.hasError('password') && !passwordFormControl.hasError('required')">
+            Please enter password
+          </mat-error>
+          <mat-error *ngIf="passwordFormControl.hasError('required')">
+            Password is
+            <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+      </form>
+      <button mat-raised-button color="accent" (click)="onLogin()" >Login</button>
+    </mat-card-content>
+  </mat-card>
+</div>
