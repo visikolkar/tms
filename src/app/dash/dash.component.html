@@ -1,3 +1,89 @@
-<p>
-  dash works!
-</p>
+<mat-toolbar color="accent" style="height: 100px;">
+    <img src="../../assets/images/lg.png" width="80" height="80" alt="">
+    <h1 class="mat-display-1" style="width:150px; display: inline-block; font-size:1.4em;">TMS</h1>
+    <div>
+        <a mat-button [matMenuTriggerFor]="menu">Menu Item 1
+            <mat-icon>arrow_drop_down</mat-icon>
+        </a>
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+            <button mat-menu-item>Item 1</button>
+            <button mat-menu-item>Item 2</button>
+            <button mat-menu-item>Item 3</button>
+        </mat-menu>
+        <a mat-button>Menu Item 2</a>
+        <a mat-button>Menu Item 3</a>
+    </div>
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav" [fixedInViewport]="fixed" [fixedTopGap]="0" [fixedBottomGap]="0">
+        <mat-list class="side-list">
+            <h6 mat-subheader class="list-divider">PROFILE</h6>
+            <!-- <span class="divider-btn"><button mat-button color="accent">edit</button></span> -->
+            <mat-list-item class="list-item">
+                <img matListAvatar src="../../assets/images/men.jpg" alt="men">
+                <h4 mat-line>Marissa Kolkar</h4>
+                <p mat-line> SI004641 </p>
+            </mat-list-item>
+            <mat-accordion>
+                <mat-expansion-panel class="list-expansion">
+                    <mat-expansion-panel-header>
+                        Primary Skill
+                    </mat-expansion-panel-header>
+                    Skill Set
+                </mat-expansion-panel>
+                <mat-expansion-panel class="list-expansion">
+                    <mat-expansion-panel-header>
+                        Secondary Skill
+                    </mat-expansion-panel-header>
+                    Skill Set
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <mat-divider></mat-divider>
+            <h6 mat-subheader class="list-divider">CALENDAR</h6>
+            <mat-list-item class="list-item" *ngFor="let note of notes">
+                <mat-icon mat-list-icon class="list-font">note</mat-icon>
+                <h4 mat-line>{{note.name}}</h4>
+                <p mat-line> {{note.updated | date}} </p>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+            <h6 mat-subheader class="list-divider">MORE</h6>
+            <mat-list-item class="list-item">
+                <mat-icon mat-list-icon class="list-font">help_outline</mat-icon>
+                <a matLine href="">FAQ</a>
+            </mat-list-item>
+            <mat-list-item class="list-item">
+                <mat-icon mat-list-icon class="list-font">info_outline</mat-icon>
+                <a matLine href="">Help</a>
+            </mat-list-item>
+            <mat-list-item class="list-item">
+                <mat-icon mat-list-icon class="list-font">book</mat-icon>
+                <a matLine href="">Manual</a>
+            </mat-list-item>
+        </mat-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <p>
+            <button mat-button (click)="sidenav.toggle()">Toggle</button>
+        </p>
+        <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="background-color:aliceblue">
+            <a fxFlex="5%">prev</a>
+            <div fxFlex="90%">
+                <mat-tab-group>
+                    <mat-tab label="Tab 1">Content 1</mat-tab>
+                    <mat-tab label="Tab 2">Content 2</mat-tab>
+                    <mat-tab label="Tab 3">Content 3</mat-tab>
+                    <mat-tab label="Tab 4">Content 4</mat-tab>
+                    <mat-tab label="Tab 5">Content 5</mat-tab>
+                    <mat-tab label="Tab 6">Content 6</mat-tab>
+                    <!-- <mat-tab label="Tab 7">Content 7</mat-tab> -->
+                </mat-tab-group>
+            </div>
+            <a fxFlex="5%">next</a>
+        </div>
+        
+    </mat-sidenav-content>
+</mat-sidenav-container>
