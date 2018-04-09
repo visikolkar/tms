@@ -21,13 +21,15 @@ import { MatInputModule,
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { DashComponent } from './dash/dash.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashComponent
+    DashComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

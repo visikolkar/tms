@@ -1,17 +1,17 @@
-<mat-toolbar color="accent" style="height: 100px;">
-    <img src="../../assets/images/lg.png" width="80" height="80" alt="">
-    <h1 class="mat-display-1" style="width:150px; display: inline-block; font-size:1.4em;">TMS</h1>
-    <div>
-        <a mat-button [matMenuTriggerFor]="menu">Menu Item 1
+<mat-toolbar style="height: 100px;background-color:#C3003C;z-index:99;" class="mat-elevation-z10">
+    <img src="../../assets/images/lg.png" width="80" height="80" alt="" (click)="sidenav.toggle()" style="cursor:pointer">
+    <h1 class="mat-display-1" style="width:150px; display: inline-block; font-size:1.4em;color:white">TMS</h1>
+    <div style="color:white">
+        <a mat-button [matMenuTriggerFor]="menu">My Work
             <mat-icon>arrow_drop_down</mat-icon>
         </a>
         <mat-menu #menu="matMenu" [overlapTrigger]="false">
-            <button mat-menu-item>Item 1</button>
-            <button mat-menu-item>Item 2</button>
-            <button mat-menu-item>Item 3</button>
+            <button mat-menu-item>Log Effort</button>
+            <button mat-menu-item>Approval</button>
+            <button mat-menu-item>My Project List</button>
         </mat-menu>
-        <a mat-button>Menu Item 2</a>
-        <a mat-button>Menu Item 3</a>
+        <a mat-button>Report</a>
+        <a mat-button>Monitoring</a>
     </div>
 </mat-toolbar>
 
@@ -25,7 +25,17 @@
                 <h4 mat-line>Marissa Kolkar</h4>
                 <p mat-line> SI004641 </p>
             </mat-list-item>
-            <mat-accordion>
+            <mat-list-item class="list-item">
+                <mat-icon mat-list-icon class="list-font">code</mat-icon>
+                <h4 mat-line>TypeScript</h4>
+                <p mat-line>Primary Skill</p>
+            </mat-list-item>
+            <mat-list-item class="list-item">
+                <mat-icon mat-list-icon class="list-font">code</mat-icon>
+                <h4 mat-line>Android</h4>
+                <p mat-line>Secondary Skill</p>
+            </mat-list-item>
+            <!-- <mat-accordion>
                 <mat-expansion-panel class="list-expansion">
                     <mat-expansion-panel-header>
                         Primary Skill
@@ -38,16 +48,11 @@
                     </mat-expansion-panel-header>
                     Skill Set
                 </mat-expansion-panel>
-            </mat-accordion>
+            </mat-accordion> -->
 
             <mat-divider></mat-divider>
             <h6 mat-subheader class="list-divider">CALENDAR</h6>
-            <mat-list-item class="list-item" *ngFor="let note of notes">
-                <mat-icon mat-list-icon class="list-font">note</mat-icon>
-                <h4 mat-line>{{note.name}}</h4>
-                <p mat-line> {{note.updated | date}} </p>
-            </mat-list-item>
-
+            <tms-calendar></tms-calendar>
             <mat-divider></mat-divider>
             <h6 mat-subheader class="list-divider">MORE</h6>
             <mat-list-item class="list-item">
@@ -66,11 +71,11 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <p>
+        <!-- <p >
             <button mat-button (click)="sidenav.toggle()">Toggle</button>
-        </p>
+        </p> -->
         <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="background-color:aliceblue">
-            <a fxFlex="5%">prev</a>
+            <!-- <a fxFlex="5%">prev</a> -->
             <div fxFlex="90%">
                 <mat-tab-group>
                     <mat-tab label="Tab 1">Content 1</mat-tab>
@@ -82,8 +87,17 @@
                     <!-- <mat-tab label="Tab 7">Content 7</mat-tab> -->
                 </mat-tab-group>
             </div>
-            <a fxFlex="5%">next</a>
+            <!-- <a fxFlex="5%">next</a> -->
+            <a class="navigation navigation-prev " aria-label="Previous page: this">
+                <span><mat-icon>chevron_left</mat-icon></span>
+                <span style="font-size:0.3em;">Prev</span>
+            </a>
+            <a class="navigation navigation-next " aria-label="Next page: Number">
+                <span><mat-icon>chevron_right</mat-icon></span>
+                <span style="font-size:0.3em;">Next</span>
+            </a>
         </div>
+        
         
     </mat-sidenav-content>
 </mat-sidenav-container>

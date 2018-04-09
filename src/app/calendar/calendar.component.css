@@ -1,0 +1,97 @@
+.calendar {
+    display: block;
+    width: 210px;
+    margin: 0 auto;
+    color: white;
+  }
+  .calendar * {
+    box-sizing: border-box;
+  }
+  .calendar .calendar-navs {
+    /* background-color: green; */
+    /* background-color: #61b2a7; */
+    /* box-shadow: inset 0 10px 10px #61b2a7; */
+  }
+  .calendar .month-nav {
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .calendar .year-nav {
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: 'Montserrat';
+  }
+  .calendar .month-grid .day-names {
+    display: flex;
+    flex-direction: row;
+    /* background: red; */
+    color: white;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+  .calendar .month-grid .weeks {
+    display: flex;
+    flex-direction: column;
+  }
+  .calendar .month-grid .week {
+    display: flex;
+    flex-direction: row;
+  }
+  .calendar .month-grid .week-date,
+  .calendar .month-grid .day-name {
+    text-align: center;
+    padding: 4px;
+    display: block;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .calendar .month-grid .week-date {
+    height: 30px;
+    position: relative;
+  }
+  .calendar .month-grid .week-date .date-text {
+    z-index: 10;
+    font-size: 10px;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .calendar .month-grid .week-date::after {
+    content: '';
+    height: 27px;
+    width: 27px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    transition: background-color 150ms linear, color 150ms linear;
+    z-index: 1;
+  }
+  .calendar .month-grid .week-date.enabled {
+    cursor: pointer;
+  }
+  .calendar .month-grid .week-date.enabled:hover:after {
+    background-color: rgb(148, 232, 247);
+  }
+  .calendar .month-grid .week-date.selected {
+    color: white;
+  }
+  .calendar .month-grid .week-date.selected:after {
+    background-color: teal;
+  }
+  .calendar .month-grid .week-date.selected:hover:after {
+    background-color: teal;
+  }
+  .calendar .month-grid .week-date.disabled {
+    color: grey;
+  }
+  .calendar .month-grid .today {
+    font-weight: bold;
+    background-color: #C3003C;
+  }
+  

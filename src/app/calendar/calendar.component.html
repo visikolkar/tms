@@ -1,0 +1,39 @@
+<div class="calendar">
+	<div class="calendar-navs">
+		<div class="month-nav">
+      <button type="button" (click)="prevMonth()" style="border-radius:15%;"><mat-icon>chevron_left</mat-icon></button>
+      <!-- <button mat-mini-fab (click)="prevMonth()">
+        <mat-icon>chevron_left</mat-icon>
+      </button> -->
+			<span class="p4">{{ currentDate.format('MMMM') }} {{ currentDate.format('YYYY') }}</span>
+      <button type="button" (click)="nextMonth()" style="border-radius:15%;"><mat-icon>chevron_right</mat-icon></button>
+      <!-- <button mat-mini-fab (click)="nextMonth()">
+        <mat-icon>chevron_right</mat-icon>
+      </button> -->
+		</div>
+		<!-- <div class="year-nav">
+			<button (click)="prevYear()">&lt;</button>
+			<span>{{ currentDate.format('YYYY') }}</span>
+			<button (click)="nextYear()">&gt;</button>
+		</div> -->
+	</div>
+	<div class="month-grid">
+		<div class="day-names">
+			<div *ngFor="let name of dayNames" class="day-name p9">
+				{{ name }}
+			</div>
+		</div>
+		<div class="weeks">
+			<div *ngFor="let week of weeks" class="week">
+				<ng-container *ngFor="let day of week">
+					<div class="week-date disabled" *ngIf="!isSelectedMonth(day.mDate)">
+						<span class="date-text">{{ day.mDate.date() }}</span>
+					</div>
+					<div class="week-date enabled" *ngIf="isSelectedMonth(day.mDate)" (click)="selectDate(day)" [ngClass]="{ today: day.today, selected: day.selected }">
+						<span class="date-text">{{ day.mDate.date() }}</span>
+					</div>
+				</ng-container>
+			</div>
+		</div>
+	</div>
+</div>
