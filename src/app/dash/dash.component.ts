@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Employee } from '../shared/employee';
+import { EMPLOYEEDETAILS } from '../shared/mock-employee';
 
 @Component({
     selector: 'app-dash',
@@ -11,15 +13,7 @@ export class DashComponent implements OnInit {
 
     ngOnInit() {
     }
-    notes = [
-        {
-            name: 'Vacation Itinerary',
-            updated: new Date('2/20/16'),
-        },
-        {
-            name: 'Kitchen Remodel',
-            updated: new Date('1/18/16'),
-        }
-    ];
+    
+    employee = EMPLOYEEDETAILS;
 
 }

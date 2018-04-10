@@ -1,5 +1,12 @@
-<mat-toolbar style="height: 100px;background-color:#C3003C;z-index:99;" class="mat-elevation-z10">
-    <img src="../../assets/images/lg.png" width="80" height="80" alt="" (click)="sidenav.toggle()" style="cursor:pointer">
+<mat-toolbar style="height: 100px;background-color:#C3003C;" class="mat-elevation-z6">
+    <button class="hamburger mat-button" mat-button="" title="Side menu" (click)="sidenav.toggle()">
+        <mat-icon class="mat-icon" role="img" svgicon="menu" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24">
+                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+            </svg>
+        </mat-icon>
+    </button>
+    <img src="../../assets/images/lg.png" width="80" height="80" alt="" style="cursor:pointer">
     <h1 class="mat-display-1" style="width:150px; display: inline-block; font-size:1.4em;color:white">TMS</h1>
     <div style="color:white">
         <a mat-button [matMenuTriggerFor]="menu">My Work
@@ -18,21 +25,24 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav" [fixedInViewport]="fixed" [fixedTopGap]="0" [fixedBottomGap]="0">
         <mat-list class="side-list">
-            <h6 mat-subheader class="list-divider">PROFILE</h6>
-            <!-- <span class="divider-btn"><button mat-button color="accent">edit</button></span> -->
+            <div mat-subheader class="list-divider" style="padding-top:4px;">
+                <h6 style="position: inline-block; color:lightgray;font-size: 14px;font-weight: 500;">PROFILE</h6>
+                <span fxFlex></span>
+                <button mat-button color="accent" style="min-width:auto; margin-top:8px;">edit</button>
+            </div>
             <mat-list-item class="list-item">
                 <img matListAvatar src="../../assets/images/men.jpg" alt="men">
-                <h4 mat-line>Marissa Kolkar</h4>
-                <p mat-line> SI004641 </p>
+                <h4 mat-line> {{employee.empInfo.empName}} </h4>
+                <p mat-line> {{employee.empInfo.empId}} </p>
             </mat-list-item>
             <mat-list-item class="list-item">
                 <mat-icon mat-list-icon class="list-font">code</mat-icon>
-                <h4 mat-line>TypeScript</h4>
+                <h4 mat-line>{{employee.skill.primarySkillLevelOne}}</h4>
                 <p mat-line>Primary Skill</p>
             </mat-list-item>
             <mat-list-item class="list-item">
                 <mat-icon mat-list-icon class="list-font">code</mat-icon>
-                <h4 mat-line>Android</h4>
+                <h4 mat-line>{{employee.skill.secondarySkillLevelOne}}</h4>
                 <p mat-line>Secondary Skill</p>
             </mat-list-item>
             <!-- <mat-accordion>
@@ -74,30 +84,34 @@
         <!-- <p >
             <button mat-button (click)="sidenav.toggle()">Toggle</button>
         </p> -->
-        <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="background-color:aliceblue">
+        <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="background-color:transparent; margin-top:40px;">
             <!-- <a fxFlex="5%">prev</a> -->
             <div fxFlex="90%">
                 <mat-tab-group>
-                    <mat-tab label="Tab 1">Content 1</mat-tab>
-                    <mat-tab label="Tab 2">Content 2</mat-tab>
-                    <mat-tab label="Tab 3">Content 3</mat-tab>
-                    <mat-tab label="Tab 4">Content 4</mat-tab>
-                    <mat-tab label="Tab 5">Content 5</mat-tab>
-                    <mat-tab label="Tab 6">Content 6</mat-tab>
-                    <!-- <mat-tab label="Tab 7">Content 7</mat-tab> -->
+                    <mat-tab label="Sunday">Sunday</mat-tab>
+                    <mat-tab label="Monday">Monday</mat-tab>
+                    <mat-tab label="Tuesday">Tuesday</mat-tab>
+                    <mat-tab label="Wednesday">Wednesday</mat-tab>
+                    <mat-tab label="Thursday">Thursday</mat-tab>
+                    <mat-tab label="Friday">Friday</mat-tab>
+                    <mat-tab label="Saturday">Saturday</mat-tab>
                 </mat-tab-group>
             </div>
             <!-- <a fxFlex="5%">next</a> -->
             <a class="navigation navigation-prev " aria-label="Previous page: this">
-                <span><mat-icon>chevron_left</mat-icon></span>
+                <span>
+                    <mat-icon>chevron_left</mat-icon>
+                </span>
                 <span style="font-size:0.3em;">Prev</span>
             </a>
             <a class="navigation navigation-next " aria-label="Next page: Number">
-                <span><mat-icon>chevron_right</mat-icon></span>
+                <span>
+                    <mat-icon>chevron_right</mat-icon>
+                </span>
                 <span style="font-size:0.3em;">Next</span>
             </a>
         </div>
-        
-        
+
+
     </mat-sidenav-content>
 </mat-sidenav-container>

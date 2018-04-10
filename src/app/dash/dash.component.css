@@ -17,6 +17,7 @@
 
   .side-list{
       padding-top: 0;
+      margin-top: 0;
   }
   /* .mat-list-icon {
     color: rgba(0, 0, 0, 0.54);
@@ -85,4 +86,27 @@
     background: rgba(0,0,0,.04);
     cursor: pointer;
 }
-  
+
+/* Styles for tab labels */
+/deep/ .mat-tab-label {
+    min-width: 100px !important;
+}
+
+/* Styles for the active tab label */
+/deep/ .mat-tab-label.mat-tab-label-active {
+    min-width: 100px !important;
+    color: #C3003C;
+    border-color: #C3003C;
+}
+
+/* Styles for the ink bar */
+/deep/ .mat-ink-bar {
+    background-color: #C3003C!important;
+}
+
+.hamburger{
+    min-width:30px;
+    width:40px;
+    padding: 0;
+    color: white;
+}
