@@ -13,7 +13,7 @@
             <mat-icon>arrow_drop_down</mat-icon>
         </a>
         <mat-menu #menu="matMenu" [overlapTrigger]="false">
-            <button mat-menu-item>Log Effort</button>
+            <button mat-menu-item [routerLink]="['logeffort']">Log Effort</button>
             <button mat-menu-item>Approval</button>
             <button mat-menu-item>My Project List</button>
         </mat-menu>
@@ -28,7 +28,7 @@
             <div mat-subheader class="list-divider" style="padding-top:4px;">
                 <h6 style="position: inline-block; color:lightgray;font-size: 14px;font-weight: 500;">PROFILE</h6>
                 <span fxFlex></span>
-                <button mat-button color="accent" style="min-width:auto; margin-top:8px;">edit</button>
+                <button mat-button color="accent" style="min-width:auto; margin-top:8px;" (click)="openDialog()" >edit</button>
             </div>
             <mat-list-item class="list-item">
                 <img matListAvatar src="../../assets/images/men.jpg" alt="men">
@@ -84,33 +84,7 @@
         <!-- <p >
             <button mat-button (click)="sidenav.toggle()">Toggle</button>
         </p> -->
-        <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="background-color:transparent; margin-top:40px;">
-            <!-- <a fxFlex="5%">prev</a> -->
-            <div fxFlex="90%">
-                <mat-tab-group>
-                    <mat-tab label="Sunday">Sunday</mat-tab>
-                    <mat-tab label="Monday">Monday</mat-tab>
-                    <mat-tab label="Tuesday">Tuesday</mat-tab>
-                    <mat-tab label="Wednesday">Wednesday</mat-tab>
-                    <mat-tab label="Thursday">Thursday</mat-tab>
-                    <mat-tab label="Friday">Friday</mat-tab>
-                    <mat-tab label="Saturday">Saturday</mat-tab>
-                </mat-tab-group>
-            </div>
-            <!-- <a fxFlex="5%">next</a> -->
-            <a class="navigation navigation-prev " aria-label="Previous page: this">
-                <span>
-                    <mat-icon>chevron_left</mat-icon>
-                </span>
-                <span style="font-size:0.3em;">Prev</span>
-            </a>
-            <a class="navigation navigation-next " aria-label="Next page: Number">
-                <span>
-                    <mat-icon>chevron_right</mat-icon>
-                </span>
-                <span style="font-size:0.3em;">Next</span>
-            </a>
-        </div>
+        <router-outlet></router-outlet>
 
 
     </mat-sidenav-content>

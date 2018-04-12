@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 import { AppComponent } from './app.component';
@@ -17,11 +17,14 @@ import { MatInputModule,
          MatFormFieldModule, 
          MatListModule, 
          MatExpansionModule,
-         MatTabsModule } from '@angular/material';
+         MatTabsModule,
+         MatDialogModule } from '@angular/material';
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { DashComponent } from './dash/dash.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
+import { LogeffortComponent } from './logeffort/logeffort.component';
 
 
 @NgModule({
@@ -29,7 +32,9 @@ import { CalendarComponent } from './calendar/calendar.component';
     AppComponent,
     LoginComponent,
     DashComponent,
-    CalendarComponent
+    CalendarComponent,
+    EmployeeProfileComponent,
+    LogeffortComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,9 +53,13 @@ import { CalendarComponent } from './calendar/calendar.component';
     MatListModule,
     MatExpansionModule,
     MatTabsModule,
-    AppRoutingModule
+    MatDialogModule,
+    AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    EmployeeProfileComponent
+  ]
 })
 export class AppModule { }

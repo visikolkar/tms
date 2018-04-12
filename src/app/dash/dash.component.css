@@ -55,54 +55,6 @@
   .list-divider .divider-btn {
       float: right;
   }
-  .navigation.navigation-prev {
-    left: 0;
-}
-.navigation.navigation-next {
-    right: 0;
-}
-.navigation {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: 0;
-    max-width: 120px;
-    min-width: 60px;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    flex-direction: column;
-    font-size: 40px;
-    color: #ccc!important;
-    text-align: center;
-    -webkit-transition: all 350ms ease;
-    -moz-transition: all 350ms ease;
-    -o-transition: all 350ms ease;
-    transition: all 350ms ease;
-}
-
-.navigation:hover, .navigation-prev:hover, .navigation-next:hover a{
-    color: #C3003C!important;
-    background: rgba(0,0,0,.04);
-    cursor: pointer;
-}
-
-/* Styles for tab labels */
-/deep/ .mat-tab-label {
-    min-width: 100px !important;
-}
-
-/* Styles for the active tab label */
-/deep/ .mat-tab-label.mat-tab-label-active {
-    min-width: 100px !important;
-    color: #C3003C;
-    border-color: #C3003C;
-}
-
-/* Styles for the ink bar */
-/deep/ .mat-ink-bar {
-    background-color: #C3003C!important;
-}
 
 .hamburger{
     min-width:30px;
