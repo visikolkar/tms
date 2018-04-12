@@ -25,6 +25,7 @@ import { DashComponent } from './dash/dash.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
 import { LogeffortComponent } from './logeffort/logeffort.component';
+import { ApprovalComponent } from './approval/approval.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { LogeffortComponent } from './logeffort/logeffort.component';
     CalendarComponent,
     EmployeeProfileComponent,
     LogeffortComponent,
+    ApprovalComponent,
   ],
   imports: [
     BrowserModule,

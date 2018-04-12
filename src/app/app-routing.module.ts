@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { DashComponent } from './dash/dash.component';
 import { LogeffortComponent } from './logeffort/logeffort.component';
+import { ApprovalComponent } from './approval/approval.component';
 
 // @NgModule({
 // 	imports: [ RouterModule.forRoot(routes) ],
@@ -21,6 +22,10 @@ const routes: Routes = [
 			{
 				path: 'logeffort',
 				component: LogeffortComponent,
+
+			},{
+				path: 'approval',
+				component: ApprovalComponent,
 
 			}]
 	},

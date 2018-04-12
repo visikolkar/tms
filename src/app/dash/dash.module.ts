@@ -4,13 +4,15 @@ import { CommonModule } from '@angular/common';
 import { LogeffortComponent } from '../logeffort/logeffort.component';
 
 import { DashRoutingModule } from './dash-routing.module'
+import { ApprovalComponent } from '../approval/approval.component';
 
 @NgModule({
     imports: [
         CommonModule,
     ],
     declarations: [
-        LogeffortComponent
+        LogeffortComponent,
+        ApprovalComponent
     ],
     providers: []
 })

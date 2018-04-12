@@ -14,7 +14,7 @@
         </a>
         <mat-menu #menu="matMenu" [overlapTrigger]="false">
             <button mat-menu-item [routerLink]="['logeffort']">Log Effort</button>
-            <button mat-menu-item>Approval</button>
+            <button mat-menu-item [routerLink]="['approval']">Approval</button>
             <button mat-menu-item>My Project List</button>
         </mat-menu>
         <a mat-button>Report</a>
@@ -25,7 +25,7 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav" [fixedInViewport]="fixed" [fixedTopGap]="0" [fixedBottomGap]="0">
         <mat-list class="side-list">
-            <div mat-subheader class="list-divider" style="padding-top:4px;">
+            <div mat-subheader class="list-divider" style="padding-top:4px;margin-top: 65px;">
                 <h6 style="position: inline-block; color:lightgray;font-size: 14px;font-weight: 500;">PROFILE</h6>
                 <span fxFlex></span>
                 <button mat-button color="accent" style="min-width:auto; margin-top:8px;" (click)="openDialog()" >edit</button>
