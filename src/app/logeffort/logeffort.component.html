@@ -1,27 +1,111 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="background-color:transparent; margin-top:40px;">
-    <!-- <a fxFlex="5%">prev</a> -->
-    <div fxFlex="90%">
-        <mat-tab-group>
-            <mat-tab label="Sunday">Sunday</mat-tab>
-            <mat-tab label="Monday">Monday</mat-tab>
-            <mat-tab label="Tuesday">Tuesday</mat-tab>
-            <mat-tab label="Wednesday">Wednesday</mat-tab>
-            <mat-tab label="Thursday">Thursday</mat-tab>
-            <mat-tab label="Friday">Friday</mat-tab>
-            <mat-tab label="Saturday">Saturday</mat-tab>
-        </mat-tab-group>
-    </div>
-    <!-- <a fxFlex="5%">next</a> -->
-    <a class="navigation navigation-prev " aria-label="Previous page: this">
-        <span>
-            <mat-icon>chevron_left</mat-icon>
-        </span>
-        <span style="font-size:0.3em;">Prev</span>
-    </a>
-    <a class="navigation navigation-next " aria-label="Next page: Number">
-        <span>
-            <mat-icon>chevron_right</mat-icon>
-        </span>
-        <span style="font-size:0.3em;">Next</span>
-    </a>
+	<!-- <a fxFlex="5%">prev</a> -->
+	<div fxFlex="90%">
+		<mat-tab-group>
+			<mat-tab label="Sunday">
+				<div class="container" style="text-align:center;background-color:rgba(0,0,0,.04); padding:10px; overflow-y:auto" [style.height.px]="windowheight">
+					<mat-card style="padding:0; margin-top:10px;">
+						<mat-card-subtitle style="padding:10px 10px 0 10px;text-align:left;background-color:lightgray;">
+							<mat-form-field>
+								<mat-select placeholder="My Project List">
+									<mat-option *ngFor="let project of projects" [value]="project.value">
+										{{ project.viewValue }}
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+							<div style="float: right;">
+								<button mat-icon-button style="min-width:auto;display:inline-block" [matMenuTriggerFor]="project">
+									<mat-icon aria-label="add">add</mat-icon>
+								</button>
+								<mat-menu #project="matMenu" [overlapTrigger]="false">
+									<button mat-menu-item>Common</button>
+									<button mat-menu-item>Model Development</button>
+								</mat-menu>
+								<button mat-icon-button style="min-width:auto;display:inline-block">
+									<mat-icon aria-label="delete">delete</mat-icon>
+								</button>
+							</div>
+						</mat-card-subtitle>
+						<mat-card-content>
+							<div style="text-align: center;">
+								<mat-radio-group>
+									<mat-radio-button value="1">Primary Skill</mat-radio-button>
+									<mat-radio-button value="2" style="margin-left:2em;">Secondary Skill</mat-radio-button>
+								</mat-radio-group>
+								<mat-form-field style="margin-left:2em;">
+									<mat-select placeholder="Job Task List" class="project-select">
+										<mat-option *ngFor="let project of projects" [value]="project.value">
+											{{ project.viewValue }}
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+								<mat-form-field style="margin-left:2em;">
+									<input matInput placeholder="Time" type="time" class="without">
+								</mat-form-field>
+								<div style="margin-left:2em; display:inline-block">
+									<button mat-icon-button style="min-width:auto;display:inline-block">
+										<mat-icon aria-label="add" style="font-size:1.2em">add</mat-icon>
+									</button>
+									<button mat-icon-button style="min-width:auto;display:inline-block">
+										<mat-icon aria-label="delete" style="font-size:1.2em">delete</mat-icon>
+									</button>
+								</div>
+							</div>
+							<div style="text-align: center;">
+								<mat-radio-group>
+									<mat-radio-button value="1">Primary Skill</mat-radio-button>
+									<mat-radio-button value="2" style="margin-left:2em;">Secondary Skill</mat-radio-button>
+								</mat-radio-group>
+								<mat-form-field style="margin-left:2em;">
+									<mat-select placeholder="My Project List" class="project-select">
+										<mat-option *ngFor="let project of projects" [value]="project.value">
+											{{ project.viewValue }}
+										</mat-option>
+									</mat-select>
+								</mat-form-field>
+								<mat-form-field style="margin-left:2em;">
+									<input matInput placeholder="Time" type="time" class="without">
+								</mat-form-field>
+								<div style="margin-left:2em; display:inline-block">
+									<button mat-icon-button style="min-width:auto;display:inline-block">
+										<mat-icon aria-label="add" style="font-size:1.2em">add</mat-icon>
+									</button>
+									<button mat-icon-button style="min-width:auto;display:inline-block">
+										<mat-icon aria-label="delete" style="font-size:1.2em">delete</mat-icon>
+									</button>
+								</div>
+							</div>
+						</mat-card-content>
+					</mat-card>
+					<!-- <mat-card style="margin-top:10px">dummy card</mat-card>
+					<mat-card style="margin-top:10px">dummy card</mat-card>
+					<mat-card style="margin-top:10px">dummy card</mat-card>
+					<mat-card style="margin-top:10px">dummy card</mat-card>
+					<mat-card style="margin-top:10px">dummy card</mat-card>
+					<mat-card style="margin-top:10px">dummy card</mat-card>
+					<mat-card style="margin-top:10px">dummy card</mat-card>
+					<mat-card style="margin-top:10px">dummy card</mat-card> -->
+				</div>
+			</mat-tab>
+			<mat-tab label="Monday">Monday</mat-tab>
+			<mat-tab label="Tuesday">Tuesday</mat-tab>
+			<mat-tab label="Wednesday">Wednesday</mat-tab>
+			<mat-tab label="Thursday">Thursday</mat-tab>
+			<mat-tab label="Friday">Friday</mat-tab>
+			<mat-tab label="Saturday">Saturday</mat-tab>
+		</mat-tab-group>
+	</div>
+	<!-- <a fxFlex="5%">next</a> -->
+	<a class="navigation navigation-prev " aria-label="Previous page: this">
+		<span>
+			<mat-icon>chevron_left</mat-icon>
+		</span>
+		<span style="font-size:0.3em;">Prev</span>
+	</a>
+	<a class="navigation navigation-next " aria-label="Next page: Number">
+		<span>
+			<mat-icon>chevron_right</mat-icon>
+		</span>
+		<span style="font-size:0.3em;">Next</span>
+	</a>
 </div>

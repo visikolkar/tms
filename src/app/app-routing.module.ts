@@ -6,33 +6,35 @@ import { DashComponent } from './dash/dash.component';
 import { LogeffortComponent } from './logeffort/logeffort.component';
 import { ApprovalComponent } from './approval/approval.component';
 
-// @NgModule({
-// 	imports: [ RouterModule.forRoot(routes) ],
-// 	exports: [ RouterModule ]
-// })
-
 const routes: Routes = [
 	{
-		path: "login", component: LoginComponent
+		path: 'login', 
+		component: LoginComponent
 	},
 	{
-		path: "dash",
+		path: 'dash',
 		component: DashComponent,
 		children: [
 			{
+				path:'',
+				redirectTo: 'logeffort',
+				pathMatch: 'full' 
+			}, {
 				path: 'logeffort',
 				component: LogeffortComponent,
 
-			},{
+			}, {
 				path: 'approval',
 				component: ApprovalComponent,
 
-			}]
+			}
+		]
 	},
 	{
-		path: '', redirectTo: '/login', pathMatch: 'full'
+		path: '', 
+		redirectTo: 'login', 
+		pathMatch: 'full'
 	},
 ]
 
-// export class AppRoutingModule { }
 export const AppRoutingModule = RouterModule.forRoot(routes);

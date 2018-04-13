@@ -18,6 +18,8 @@ import { MatInputModule,
          MatListModule, 
          MatExpansionModule,
          MatTabsModule,
+         MatSelectModule,
+         MatRadioModule,
          MatDialogModule } from '@angular/material';
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -55,7 +57,9 @@ import { ApprovalComponent } from './approval/approval.component';
     MatListModule,
     MatExpansionModule,
     MatTabsModule,
+    MatSelectModule,
     MatDialogModule,
+    MatRadioModule,
     AppRoutingModule,
   ],
   providers: [],

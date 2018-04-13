@@ -5,8 +5,14 @@ import { LogeffortComponent } from '../logeffort/logeffort.component';
 import { ApprovalComponent } from '../approval/approval.component';
 
 const dashRoutes: Routes = [
-    { path: 'logeffort', component: LogeffortComponent },
-    { path: 'approval', component: ApprovalComponent },
+    { 
+        path: 'logeffort', 
+        component: LogeffortComponent 
+    },
+    { 
+        path: 'approval', 
+        component: ApprovalComponent 
+    },
 ];
 
 //taken from angular.io

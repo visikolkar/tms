@@ -6,7 +6,7 @@
             </svg>
         </mat-icon>
     </button>
-    <img src="../../assets/images/lg.png" width="80" height="80" alt="" style="cursor:pointer">
+    <img src="../../assets/images/lg.png" width="80" height="80" alt="" style="cursor:pointer" matTooltip="Home">
     <h1 class="mat-display-1" style="width:150px; display: inline-block; font-size:1.4em;color:white">TMS</h1>
     <div style="color:white">
         <a mat-button [matMenuTriggerFor]="menu">My Work
@@ -25,7 +25,7 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav" [fixedInViewport]="fixed" [fixedTopGap]="0" [fixedBottomGap]="0">
         <mat-list class="side-list">
-            <div mat-subheader class="list-divider" style="padding-top:4px;margin-top: 65px;">
+            <div mat-subheader class="list-divider" style="padding-top:4px;">
                 <h6 style="position: inline-block; color:lightgray;font-size: 14px;font-weight: 500;">PROFILE</h6>
                 <span fxFlex></span>
                 <button mat-button color="accent" style="min-width:auto; margin-top:8px;" (click)="openDialog()" >edit</button>
