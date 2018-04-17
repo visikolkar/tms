@@ -4,7 +4,7 @@ interface EmployeeInfo {
     empEmail: string;
 }
 
-interface SkillInfo{
+interface SkillInfo {
     empId: string;
     primarySkillLevelOne: string;
     secondarySkillLevelOne: string;

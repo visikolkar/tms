@@ -6,21 +6,24 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { AppComponent } from './app.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule, 
-         MatButtonModule, 
-         MatCheckboxModule, 
-         MatCardModule, 
-         MatMenuModule, 
-         MatToolbarModule, 
-         MatIconModule, 
-         MatSidenavModule, 
-         MatFormFieldModule, 
-         MatListModule, 
-         MatExpansionModule,
-         MatTabsModule,
-         MatSelectModule,
-         MatRadioModule,
-         MatDialogModule } from '@angular/material';
+import {
+    MatInputModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatCardModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatListModule,
+    MatExpansionModule,
+    MatTabsModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
+} from '@angular/material';
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { DashComponent } from './dash/dash.component';
@@ -31,41 +34,42 @@ import { ApprovalComponent } from './approval/approval.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    DashComponent,
-    CalendarComponent,
-    EmployeeProfileComponent,
-    LogeffortComponent,
-    ApprovalComponent,
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule, ReactiveFormsModule,
-    FlexLayoutModule,
-    BrowserAnimationsModule,
-    MatButtonModule, 
-    MatCheckboxModule, 
-    MatCardModule, 
-    MatMenuModule, 
-    MatToolbarModule, 
-    MatIconModule,
-    MatFormFieldModule, 
-    MatSidenavModule,
-    MatInputModule,
-    MatListModule,
-    MatExpansionModule,
-    MatTabsModule,
-    MatSelectModule,
-    MatDialogModule,
-    MatRadioModule,
-    AppRoutingModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-  entryComponents: [
-    EmployeeProfileComponent
-  ]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        DashComponent,
+        CalendarComponent,
+        EmployeeProfileComponent,
+        LogeffortComponent,
+        ApprovalComponent,
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule, ReactiveFormsModule,
+        FlexLayoutModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatCheckboxModule,
+        MatCardModule,
+        MatMenuModule,
+        MatToolbarModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatSidenavModule,
+        MatInputModule,
+        MatListModule,
+        MatExpansionModule,
+        MatTabsModule,
+        MatSelectModule,
+        MatDialogModule,
+        MatRadioModule,
+        MatProgressSpinnerModule,
+        AppRoutingModule,
+    ],
+    providers: [],
+    bootstrap: [AppComponent],
+    entryComponents: [
+        EmployeeProfileComponent
+    ]
 })
 export class AppModule { }
