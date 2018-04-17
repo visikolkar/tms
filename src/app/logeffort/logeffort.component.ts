@@ -9,12 +9,16 @@ import { LOGEFFORTS } from '../shared/mock-logeffort';
 })
 export class LogeffortComponent implements OnInit {
 
-	windowheight: any;
+    windowheight: any;
+    /*  projects,
+        tasks,
+        commonTasks ==> will be fetched thrupgh a seperate api call
+    */
 	projects = [
-		{ value: 'project-A', viewValue: 'Project A' },
-		{ value: 'project-B', viewValue: 'Project B' },
-		{ value: 'project-C', viewValue: 'Project C' },
-		{ value: 'project-D', viewValue: 'Project D' },
+		{ value: 'Project A', viewValue: 'Project A' },
+		{ value: 'Project B', viewValue: 'Project B' },
+		{ value: 'Project C', viewValue: 'Project C' },
+		{ value: 'Project D', viewValue: 'Project D' },
     ];
     tasks = [
 		{ value: 'Task A', viewValue: 'Task A' },

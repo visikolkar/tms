@@ -5,14 +5,20 @@
             <mat-tab *ngFor="let logeffort of logefforts.effort" label={{logeffort.date.toDateString().slice(0,10)}}>
                 <!-- background-color:rgba(0,0,0,.04); use it if needed for the tab background -->
                 <div class="container" style="text-align:center; padding:10px; overflow-y:auto" [style.height.px]="windowheight">
-                    <h4 style="text-align: right!important; padding: 0; margin:0; color:#C3003C">IRIS TIME {{logeffort.irisTime}}</h4>
+                    <h4 style="text-align: right!important; padding: 0; margin:0; color:#C3003C;">IRIS TIME {{logeffort.irisTime}}</h4>
                     <!-- submitted/saved state instance -->
                     <div *ngIf="logeffort.isSubmitted; else editable">
                         <!-- if there's model development data available -->
                         <div *ngIf="logeffort.timeSheet.modelDevelopment.length > 0">
                             <mat-card style="padding: 0; margin-top:10px;" *ngFor="let model of logeffort.timeSheet.modelDevelopment">
-                                <mat-card-subtitle style="padding:4px;text-align:left;background-color:lightgray;">
-                                    <h3>{{model.projectName}}</h3>
+                                <mat-card-subtitle style="padding:4px 0 0 4px;text-align:left;background-color:lightgray;">
+                                    <mat-form-field>
+                                        <mat-select placeholder="My Project List" value={{model.projectName}} disabled>
+                                            <mat-option *ngFor="let project of projects" [value]="project.value">
+                                                {{ project.viewValue }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
                                 </mat-card-subtitle>
                                 <mat-card-content>
                                     <div style="text-align: center;" *ngFor="let projectJobTask of model.jobTask">
@@ -28,7 +34,8 @@
                                             </mat-select>
                                         </mat-form-field>
                                         <mat-form-field style="margin-left:2em;">
-                                            <input matInput placeholder="Time" type="text" class="without" [(ngModel)]="projectJobTask.time" style="color:#C3003C!important;" disabled>
+                                            <input matInput placeholder="Time" type="text" class="without" [(ngModel)]="projectJobTask.time" style="color:#C3003C!important;"
+                                                disabled>
                                         </mat-form-field>
                                     </div>
                                 </mat-card-content>
@@ -42,7 +49,7 @@
                                 </mat-card-subtitle>
                                 <mat-card-content style="text-align: center">
                                     <div style="text-align: center;" *ngFor="let common of logeffort.timeSheet.common">
-                                        <mat-form-field style="margin-left:2em;" >
+                                        <mat-form-field style="margin-left:2em;">
                                             <mat-select placeholder="Job Task List" class="project-select" value={{common.jobTaskName}} disabled>
                                                 <mat-option *ngFor="let commonTask of commonTasks" [value]="commonTask.value">
                                                     {{ commonTask.viewValue }}
@@ -50,22 +57,51 @@
                                             </mat-select>
                                         </mat-form-field>
                                         <mat-form-field style="margin-left:2em;">
-                                            <input matInput placeholder="Time" type="text" class="without" [(ngModel)]="common.time" style="color:#C3003C!important;" disabled>
+                                            <input matInput placeholder="Time" type="text" class="without" [(ngModel)]="common.time" style="color:#C3003C!important;"
+                                                disabled>
                                         </mat-form-field>
                                     </div>
                                 </mat-card-content>
                             </mat-card>
                         </div>
-                        <!-- comments section -->
-                        <div>
-                            <mat-card style="padding: 0; margin-top:10px;">
-                                <mat-card-subtitle style="padding:4px;text-align:left;background-color:lightgray;">
-                                    <h3>Comments</h3>
-                                </mat-card-subtitle>
-                                <mat-card-content>
+                        <!-- comments/summary section -->
+                        <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="margin-top:10px; display: flex;">
+                            <div fxFlex="50%">
+                                <mat-card style="padding: 4px;min-height: 280px;">
+                                    <mat-card-subtitle style="padding:4px;text-align:left;background-color:lightgray;">
+                                        <h3>Comments</h3>
+                                    </mat-card-subtitle>
+                                    <mat-card-content>
                                         <p style="padding: 10px; font-size: 1em;">{{logeffort.timeSheet.comments}}</p>
-                                </mat-card-content>
-                            </mat-card>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div fxFlex="50%">
+                                <mat-card style="padding: 4px;min-height: 280px;text-align:left;">
+                                    <mat-card-subtitle style="padding:4px;background-color:lightgray;">
+                                        <h3>Summary</h3>
+                                    </mat-card-subtitle>
+                                    <mat-card-content>
+                                        <mat-list>
+                                            <mat-list-item>
+                                                <mat-icon mat-list-icon>work</mat-icon>
+                                                <h4 mat-line>1MD Status {{logeffort.timeSheet.manDayStatus}}%</h4>
+                                                <mat-progress-bar mode="determinate" value={{logeffort.timeSheet.manDayStatus}} color="warn"></mat-progress-bar>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item>
+                                                <mat-icon mat-list-icon>access_time</mat-icon>
+                                                <h4 mat-line>{{logeffort.timeSheet.totalLogTime}}</h4>
+                                                <p mat-line> Total Log Time </p>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                        </mat-list>
+                                    </mat-card-content>
+                                    <mat-card-actions style="margin-left: 10px;">
+                                        <button mat-raised-button>SELF REJECT</button>
+                                    </mat-card-actions>
+                                </mat-card>
+                            </div>
                         </div>
                     </div>
                     <ng-template #editable>

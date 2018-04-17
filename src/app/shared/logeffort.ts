@@ -27,6 +27,8 @@ interface EffortInterface {
         common: CommonInterface[];
         modelDevelopment: ModelDevelopmentInterface[];
         comments: string;
+        manDayStatus: string;
+        totalLogTime: string;
     };
 }
 

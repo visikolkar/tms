@@ -43,7 +43,9 @@ export const LOGEFFORTS: Logeffort = {
                     time: "4:00"
                 }]
             }],
-            comments: "Life's Good"
+            comments: "Life's Good",
+            manDayStatus: "90",
+            totalLogTime: "8:59 Hours"
         }
     }, {
         irisTime: "09:00 Hours",
@@ -75,7 +77,9 @@ export const LOGEFFORTS: Logeffort = {
                     time: "4:00"
                 }]
             }],
-            comments: "Life's Good"
+            comments: "Life's Good",
+            manDayStatus: "40",
+            totalLogTime: "4:44 Hours"
         }
     }]
 }
