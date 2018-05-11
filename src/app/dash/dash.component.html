@@ -23,7 +23,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="example-container">
-    <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav" [fixedInViewport]="fixed" [fixedTopGap]="0" [fixedBottomGap]="0">
+    <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav" [fixedInViewport]="fixed" [fixedTopGap]="0" [fixedBottomGap]="0" style="overflow-x:hidden;">
         <mat-list class="side-list">
             <div mat-subheader class="list-divider" style="padding-top:4px;">
                 <h6 style="position: inline-block; color:lightgray;font-size: 14px;font-weight: 500;">PROFILE</h6>
@@ -45,21 +45,6 @@
                 <h4 mat-line>{{employee.skill.secondarySkillLevelOne}}</h4>
                 <p mat-line>Secondary Skill</p>
             </mat-list-item>
-            <!-- <mat-accordion>
-                <mat-expansion-panel class="list-expansion">
-                    <mat-expansion-panel-header>
-                        Primary Skill
-                    </mat-expansion-panel-header>
-                    Skill Set
-                </mat-expansion-panel>
-                <mat-expansion-panel class="list-expansion">
-                    <mat-expansion-panel-header>
-                        Secondary Skill
-                    </mat-expansion-panel-header>
-                    Skill Set
-                </mat-expansion-panel>
-            </mat-accordion> -->
-
             <mat-divider></mat-divider>
             <h6 mat-subheader class="list-divider">CALENDAR</h6>
             <tms-calendar></tms-calendar>

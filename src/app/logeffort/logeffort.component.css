@@ -61,4 +61,10 @@
 /deep/ .mat-radio-checked .mat-radio-outer-circle {
     border-color: #C3003C;
 }
+
+.tile-card{
+  width: 95%!important;
+  height: 95%!important;
+  padding: 0;
+}
     

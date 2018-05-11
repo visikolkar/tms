@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Logeffort } from '../shared/logeffort';
 import { LOGEFFORTS } from '../shared/mock-logeffort';
+import { LogeffortTwo } from '../shared/logeffort-two';
+import { LOGEFFORTSTWO } from '../shared/mock-two-logeffort';
 
 @Component({
 	selector: 'app-logeffort',
@@ -9,7 +11,9 @@ import { LOGEFFORTS } from '../shared/mock-logeffort';
 })
 export class LogeffortComponent implements OnInit {
 
-    windowheight: any;
+		windowheight: any;
+		logefforts: any;
+		logeffortstwo: any;
     /*  projects,
         tasks,
         commonTasks ==> will be fetched thrupgh a seperate api call
@@ -38,8 +42,12 @@ export class LogeffortComponent implements OnInit {
 		this.windowheight = (60 * window.screen.height) / 100;
 		//Math.floor(400 / window.screen.height * 100);
 		console.log("window height " + this.windowheight);
+
+		this.logefforts = LOGEFFORTSTWO;
+		
+		//this.logeffortstwo = LOGEFFORTSTWO;
+
+		//console.log('log effort two is ', this.logeffortstwo);
     }
-    
-    logefforts = LOGEFFORTS;
 
 }

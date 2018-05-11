@@ -5,7 +5,9 @@ import * as _ from 'lodash';
 export interface CalendarDate {
 	mDate: moment.Moment;
 	selected?: boolean; //? makes it optional parameter
-  today?: boolean; //? makes it optional parameter
+	today?: boolean; //? makes it optional parameter
+	approved?: boolean;
+	rejected?: boolean;
   //isRange?: boolean;
 }
 
@@ -18,6 +20,9 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 	currentDate = moment();
 	dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+	//below dates to be fetched from employee data through an api call
+	approvedDates = ['05-03-2018','05-04-2018', '05-07-2018', '04-07-2018'];
+	rejectedDates = ['05-02-2018','05-01-2018'];
 	weeks: CalendarDate[][] = [];
 	sortedDates: CalendarDate[] = [];
 
@@ -44,6 +49,18 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 	isToday(date: moment.Moment): boolean {
 		return moment().isSame(moment(date), 'day');
+	}
+
+	isApproved(date: moment.Moment): boolean {
+		return _.some(this.approvedDates, function (d) {
+			return moment(date.format("MM-DD-YYYY")).isSame(d);
+		});
+	}
+
+	isRejected(date: moment.Moment): boolean {
+		return _.some(this.rejectedDates, function (d) {
+			return moment(date.format("MM-DD-YYYY")).isSame(d);
+		});
 	}
 
 	isSelected(date: moment.Moment): boolean {
@@ -95,6 +112,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 	// generate the calendar grid
 
 	generateCalendar(): void {
+		console.log('curretDate value is', this.currentDate);
 		const dates = this.fillDates(this.currentDate);
 		const weeks: CalendarDate[][] = [];
 		while (dates.length > 0) {
@@ -109,8 +127,12 @@ export class CalendarComponent implements OnInit, OnChanges {
 		const start = firstDayOfGrid.date();
 		return _.range(start, start + 42)
 			.map((date: number): CalendarDate => {
+				console.log('date value of type number is', date);
 				const d = moment(firstDayOfGrid).date(date);
+				console.log('the approved date is ', this.isApproved(d));
 				return {
+					approved: this.isApproved(d),
+					rejected: this.isRejected(d),
 					today: this.isToday(d),
 					selected: this.isSelected(d),
 					mDate: d,

@@ -24,6 +24,7 @@ import {
     MatDialogModule,
     MatProgressSpinnerModule,
     MatProgressBarModule,
+    MatGridListModule,
 } from '@angular/material';
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -66,6 +67,7 @@ import { ApprovalComponent } from './approval/approval.component';
         MatRadioModule,
         MatProgressSpinnerModule,
         MatProgressBarModule,
+        MatGridListModule,
         AppRoutingModule,
     ],
     providers: [],

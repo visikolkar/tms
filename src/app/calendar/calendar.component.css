@@ -94,6 +94,17 @@
     font-weight: bold;
     background-color: #C3003C;
   }
+
+  .calendar .month-grid .approved {
+    font-weight: bold;
+    background-color: rgb(47, 255, 127);
+  }
+
+  .calendar .month-grid .rejected {
+    font-weight: bold;
+    background-color: rosybrown;
+  }
+
   .cal-btn-raised{
     min-width:20px;
     width:34px;
