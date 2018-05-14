@@ -8,46 +8,110 @@
                     <h4 style="text-align: right!important; padding: 0; margin:0; color:#C3003C;">IRIS TIME {{logeffort.irisTime}}</h4>
                     <!-- submitted/saved state instance -->
                     <div *ngIf="logeffort.isSubmitted; else editable">
-                        <mat-grid-list cols="3" rowHeight="200px" role="list">
-                            <mat-grid-tile *ngFor="let model of logeffort.timeSheet" style="background-color: aqua;" role="listitem">
-                                <mat-card class="tile-card">
-                                    <mat-card-subtitle style="padding:4px 0 0 4px;text-align:left;background-color:lightgray;">
-                                        <mat-form-field>
-                                            <mat-select  value={{model.projectName}} disabled>
-                                                <mat-option *ngFor="let project of projects" [value]="project.value">
-                                                    {{ project.viewValue }}
+                        <mat-card>
+                            <mat-grid-list cols="5" rowHeight="69px" style="margin: 0 auto;">
+                                <mat-grid-tile colspan='1' style="background-color: thistle;" role="listitem">
+                                    <mat-form-field style="width:auto">
+                                        <mat-select placeholder="Project List" [(value)]="projectName" (change)="disableOption($event)">
+                                            <mat-option *ngFor="let project of projects" [value]="project.value">
+                                                {{ project.viewValue }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan='1' style="background-color: thistle;" role="listitem">
+                                    <mat-form-field style="width:auto">
+                                        <mat-select placeholder="Skill Set" [disabled]="disableSelect" [(value)]="skillSet" >
+                                            <mat-option value="primary">Primary Skill</mat-option>
+                                            <mat-option value="secondary">Secondary Skill</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan='1' style="background-color:thistle;" role="listitem">
+                                    <mat-form-field style="width:auto">
+                                        <mat-select placeholder="Task List" [(value)]="taskName">
+                                            <div *ngIf="projectName === 'Common'; else projectTaskOptions">
+                                                <mat-option *ngFor="let cTask of commonTasks" [value]="cTask.value">
+                                                    {{ cTask.viewValue }}
                                                 </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </mat-card-subtitle>
-                                    <mat-card-content>
-                                        <div style="text-align: center;" *ngFor="let projectJobTask of model.jobTask">
-                                            <!-- <mat-radio-group disabled>
-                                                <mat-radio-button [checked]="projectJobTask.isPrimarySkill ===true" [value]="projectJobTask.isPrimarySkill">Primary Skill</mat-radio-button>
-                                                <mat-radio-button [checked]="projectJobTask.isSecondarySkill ===true" [value]="projectJobTask.isSecondarySkill" style="margin-left:2em;">Secondary Skill</mat-radio-button>
-                                            </mat-radio-group> -->
-                                            <mat-form-field style=" width:100px">
-                                                    <mat-select  class="project-select" value="Primary Skill" disabled>
-                                                        <mat-option value="Primary Skill">Primary Skill</mat-option>
-                                                        <mat-option value="Secondary Skill">Secondary Skill</mat-option>>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                            <mat-form-field style="margin-left:2em; width:100px">
-                                                <mat-select class="project-select" value={{projectJobTask.jobTaskName}} disabled>
-                                                    <mat-option *ngFor="let task of tasks" [value]="task.value">
-                                                        {{ task.viewValue }}
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                            <mat-form-field style="margin-left:2em; width:30px">
-                                                <input matInput  type="text" class="without" [(ngModel)]="projectJobTask.time" style="color:#C3003C!important;"
-                                                    disabled>
-                                            </mat-form-field>
-                                        </div>
-                                    </mat-card-content>
-                                </mat-card>
-                            </mat-grid-tile>
-                        </mat-grid-list>
+                                            </div>
+                                            <ng-template #projectTaskOptions>
+                                                <mat-option *ngFor="let pTask of projectTasks" [value]="pTask.value">
+                                                    {{ pTask.viewValue }}
+                                                </mat-option>
+                                            </ng-template>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan='1' style="background-color: thistle;" role="listitem">
+                                    <mat-form-field style="width:80px;">
+                                        <input matInput type="time" class="without" placeholder="Time" [(ngModel)]="time.value"  [value]="time.value" (change)="getTime($event)">
+                                    </mat-form-field>
+                                    <p>t is{{time.value}}</p>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan='1' style="background-color: thistle;" role="listitem">
+                                    <div class="button-row">
+                                        <button mat-button color="primary" (click)="addUserData()">
+                                            <mat-icon mat-list-icon>add</mat-icon>
+                                        </button>
+                                        <button mat-button color="warn">
+                                            <mat-icon mat-list-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                            <mat-grid-list cols="5" rowHeight="40px" style="margin: 0 auto;">
+                                <mat-grid-tile colspan='1' style="background-color: thistle;" role="listitem">
+                                    <mat-form-field style="width:auto">
+                                        <mat-select>
+                                            <mat-option value="option1">Option 1</mat-option>
+                                            <mat-option value="option2">Option 2</mat-option>
+                                            <mat-option value="option3">Option 3</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan='1' style="background-color: thistle;" role="listitem">
+                                    <mat-form-field style="width:auto">
+                                        <mat-select>
+                                            <mat-option value="option1">Option 1</mat-option>
+                                            <mat-option value="option2">Option 2</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan='1' style="background-color:thistle;" role="listitem">
+                                    <mat-form-field style="width:auto">
+                                        <mat-select>
+                                            <mat-option value="option1">Option 1</mat-option>
+                                            <mat-option value="option2">Option 2</mat-option>
+                                            <mat-option value="option3">Option 3</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan='1' style="background-color: thistle;" role="listitem">
+                                    <mat-form-field style="width:auto;">
+                                        <input matInput type="time" class="without">
+                                    </mat-form-field>
+                                </mat-grid-tile>
+                                <mat-grid-tile colspan='1' style="background-color: thistle;" role="listitem">
+                                    <div class="button-row">
+                                        <button mat-button color="primary">
+                                            <mat-icon mat-list-icon>add</mat-icon>
+                                        </button>
+                                        <button mat-button color="warn">
+                                            <mat-icon mat-list-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </mat-grid-tile>
+                            </mat-grid-list>
+                            <!-- <mat-card-actions style="text-align: right">
+                                <button mat-raised-button color="basic">SAVE</button>
+                                <button mat-raised-button color="primary">SUBMIT</button>
+                            </mat-card-actions> -->
+                            <!-- <mat-card-footer style="background-color: rgba(0,0,0,.04); height: 40px; margin-top: 10px; text-align: center">
+                                Summary
+                            </mat-card-footer> -->
+
+                        </mat-card>
                     </div>
                     <ng-template #editable>
                         <!-- check for the timesheet data,
