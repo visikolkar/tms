@@ -3,6 +3,7 @@ import { Logeffort } from '../shared/logeffort';
 import { LOGEFFORTS } from '../shared/mock-logeffort';
 import { LogeffortTwo } from '../shared/logeffort-two';
 import { LOGEFFORTSTWO } from '../shared/mock-two-logeffort';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
 	selector: 'app-logeffort',
@@ -17,17 +18,20 @@ export class LogeffortComponent implements OnInit {
 		projectName: string;
 		skillSet: string;
 		taskName: string;
-		time = {
-			value: new Date(2018,0,1,0,0,0),
-		};
-		disableSelect: boolean;
-		userLogEffort = {
+		time: string;
+		//disableSelect: boolean;
+		// userLogEffort = {
+		// 	project_name: '',
+		// 	skill_set: '',
+		// 	task_name: '',
+		// 	time: ''
+		// };
+		userLogEfforts = [{
 			project_name: '',
 			skill_set: '',
 			task_name: '',
 			time: ''
-		};
-		userEffort = [];
+		}];
     /*  projects,
         tasks,
         commonTasks ==> will be fetched thrupgh a seperate api call
@@ -51,33 +55,59 @@ export class LogeffortComponent implements OnInit {
 		{ value: 'Leave', viewValue: 'Leave' },
 	];
 	
-	constructor() { 
-		// var timeControl = document.getElementById("startTime");
-		// timeControl.value = '00:00';
-		// this.time = timeControl.value;
+	constructor(public notificationBar: MatSnackBar) { 
+
+	}
+
+	openNotificationbar() {
+		this.notificationBar.open('Fill all the fields!', 'Close', {
+			duration : 5000,
+		});	
 	}
 
 	getTime(time): void{
 		console.log('user entered time is', time);
 	}
 
-	disableOption(selected): void {
+	disableOption(selected, index): void {
 		console.log('selected value is', selected);
+		console.log('selected value index is ', index);
 		if(selected.value === 'Common'){
-			this.disableSelect = true;
-			this.skillSet = '';
+			//this.disableSelect = true;
+			this.userLogEfforts[index].skill_set = '';
 		} else {
-			this.disableSelect = false;
+			//this.disableSelect = false;
 		}
 	}
 
-	addUserData(): void {
-		this.userLogEffort.project_name = this.projectName;
-		this.userLogEffort.skill_set = this.skillSet;
-		this.userLogEffort.task_name = this.taskName;
-		this.userLogEffort.time = this.time.value.toDateString();
-		this.userEffort.push(this.userLogEffort);
-		console.log('user filled data is', this.userEffort);
+
+	addUserEffort(index): void {
+		console.log('current index is', index);
+		if (this.userLogEfforts[index].project_name && this.userLogEfforts[index].task_name) { //&& this.time => needs fixing
+			//push the empty object
+			this.userLogEfforts.push({
+				project_name: '',
+				skill_set: '',
+				task_name: '',
+				time: ''
+			});
+			console.log('user filled data before filter is', this.userLogEfforts);
+			this.userLogEfforts = this.userLogEfforts.filter((item, index, self) => 
+				index === self.findIndex((t) => 
+				t.project_name === item.project_name && t.skill_set === item.skill_set && t.task_name === item.task_name)
+			);
+			console.log('user filled data after filter is', this.userLogEfforts);
+		} else {
+			//show an alert to fill required fields
+			console.log("show an alert to fill the required fields");
+			this.openNotificationbar();
+		}
+		
+	}
+
+	deleteUserEffort(index): void {
+		this.userLogEfforts.splice(index, 1);
+		console.log('user data after delete is', this.userLogEfforts);
 	}
 
 	ngOnInit() {

@@ -8,7 +8,7 @@ export const LOGEFFORTSTWO: LogeffortTwo = {
         irisTime: "09:15 Hours",
         date: new Date(2018, 3, 8),
         day: "Sunday",
-        isSubmitted: true,
+        isSubmitted: false,
         isApproved: false,
         isSelfRejected: false,
         comments: "Life's Good",

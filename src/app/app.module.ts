@@ -25,6 +25,8 @@ import {
     MatProgressSpinnerModule,
     MatProgressBarModule,
     MatGridListModule,
+    MatTooltipModule,
+    MatSnackBarModule,
 } from '@angular/material';
 import { AppRoutingModule } from './/app-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -68,6 +70,8 @@ import { ApprovalComponent } from './approval/approval.component';
         MatProgressSpinnerModule,
         MatProgressBarModule,
         MatGridListModule,
+        MatSnackBarModule,
+        MatTooltipModule,
         AppRoutingModule,
     ],
     providers: [],
