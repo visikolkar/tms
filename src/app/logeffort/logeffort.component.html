@@ -15,7 +15,7 @@
                             whether the employee has filled in the timesheet,
                             or, is it the current date? -->
                         <mat-card>
-                            <mat-grid-list cols="5" style="margin: 0 auto;" *ngFor="let effort of userLogEfforts; let i = index;" [rowHeight]="!i ? '69px' : '40px'">
+                            <mat-grid-list cols="5" style="margin: 0 auto;" *ngFor="let effort of userLogEfforts; let i = index;" [rowHeight]="!i ? '69px' : '50px'">
                                 <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem">
                                     <mat-form-field style="width:auto">
                                         <mat-select [placeholder]="!i ? 'Project List': ''" [(value)]="effort.project_name" (change)="disableOption($event, i)">
@@ -52,28 +52,34 @@
                                 </mat-grid-tile>
                                 <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem">
                                     <mat-form-field style="width:auto;">
-                                        <input matInput type="time" class="without" [placeholder]="!i ? 'Time': ''" [(ngModel)]="effort.time" [value]="effort.time"
+                                        <input matInput type="time" class="without" [placeholder]="!i ? 'Time spent': ''" [(ngModel)]="effort.time" [value]="effort.time"
                                             (change)="getTime($event)">
                                     </mat-form-field>
                                 </mat-grid-tile>
                                 <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem">
                                     <div class="button-row">
-                                        <button mat-button color="primary" (click)="addUserEffort(i)">
+                                        <button mat-button color="primary" *ngIf="i === userLogEfforts.length - 1" (click)="addUserEffort(i)">
                                             <mat-icon mat-list-icon>add</mat-icon>
                                         </button>
-                                        <button mat-button color="warn" *ngIf="i" (click)="deleteUserEffort(i)">
+                                        <button mat-button color="warn" *ngIf="userLogEfforts.length !== 1" (click)="deleteUserEffort(i)">
                                             <mat-icon mat-list-icon>delete</mat-icon>
                                         </button>
                                     </div>
                                 </mat-grid-tile>
                             </mat-grid-list>
-                            <!-- <mat-card-actions style="text-align: right">
-                                        <button mat-raised-button color="basic">SAVE</button>
-                                        <button mat-raised-button color="primary">SUBMIT</button>
-                                    </mat-card-actions> -->
-                            <!-- <mat-card-footer style="background-color: rgba(0,0,0,.04); height: 40px; margin-top: 10px; text-align: center">
-                                        Summary
-                                    </mat-card-footer> -->
+                            <mat-card-actions style="text-align: right;">
+                                <!-- <mat-card style="background-color: rgba(0,0,0,.04); display: inline-block; height: 20px;" >comments</mat-card> -->
+                                <button mat-raised-button color="warn">Apply Leave</button>
+                                <button mat-raised-button color="basic" (click)="postUserEffort('save')" >SAVE</button>
+                                <button mat-raised-button color="primary" (click)="postUserEffort('submit')" >SUBMIT</button>
+                                <!-- <div style="text-align: left; display: inline-block;">
+                                    <button mat-raised-button color="warn">Apply Leave</button>
+                                </div>
+                                <div style="text-align: right; display: inline-block;">
+                                    <button mat-raised-button color="basic">SAVE</button>
+                                    <button mat-raised-button color="primary">SUBMIT</button>
+                                </div> -->
+                            </mat-card-actions>
 
                         </mat-card>
                     </ng-template>
