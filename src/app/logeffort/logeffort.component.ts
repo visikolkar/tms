@@ -53,6 +53,7 @@ export class LogeffortComponent implements OnInit {
 	commonTasks = [
 		{ value: 'Innovation and Tools', viewValue: 'Innovation and Tools' },
 		{ value: 'Learning and Development', viewValue: 'Learning and Development' },
+		{ value: 'Leave', viewValue: 'Leave' },
 	];
 
 	constructor(public notificationBar: MatSnackBar) {
