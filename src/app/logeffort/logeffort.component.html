@@ -61,24 +61,16 @@
                                         <button mat-button color="primary" *ngIf="i === userLogEfforts.length - 1" (click)="addUserEffort(i)">
                                             <mat-icon mat-list-icon>add</mat-icon>
                                         </button>
-                                        <button mat-button color="warn" *ngIf="userLogEfforts.length !== 1" (click)="deleteUserEffort(i)">
+                                        <button mat-button color="warn" *ngIf="(userLogEfforts.length !== 1 && !(i === userLogEfforts.length - 1))" (click)="deleteUserEffort(i)">
                                             <mat-icon mat-list-icon>delete</mat-icon>
                                         </button>
                                     </div>
                                 </mat-grid-tile>
                             </mat-grid-list>
                             <mat-card-actions style="text-align: right;">
-                                <!-- <mat-card style="background-color: rgba(0,0,0,.04); display: inline-block; height: 20px;" >comments</mat-card> -->
-                                <button mat-raised-button color="warn">Apply Leave</button>
-                                <button mat-raised-button color="basic" (click)="postUserEffort('save')" >SAVE</button>
-                                <button mat-raised-button color="primary" (click)="postUserEffort('submit')" >SUBMIT</button>
-                                <!-- <div style="text-align: left; display: inline-block;">
-                                    <button mat-raised-button color="warn">Apply Leave</button>
-                                </div>
-                                <div style="text-align: right; display: inline-block;">
-                                    <button mat-raised-button color="basic">SAVE</button>
-                                    <button mat-raised-button color="primary">SUBMIT</button>
-                                </div> -->
+                                <!-- <button mat-raised-button color="warn">Apply Leave</button> -->
+                                <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #3f51B5" (click)="postUserEffort('save')">SAVE</button>
+                                <!-- <button mat-raised-button color="primary" (click)="postUserEffort('submit')">SUBMIT</button> -->
                             </mat-card-actions>
 
                         </mat-card>
