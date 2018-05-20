@@ -130,6 +130,7 @@ export class LogeffortComponent implements OnInit {
 
     deleteUserEffort(index): void {
         this.userLogEfforts.splice(index, 1);
+        this.userLogEffortSummary = this.summerizeUserEffort(this.userLogEfforts);
         console.log('user data after delete is', this.userLogEfforts);
     }
 
