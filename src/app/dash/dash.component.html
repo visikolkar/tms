@@ -8,8 +8,8 @@
     </button>
     <!-- <img src="../../assets/images/lg.png" width="80" height="80" alt="" style="cursor:pointer" matTooltip="Home"> -->
     <h1 class="mat-display-1" style="width:150px; display: inline-block; font-size:1.8em;color:white; margin-left: 10px">TMS</h1>
-    <div style="color:white">
-        <a mat-button [matMenuTriggerFor]="menu">My Work
+    <div style="color:white;">
+        <a mat-button [matMenuTriggerFor]="menu" style="font-size: 16px">My Work
             <mat-icon>arrow_drop_down</mat-icon>
         </a>
         <mat-menu #menu="matMenu" [overlapTrigger]="false">
@@ -17,8 +17,8 @@
             <button mat-menu-item [routerLink]="['approval']">Approval</button>
             <button mat-menu-item>My Project List</button>
         </mat-menu>
-        <a mat-button>Report</a>
-        <a mat-button>Monitoring</a>
+        <a mat-button style="font-size: 16px">Report</a>
+        <a mat-button style="font-size: 16px">Monitoring</a>
     </div>
 </mat-toolbar>
 
