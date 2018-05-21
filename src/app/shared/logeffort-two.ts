@@ -17,6 +17,7 @@ interface EffortInterface {
     isSubmitted: boolean;
     isApproved: boolean;
     isSelfRejected: boolean;
+    isActive: boolean;
     comments: string;
     manDayStatus: string;
     totalLogTime: string;

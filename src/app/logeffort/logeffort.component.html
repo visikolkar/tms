@@ -1,7 +1,7 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0" fxLayoutAlign="center" style="background-color:transparent; margin-top:40px;">
     <!-- <a fxFlex="5%">prev</a> -->
     <div fxFlex="90%">
-        <mat-tab-group>
+        <mat-tab-group [selectedIndex]="selectedTab">
             <mat-tab *ngFor="let logeffort of logefforts.effort" label={{logeffort.date.toDateString().slice(0,10)}}>
                 <!-- background-color:rgba(0,0,0,.04); use it if needed for the tab background -->
                 <div class="container" style="text-align:center; padding:10px; overflow-y:auto" [style.height.px]="windowheight">

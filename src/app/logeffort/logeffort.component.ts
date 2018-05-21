@@ -15,6 +15,7 @@ export class LogeffortComponent implements OnInit {
     windowheight: any;
     logefforts: any;
     logeffortstwo: any;
+    selectedTab: number;
     projectName: string;
     skillSet: string;
     taskName: string;
@@ -69,6 +70,10 @@ export class LogeffortComponent implements OnInit {
         });
     }
 
+    activeTab(array): any {
+        return array.map(function(item) { return item.isActive; }).indexOf(true);
+    }
+
     getEffortTime(time, state, index): void {
         console.log('user entered time is', time);
         if (state === "hours" && (Number(time) >= 24 || Number(time) < 0)) {
@@ -76,7 +81,7 @@ export class LogeffortComponent implements OnInit {
             this.openNotificationbar('Enter value between 0 and 23!', 'Close');
         } else if (state === "mins" && (Number(time) >= 60 || Number(time) < 0)) {
             this.userLogEfforts[index].mins = '';
-            this.openNotificationbar('Enter value between 0 and 23!', 'Close');
+            this.openNotificationbar('Enter value between 0 and 59!', 'Close');
         }
     }
 
@@ -241,6 +246,7 @@ export class LogeffortComponent implements OnInit {
         console.log("window height " + this.windowheight);
 
         this.logefforts = LOGEFFORTSTWO;
+        this.selectedTab = this.activeTab(this.logefforts.effort);
 
         //this.logeffortstwo = LOGEFFORTSTWO;
 
