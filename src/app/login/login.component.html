@@ -10,7 +10,7 @@
       <h2 class="title" style="text-align:center;">Login with your AD account</h2>
       <form class="login-form">
         <mat-form-field class="login-full-width">
-          <input matInput placeholder="Email" type="email" [formControl]="emailFormControl">
+          <input matInput placeholder="Email" type="email" [formControl]="emailFormControl" [(ngModel)]="userData.id" >
           <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
             Please enter a valid email address
           </mat-error>
@@ -21,7 +21,7 @@
         </mat-form-field>
 
         <mat-form-field class="login-full-width">
-          <input matInput placeholder="password" type="password" [formControl]="passwordFormControl">
+          <input matInput placeholder="password" type="password" [formControl]="passwordFormControl" [(ngModel)]="userData.password">
           <mat-error *ngIf="passwordFormControl.hasError('password') && !passwordFormControl.hasError('required')">
             Please enter password
           </mat-error>

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 
@@ -35,6 +36,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
 import { LogeffortComponent } from './logeffort/logeffort.component';
 import { ApprovalComponent } from './approval/approval.component';
+import { LoginService } from './login/login.service';
 
 
 @NgModule({
@@ -49,9 +51,11 @@ import { ApprovalComponent } from './approval/approval.component';
     ],
     imports: [
         BrowserModule,
-        FormsModule, ReactiveFormsModule,
+        FormsModule, 
+        ReactiveFormsModule,
         FlexLayoutModule,
         BrowserAnimationsModule,
+        HttpClientModule,
         MatButtonModule,
         MatCheckboxModule,
         MatCardModule,
@@ -74,7 +78,9 @@ import { ApprovalComponent } from './approval/approval.component';
         MatTooltipModule,
         AppRoutingModule,
     ],
-    providers: [],
+    providers: [
+        LoginService
+    ],
     bootstrap: [AppComponent],
     entryComponents: [
         EmployeeProfileComponent
