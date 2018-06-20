@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { Employee } from '../shared/employee';
+
 
 export interface LoginUser {
-    id : string,
+    username : string,
     password: string
 }
 
 const httpOptions = {
     headers : new HttpHeaders({
-        'content-type' : 'application/json',
-        'Authorization' : 'my-auth-token'
+        'content-type' : 'text/plain'
     })
 };
 
@@ -18,10 +19,10 @@ const httpOptions = {
 export class LoginService {
     constructor(private http: HttpClient) { }
 
-    loginUrl = 'api/login/emp';
+    loginUrl = 'http://si-ramesh86:8080/TMS2/api/login/emp';
     /** POST: user data to the server for authentication */
-    login (user: LoginUser) : Observable<LoginUser> {
-        return this.http.post<LoginUser>(this.loginUrl, user, httpOptions);
+    login (user: LoginUser): Observable<Employee> {
+        return this.http.post<Employee>(this.loginUrl, user, httpOptions);
     }
 
 }
