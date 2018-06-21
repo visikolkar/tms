@@ -30,12 +30,13 @@ import {
     MatSnackBarModule,
 } from '@angular/material';
 import { AppRoutingModule } from './/app-routing.module';
+import { DashModule } from './dash/dash.module';
 import { LoginComponent } from './login/login.component';
 import { DashComponent } from './dash/dash.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
-import { LogeffortComponent } from './logeffort/logeffort.component';
-import { ApprovalComponent } from './approval/approval.component';
+// import { LogeffortComponent } from './logeffort/logeffort.component';
+// import { ApprovalComponent } from './approval/approval.component';
 import { LoginService } from './login/login.service';
 
 
@@ -46,8 +47,8 @@ import { LoginService } from './login/login.service';
         DashComponent,
         CalendarComponent,
         EmployeeProfileComponent,
-        LogeffortComponent,
-        ApprovalComponent,
+        // LogeffortComponent,
+        // ApprovalComponent,
     ],
     imports: [
         BrowserModule,
@@ -77,6 +78,7 @@ import { LoginService } from './login/login.service';
         MatSnackBarModule,
         MatTooltipModule,
         AppRoutingModule,
+        DashModule,
     ],
     providers: [
         LoginService

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { Employee } from '../shared/employee';
 
 
 export interface LoginUser {
@@ -21,8 +20,8 @@ export class LoginService {
 
     loginUrl = 'http://si-ramesh86:8080/TMS2/api/login/emp';
     /** POST: user data to the server for authentication */
-    login (user: LoginUser): Observable<Employee> {
-        return this.http.post<Employee>(this.loginUrl, user, httpOptions);
+    login (user: LoginUser): Observable<any> {
+        return this.http.post<any>(this.loginUrl, user, httpOptions);
     }
 
 }

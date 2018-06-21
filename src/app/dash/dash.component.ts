@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Employee } from '../shared/employee';
+// import { Employee } from '../shared/employee';
 import { EMPLOYEEDETAILS } from '../shared/mock-employee';
 import { EmployeeProfileComponent } from '../employee-profile/employee-profile.component';
 
@@ -29,8 +29,9 @@ export class DashComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(JSON.parse(window.localStorage.employeeInfo));
     }
-
-    employee = EMPLOYEEDETAILS;
+    
+    employee = JSON.parse(window.localStorage.employeeInfo);//EMPLOYEEDETAILS;
 
 }

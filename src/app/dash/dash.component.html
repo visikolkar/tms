@@ -6,7 +6,7 @@
             </svg>
         </mat-icon>
     </button>
-    <!-- <img src="../../assets/images/lg.png" width="80" height="80" alt="" style="cursor:pointer" matTooltip="Home"> -->
+    <!-- <img src="/TMS2/assets/img/lg.png" width="80" height="80" alt="" style="cursor:pointer" matTooltip="Home"> -->
     <h1 class="mat-display-1" style="width:150px; display: inline-block; font-size:1.8em;color:white; margin-left: 10px">TMS</h1>
     <div style="color:white;">
         <a mat-button [matMenuTriggerFor]="menu" style="font-size: 16px">My Work
@@ -23,7 +23,7 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="example-container">
-    <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav" [fixedInViewport]="fixed" [fixedTopGap]="0" [fixedBottomGap]="0" style="overflow-x:hidden;">
+    <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav"  [fixedTopGap]="0" [fixedBottomGap]="0" style="overflow-x:hidden;">
         <mat-list class="side-list">
             <div mat-subheader class="list-divider" style="padding-top:4px;">
                 <h6 style="position: inline-block; color:lightgray;font-size: 14px;font-weight: 500;">PROFILE</h6>
@@ -31,18 +31,18 @@
                 <button mat-button color="accent" style="min-width:auto; margin-top:8px;" (click)="openDialog()" >edit</button>
             </div>
             <mat-list-item class="list-item">
-                <img matListAvatar src="../../assets/images/men.jpg" alt="men">
-                <h4 mat-line> {{employee.empInfo.empName}} </h4>
-                <p mat-line> {{employee.empInfo.empId}} </p>
+                <img matListAvatar src="/TMS2/assets/img/men.jpg" alt="men">
+                <h4 mat-line> {{employee.empinfo.emp_name}} </h4>
+                <p mat-line> {{employee.empinfo.emp_id}} </p>
             </mat-list-item>
             <mat-list-item class="list-item">
                 <mat-icon mat-list-icon class="list-font">code</mat-icon>
-                <h4 mat-line>{{employee.skill.primarySkillLevelOne}}</h4>
+                <h4 mat-line>{{employee.skill.primary_skill_one}}</h4>
                 <p mat-line>Primary Skill</p>
             </mat-list-item>
             <mat-list-item class="list-item">
                 <mat-icon mat-list-icon class="list-font">code</mat-icon>
-                <h4 mat-line>{{employee.skill.secondarySkillLevelOne}}</h4>
+                <h4 mat-line>{{employee.skill.secondary_skill_one}}</h4>
                 <p mat-line>Secondary Skill</p>
             </mat-list-item>
             <mat-divider></mat-divider>
