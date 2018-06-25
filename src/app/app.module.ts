@@ -37,7 +37,10 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
 // import { LogeffortComponent } from './logeffort/logeffort.component';
 // import { ApprovalComponent } from './approval/approval.component';
+import { LoaderComponent } from './loader/loader.component';
 import { LoginService } from './login/login.service';
+import { LoaderService } from './loader/loader.service';
+import { AuthUserGuard } from './auth-user.guard';
 
 
 @NgModule({
@@ -47,6 +50,7 @@ import { LoginService } from './login/login.service';
         DashComponent,
         CalendarComponent,
         EmployeeProfileComponent,
+        LoaderComponent,
         // LogeffortComponent,
         // ApprovalComponent,
     ],
@@ -81,7 +85,9 @@ import { LoginService } from './login/login.service';
         DashModule,
     ],
     providers: [
-        LoginService
+        LoginService,
+        LoaderService,
+        AuthUserGuard
     ],
     bootstrap: [AppComponent],
     entryComponents: [

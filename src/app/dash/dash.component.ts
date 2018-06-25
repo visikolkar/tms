@@ -29,9 +29,9 @@ export class DashComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log(JSON.parse(window.localStorage.employeeInfo));
+        console.log(JSON.parse(localStorage.getItem('employeeInfo')));
     }
     
-    employee = JSON.parse(window.localStorage.employeeInfo);//EMPLOYEEDETAILS;
+    employee = JSON.parse(localStorage.getItem('employeeInfo'));//EMPLOYEEDETAILS;
 
 }

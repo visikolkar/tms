@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { LoginService } from './login.service';
 import { Subscription } from "rxjs";
+import { LoaderService } from '../loader/loader.service';
 
 @Component({
 	selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
 	};
 	request: Subscription;
 	
-	constructor(private router: Router, private loginService: LoginService, public notificationBar: MatSnackBar) {
+	constructor(private router: Router, private loginService: LoginService, public notificationBar: MatSnackBar, private loaderService: LoaderService) {
 		this.emailFormControl = new FormControl('', [
 			Validators.required
 		]);
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
         this.notificationBar.open(message, action, {
             duration: 5000,
         });
-    }
+	}
 
 	onLogin() {
 		console.log('user data is', this.userData);
@@ -43,19 +44,25 @@ export class LoginComponent implements OnInit {
 			if(this.request){
 				this.request.unsubscribe();
 			}
+			//this.showLoader();
+			this.loaderService.show();
 			this.request = this.loginService.login(this.userData)
 				.subscribe(
 					(response) => {
 						console.log('login api response is', response);
 						if(response['status'] == 'true'){
 							localStorage.setItem('employeeInfo', response['data']);
-							this.router.navigateByUrl('/dash');
+							this.loginService.setUserLoggedIn(true);
+							this.router.navigate(['/dash'], { replaceUrl: true }); //remove login page from history
 						} else {
 							console.log('Login failed', response);
+							this.loginService.setUserLoggedIn(false);
 							this.openNotificationbar(response['message'], 'Close');
 						}
 					}, (err) => {
 						console.error('something does not look good',err);
+					}, () => {
+						this.loaderService.hide(); //on complete hide the loader
 					}
 				);
 		} else {
@@ -64,6 +71,11 @@ export class LoginComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		if(this.loginService.getUserLoggedIn()){
+			this.router.navigate(['/dash'], { replaceUrl: true }); //remove login page from history
+		} else {
+			//land on login page
+		}
 	}
 
 	ngOnDestroy() {
