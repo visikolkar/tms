@@ -4,6 +4,9 @@ import { LOGEFFORTS } from '../shared/mock-logeffort';
 import { LogeffortTwo } from '../shared/logeffort-two';
 import { LOGEFFORTSTWO } from '../shared/mock-two-logeffort';
 import { MatSnackBar } from '@angular/material';
+import { STATE } from '../shared/config';
+import { LogeffortService } from './logeffort.service';
+import { LoaderService } from '../loader/loader.service';
 
 @Component({
     selector: 'app-logeffort',
@@ -21,6 +24,7 @@ export class LogeffortComponent implements OnInit {
     taskName: string;
     time: string;
     panelOpenState: boolean = false;
+    employee: any;
     //disableSelect: boolean;
     // userLogEffort = {
     // 	project_name: '',
@@ -60,7 +64,7 @@ export class LogeffortComponent implements OnInit {
         { value: 'Leave', viewValue: 'Leave' },
     ];
 
-    constructor(public notificationBar: MatSnackBar) {
+    constructor(public notificationBar: MatSnackBar, private logeffortService: LogeffortService, private loaderService: LoaderService) {
 
     }
 
@@ -171,8 +175,9 @@ export class LogeffortComponent implements OnInit {
         return t;
     }
 
-    summerizeUserEffort(array): any {
+    summerizeUserEffort(arr): any {
         let self = this;
+        var array = JSON.parse(JSON.stringify(arr)); //arr.map(x => Object.assign({}, x)); //deep copy of array (without reference) with this this.userLogEffort will not be effected
         array.forEach(function (val) {
             val.task = [{ skill_set: val.skill_set, task_name: val.task_name, hours: val.hours, mins: val.mins }];
         });
@@ -230,7 +235,30 @@ export class LogeffortComponent implements OnInit {
                 this.openNotificationbar('Effort data saved successfully!', 'Close');
             } else if (state === 'submit') { //check for the total time 
                 //submit the data
-                this.openNotificationbar('Effort data submitted successfully!', 'Close');
+                var finalSubmitData = {
+                    emp_id: this.employee.empinfo.emp_id,
+                    iris_date: "06-01-2018",
+                    filled_state: STATE.SUBMITTED,
+                    effort: this.postUserData
+                };
+                console.log('submit data is', finalSubmitData);
+                this.loaderService.show();
+                this.logeffortService.postEffort(finalSubmitData, STATE.SUBMITTED)
+                    .subscribe(
+                        (response) => {
+                            console.log('logeffort submit response is ', response);
+                            if(response['status'] == 'true'){
+                                this.openNotificationbar('Effort data submitted successfully!', 'Close');
+                            } else{
+                                this.openNotificationbar(response['message'], 'Close');
+                            }
+                        }, (err) => {
+                            console.error('logeffort submit error ',err);
+						    this.loaderService.hide();
+                        }, () => {
+                            this.loaderService.hide(); //on complete hide the loader
+                        }
+                    );
             } else {
                 // do nothing
             }
@@ -244,7 +272,7 @@ export class LogeffortComponent implements OnInit {
         this.windowheight = (60 * window.screen.height) / 100;
         //Math.floor(400 / window.screen.height * 100);
         console.log("window height " + this.windowheight);
-
+        this.employee = JSON.parse(localStorage.getItem('employeeInfo'));
         this.logefforts = LOGEFFORTSTWO;
         this.selectedTab = this.activeTab(this.logefforts.effort);
 

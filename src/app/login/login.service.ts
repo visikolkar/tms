@@ -20,12 +20,12 @@ export class LoginService {
     private isUserLoggedIn;
     constructor(private http: HttpClient) {
         // this.isUserLoggedIn = false;
-        console.log('api url is', SERVER_URL);
     }
 
     loginUrl = SERVER_URL + 'api/login/emp';
     /** POST: user data to the server for authentication */
     login(user: LoginUser): Observable<any> {
+        console.log('login api url is', this.loginUrl);
         return this.http.post<any>(this.loginUrl, user, httpOptions);
     }
 

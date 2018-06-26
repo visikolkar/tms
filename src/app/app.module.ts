@@ -41,6 +41,8 @@ import { LoaderComponent } from './loader/loader.component';
 import { LoginService } from './login/login.service';
 import { LoaderService } from './loader/loader.service';
 import { AuthUserGuard } from './auth-user.guard';
+import { CalendarService } from './calendar/calendar.service';
+// import { LogeffortService } from './logeffort/logeffort.service';
 
 
 @NgModule({
@@ -87,6 +89,8 @@ import { AuthUserGuard } from './auth-user.guard';
     providers: [
         LoginService,
         LoaderService,
+        CalendarService,
+        // LogeffortService,
         AuthUserGuard
     ],
     bootstrap: [AppComponent],

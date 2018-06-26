@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
 						}
 					}, (err) => {
 						console.error('something does not look good',err);
+						this.loaderService.hide();
 					}, () => {
 						this.loaderService.hide(); //on complete hide the loader
 					}

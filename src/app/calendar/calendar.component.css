@@ -97,12 +97,12 @@
 
   .calendar .month-grid .approved {
     font-weight: bold;
-    background-color: rgb(47, 255, 127);
+    background-color: #00aba9;
   }
 
   .calendar .month-grid .rejected {
     font-weight: bold;
-    background-color: rosybrown;
+    background-color: #7e3878;
   }
 
   .cal-btn-raised{

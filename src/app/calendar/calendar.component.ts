@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import { LoaderService } from '../loader/loader.service';
+import { MatSnackBar } from '@angular/material';
+import { CalendarService } from './calendar.service';
 
 export interface CalendarDate {
 	mDate: moment.Moment;
@@ -21,19 +24,59 @@ export class CalendarComponent implements OnInit, OnChanges {
 	currentDate = moment();
 	dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 	//below dates to be fetched from employee data through an api call
-	approvedDates = ['05-03-2018','05-04-2018', '05-07-2018', '04-07-2018'];
-	rejectedDates = ['05-02-2018','05-01-2018'];
+	approvedDates = [];
+	rejectedDates = [];
+	notFilledDates = [];
 	weeks: CalendarDate[][] = [];
 	sortedDates: CalendarDate[] = [];
 
 	@Input() selectedDates: CalendarDate[] = [];
 	@Output() onSelectDate = new EventEmitter<CalendarDate>();
 
-	constructor() { }
+	constructor(private calendarService: CalendarService, private loaderService: LoaderService, public notificationBar: MatSnackBar) { }
+
+	openNotificationbar(message: string, action: string) {
+        this.notificationBar.open(message, action, {
+            duration: 5000,
+        });
+    }
 
 	ngOnInit(): void {
 		this.generateCalendar();
+		this.calendar();
+		//assign approvedDates and rejectedDates from localStorage
+		if(localStorage.getItem('calendarInfo')){
+			var colorDates = JSON.parse(localStorage.getItem('calendarInfo'));
+			this.approvedDates = colorDates.approvedDates;
+			this.rejectedDates = colorDates.rejectedDates;
+			this.notFilledDates = colorDates.notFilledDates;
+		}
 	}
+
+	calendar(): void {
+        //this.showLoader();
+        this.loaderService.show();
+        this.calendarService.calendar()
+            .subscribe(
+                (response) => {
+                    console.log('calender api response is', response);
+                    if(response['status'] == 'true'){
+						this.approvedDates = response['data']['approvedDates'];
+						this.rejectedDates = response['data']['rejectedDates'];
+						this.notFilledDates = response['data']['notFilledDates'];
+                        localStorage.setItem('calendarInfo', JSON.stringify(response['data']));
+                    } else {
+                        console.log('Login failed', response);
+                        this.openNotificationbar(response['message'], 'Close');
+                    }
+                }, (err) => {
+                    console.error('something does not look good',err);
+                    this.loaderService.hide();
+                }, () => {
+                    this.loaderService.hide(); //on complete hide the loader
+                }
+            );
+    }
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes.selectedDates &&
