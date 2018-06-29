@@ -3,6 +3,8 @@ import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar 
 // import { Employee } from '../shared/employee';
 import { EMPLOYEEDETAILS } from '../shared/mock-employee';
 import { EmployeeProfileComponent } from '../employee-profile/employee-profile.component';
+import { DashService } from './dash.service';
+import { LoaderService } from '../loader/loader.service';
 
 @Component({
     selector: 'app-dash',
@@ -11,8 +13,8 @@ import { EmployeeProfileComponent } from '../employee-profile/employee-profile.c
 })
 export class DashComponent implements OnInit {
 
-    constructor(public dialog: MatDialog) { }
-    
+    constructor(public dialog: MatDialog, private dashService: DashService, private loaderService: LoaderService) { }
+
     openDialog(): void {
         const dialogConfig = new MatDialogConfig();
 
@@ -28,9 +30,32 @@ export class DashComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loadEffort();
+        console.log('loadEffort is called');
         console.log(JSON.parse(localStorage.getItem('employeeInfo')));
     }
-    
+
     employee = JSON.parse(localStorage.getItem('employeeInfo'));//EMPLOYEEDETAILS;
+
+    loadEffort(): void {
+        this.dashService.loadEffort()
+            .subscribe(
+                (response) => {
+                    console.log('logeffort submit response is ', response);
+                    if (response['status'] == 'true') {
+
+                        localStorage.setItem('logEffort', JSON.stringify(response['data']));
+                        // this.openNotificationbar('Effort data submitted successfully!', 'Close');
+                    } else {
+                        // this.openNotificationbar(response['message'], 'Close');
+                    }
+                }, (err) => {
+                    console.error('logeffort submit error ', err);
+                    this.loaderService.hide();
+                }, () => {
+                    this.loaderService.hide(); //on complete hide the loader
+                }
+            );
+    }
 
 }

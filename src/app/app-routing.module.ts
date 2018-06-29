@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { DashComponent } from './dash/dash.component';
 import { LogeffortComponent } from './logeffort/logeffort.component';
 import { ApprovalComponent } from './approval/approval.component';
+import { DashResolve, ProjectResolve } from './dash/dash.resolve.service';
 
 const routes: Routes = [
 	{
@@ -24,6 +25,10 @@ const routes: Routes = [
 			}, {
 				path: 'logeffort',
 				component: LogeffortComponent,
+				resolve : {
+					logeffort: DashResolve,
+					projectTasks: ProjectResolve
+				}
 
 			}, {
 				path: 'approval',

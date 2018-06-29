@@ -21,4 +21,10 @@ export class LogeffortService {
         return this.http.post<any>(logEffortUrl, effortData);
     }
 
+    
+    weekEffort(week, year): Observable<any> {
+        var weekUrl = SERVER_URL+ '/api/effort/' + this.empID + '/w/' + week + '/y/' + year;
+        console.log('weekEffort api url is', weekUrl);
+        return this.http.get<any>(weekUrl);
+    }
 }

@@ -1,100 +1,69 @@
 import { LogeffortTwo } from './logeffort-two';
 
 export const LOGEFFORTSTWO: LogeffortTwo = {
-    weekNumber: 15,
-    lastFilledDate: new Date(2018, 3, 7),
-    approvedDate: new Date(2018, 3, 1),
-    effort: [{
-        irisTime: "09:15 Hours",
-        date: new Date(2018, 3, 8),
+    week_number: "15",
+    time_sheet: [{
+        iris_time: "09:15 Hours",
+        iris_date: "Tue Apr 9",
         day: "Sunday",
-        isSubmitted: true,
-        isApproved: false,
-        isSelfRejected: false,
+        filled_state: "0",
         isActive: false,
         comments: "Life's Good",
-        manDayStatus: "90",
-        totalLogTime: "8:59 Hours",
-        timeSheet: [{
-            projectName: "Common",
-            jobTask: [{
-                isPrimarySkill: false,
-                isSecondarySkill: false,
-                jobTaskName: "Innovation and Tools",
-                time: "2:30"
-            }, {
-                isPrimarySkill: false,
-                isSecondarySkill: false,
-                jobTaskName: "Leave",
-                time: "2:30"
-            }]
-        }, {
-            projectName: "Project A",
-            jobTask: [{
-                jobTaskName: "Task B",
-                isPrimarySkill: true,
-                isSecondarySkill: false,
-                time: "3:00"
-            }, {
-                jobTaskName: "Task D",
-                isPrimarySkill: false,
-                isSecondarySkill: true,
-                time: "1:00"
-            }]
-        }, {
-            projectName: "Project B",
-            jobTask: [{
-                jobTaskName: "Task A",
-                isPrimarySkill: false,
-                isSecondarySkill: true,
-                time: "4:00"
-            }]
+        total_log_time: "8:59 Hours",
+        effort: [{
+            project_name: '',
+            skill_set: '',
+            task_name: '',
+            hours: '00',
+            mins: '00'
         }]
-    }, {
-        irisTime: "09:15 Hours",
-        date: new Date(2018, 3, 9),
-        day: "Monday",
-        isSubmitted: true,
-        isApproved: false,
-        isSelfRejected: false,
+    },{
+        iris_time: "09:15 Hours",
+        iris_date: "Tue Apr 10",
+        day: "Sunday",
+        filled_state: "2",
         isActive: true,
         comments: "Life's Good",
-        manDayStatus: "90",
-        totalLogTime: "8:59 Hours",
-        timeSheet: [{
-            projectName: "Common",
-            jobTask: [{
-                isPrimarySkill: false,
-                isSecondarySkill: false,
-                jobTaskName: "Innovation and Tools",
-                time: "2:30"
+        total_log_time: "8:59 Hours",
+        effort: [{
+                project_name: 'Project A',
+                skill_set: 'Primary Skill',
+                task_name: 'Task A',
+                hours: '01',
+                mins: '00'
             }, {
-                isPrimarySkill: false,
-                isSecondarySkill: false,
-                jobTaskName: "Leave",
-                time: "2:30"
+                project_name: 'Common',
+                skill_set: '',
+                task_name: 'Innovation and Tools',
+                hours: '01',
+                mins: '00'
             }]
-        }, {
-            projectName: "Project A",
-            jobTask: [{
-                jobTaskName: "Task B",
-                isPrimarySkill: true,
-                isSecondarySkill: false,
-                time: "3:00"
+    }, {
+        iris_time: "09:15 Hours",
+        iris_date: "Tue Apr 11",
+        day: "Sunday",
+        filled_state: "1",
+        isActive: false,
+        comments: "Life's Good",
+        total_log_time: "8:59 Hours",
+        effort: [{
+                project_name: 'Project B',
+                skill_set: 'Secondary Skill',
+                task_name: 'Task B',
+                hours: '01',
+                mins: '00'
             }, {
-                jobTaskName: "Task D",
-                isPrimarySkill: false,
-                isSecondarySkill: true,
-                time: "1:00"
+                project_name: 'Common',
+                skill_set: '',
+                task_name: 'Innovation and Tools',
+                hours: '01',
+                mins: '00'
+            }, {
+                project_name: '00',
+                skill_set: '00',
+                task_name: '00',
+                hours: '00',
+                mins: '00'
             }]
-        }, {
-            projectName: "Project B",
-            jobTask: [{
-                jobTaskName: "Task A",
-                isPrimarySkill: false,
-                isSecondarySkill: true,
-                time: "4:00"
-            }]
-        }]
     }]
 }

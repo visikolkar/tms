@@ -35,6 +35,7 @@ import {
 } from '@angular/material';
 import { DashService } from './dash.service';
 import { LogeffortService } from '../logeffort/logeffort.service';
+//import { DashResolve } from './dash.resolve.service';
 
 @NgModule({
     imports: [
@@ -72,7 +73,8 @@ import { LogeffortService } from '../logeffort/logeffort.service';
     ],
     providers: [
         DashService,
-        LogeffortService
+        LogeffortService,
+        //DashResolve,
     ]
 })
 export class DashModule { }

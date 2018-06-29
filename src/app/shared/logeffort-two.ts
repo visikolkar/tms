@@ -1,32 +1,23 @@
-interface JobTaskInterface {
-    isPrimarySkill: boolean;
-    isSecondarySkill: boolean;
-    jobTaskName: string;
-    time: string;
-}
-
 interface WorkStatusInterface {
-    projectName: string;
-    jobTask: JobTaskInterface[];
+    project_name: string;
+    skill_set: string;
+    task_name: string;
+    hours: string;
+    mins: string;
 }
 
 interface EffortInterface {
-    irisTime: string;
-    date: Date;
+    iris_time: string;
+    iris_date: string;
     day: string;
-    isSubmitted: boolean;
-    isApproved: boolean;
-    isSelfRejected: boolean;
+    filled_state:string;
     isActive: boolean;
     comments: string;
-    manDayStatus: string;
-    totalLogTime: string;
-    timeSheet: WorkStatusInterface[];
+    total_log_time: string;
+    effort: WorkStatusInterface[];
 }
 
 export class LogeffortTwo {
-    weekNumber: Number;
-    lastFilledDate: Date;
-    approvedDate: Date;
-    effort: EffortInterface[];
+    week_number: string;
+    time_sheet: EffortInterface[];
 }

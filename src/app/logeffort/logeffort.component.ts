@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { Logeffort } from '../shared/logeffort';
 import { LOGEFFORTS } from '../shared/mock-logeffort';
 import { LogeffortTwo } from '../shared/logeffort-two';
@@ -7,6 +8,7 @@ import { MatSnackBar } from '@angular/material';
 import { STATE } from '../shared/config';
 import { LogeffortService } from './logeffort.service';
 import { LoaderService } from '../loader/loader.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-logeffort',
@@ -18,6 +20,8 @@ export class LogeffortComponent implements OnInit {
     windowheight: any;
     logefforts: any;
     logeffortstwo: any;
+    STATE: any;
+    selected;
     selectedTab: number;
     projectName: string;
     skillSet: string;
@@ -25,6 +29,9 @@ export class LogeffortComponent implements OnInit {
     time: string;
     panelOpenState: boolean = false;
     employee: any;
+    projects = [];
+    projectTasks = [];
+    commonTasks = [];
     //disableSelect: boolean;
     // userLogEffort = {
     // 	project_name: '',
@@ -41,32 +48,8 @@ export class LogeffortComponent implements OnInit {
     }];
     userLogEffortSummary = [];
     postUserData = [];
-    /*  projects,
-        tasks,
-        commonTasks ==> will be fetched thrupgh a seperate api call
-    */
-    projects = [
-        { value: 'Project A', viewValue: 'Project A' },
-        { value: 'Project B', viewValue: 'Project B' },
-        { value: 'Project C', viewValue: 'Project C' },
-        { value: 'Project D', viewValue: 'Project D' },
-        { value: 'Common', viewValue: 'Common' }
-    ];
-    projectTasks = [
-        { value: 'Task A', viewValue: 'Task A' },
-        { value: 'Task B', viewValue: 'Task B' },
-        { value: 'Task C', viewValue: 'Task C' },
-        { value: 'Task D', viewValue: 'Task D' },
-    ];
-    commonTasks = [
-        { value: 'Innovation and Tools', viewValue: 'Innovation and Tools' },
-        { value: 'Learning and Development', viewValue: 'Learning and Development' },
-        { value: 'Leave', viewValue: 'Leave' },
-    ];
 
-    constructor(public notificationBar: MatSnackBar, private logeffortService: LogeffortService, private loaderService: LoaderService) {
-
-    }
+    constructor(public notificationBar: MatSnackBar, private logeffortService: LogeffortService, private loaderService: LoaderService, private route: ActivatedRoute) { }
 
     openNotificationbar(message: string, action: string) {
         this.notificationBar.open(message, action, {
@@ -75,16 +58,16 @@ export class LogeffortComponent implements OnInit {
     }
 
     activeTab(array): any {
-        return array.map(function(item) { return item.isActive; }).indexOf(true);
+        return array.map(function (item) { return item.isActive; }).indexOf(true);
     }
 
-    getEffortTime(time, state, index): void {
+    getEffortTime(time, state, index, arr): void {
         console.log('user entered time is', time);
         if (state === "hours" && (Number(time) >= 24 || Number(time) < 0)) {
-            this.userLogEfforts[index].hours = '';
+            arr[index].hours = '';
             this.openNotificationbar('Enter value between 0 and 23!', 'Close');
         } else if (state === "mins" && (Number(time) >= 60 || Number(time) < 0)) {
-            this.userLogEfforts[index].mins = '';
+            arr[index].mins = '';
             this.openNotificationbar('Enter value between 0 and 59!', 'Close');
         }
     }
@@ -98,30 +81,41 @@ export class LogeffortComponent implements OnInit {
         }
     }
 
-    disableOption(selected, index): void {
+    disableOption(selected, index): void { //this function is not required
         console.log('selected value is', selected);
         if (selected.value === 'Common') {
             //this.disableSelect = true;
-            this.userLogEfforts[index].skill_set = '';
+            //this.userLogEfforts[index].skill_set = '';
         } else {
             //this.disableSelect = false;
         }
     }
 
-    addUserEffort(index): void {
-        if (this.userLogEfforts[index].project_name && this.userLogEfforts[index].task_name && (this.userLogEfforts[index].hours !=='00' || this.userLogEfforts[index].mins !== '00')) {
+    addUserEffort(index, obj, j): void {
+        console.log('adding item to the array ', obj);
+        console.log('j value is ', j);
+        var arr = obj.effort;
+        if (arr[index].project_name && arr[index].task_name && (arr[index].hours !== '00' || arr[index].mins !== '00')) {
             //push an empty object
-            this.userLogEfforts.push({
+            arr.push({
                 project_name: '',
                 skill_set: '',
                 task_name: '',
                 hours: '00',
                 mins: '00'
             });
-            this.userLogEfforts = this.filterUserEffort(this.userLogEfforts);
-            console.log('user filled data after filter is', this.userLogEfforts);
-            this.userLogEffortSummary = this.summerizeUserEffort(this.userLogEfforts);
-            this.postUserData = this.prepareUserEffort(this.userLogEfforts);
+            arr = this.filterUserEffort(arr);
+            console.log('user filled data after filter is', arr);
+            this.postUserData = this.prepareUserEffort(arr);
+            
+            obj.effort = arr;
+            obj.summaryEffort = this.summerizeUserEffort(arr);
+            console.log('summary array is ', obj.summaryEffort);
+            console.log('this.logefforts before ', this.logefforts);
+            this.logefforts.time_sheet.splice(j, 1, obj);
+            console.log('this.logefforts is ', this.logefforts);
+            this.logefforts.time_sheet = JSON.parse(JSON.stringify(this.logefforts.time_sheet));
+            
         } else {
             //show an alert to fill required fields
             this.openNotificationbar('Fill all the required fields!', 'Close');
@@ -137,10 +131,14 @@ export class LogeffortComponent implements OnInit {
         );
     }
 
-    deleteUserEffort(index): void {
-        this.userLogEfforts.splice(index, 1);
-        this.userLogEffortSummary = this.summerizeUserEffort(this.userLogEfforts);
-        console.log('user data after delete is', this.userLogEfforts);
+    deleteUserEffort(index, obj, j): void {
+
+        obj.effort.splice(index, 1);
+        obj.summaryEffort = this.summerizeUserEffort(obj.effort);
+        this.logefforts.time_sheet.splice(j, 1, obj);
+        console.log('this.logefforts is ', this.logefforts);
+        this.logefforts.time_sheet = JSON.parse(JSON.stringify(this.logefforts.time_sheet));
+        console.log('user data after delete is', obj);
     }
 
     prepareUserEffort(array): any {
@@ -219,48 +217,59 @@ export class LogeffortComponent implements OnInit {
 
     }
 
-    postUserEffort(state): void {
-        this.postUserData = this.prepareUserEffort(this.userLogEfforts);
-        this.userLogEffortSummary = this.summerizeUserEffort(this.postUserData);
-        if (!this.postUserData.length && this.userLogEfforts.length) { // just to avoid the display of redundant data on screen
-            //do nothing
-        } else {
-            this.userLogEfforts = this.postUserData;
-        }
+    postData(state, obj, arr, message): void {
+        var finalSubmitData = {
+            emp_id: this.employee.empinfo.emp_id,
+            iris_date: obj.iris_date,
+            filled_state: state,
+            effort: arr
+        };
+        this.loaderService.show();
+        this.logeffortService.postEffort(finalSubmitData, state)
+            .subscribe(
+                (response) => {
+                    console.log('logeffort submit response is ', response);
+                    if (response['status'] == 'true') {
+                        console.log('response data is ', response['data']);
+                        this.logefforts = this.effortSumarry(response['data']);
+                        console.log('logeffort with summary after server call ', this.logefforts);
+                        this.logefforts.time_sheet = JSON.parse(JSON.stringify(this.logefforts.time_sheet));
+                        this.selectedTab = JSON.parse(JSON.stringify(this.activeTab(this.logefforts.time_sheet)));
+                        this.selected.setValue(this.selectedTab);
+                        console.log('selectedTab is', this.selectedTab);
+                        console.log('selectedTab is', this.selected);
+                        this.openNotificationbar(message, 'Close');
+                    } else {
+                        this.openNotificationbar(response['message'], 'Close');
+                    }
+                }, (err) => {
+                    console.error('logeffort submit error ', err);
+                    this.loaderService.hide();
+                }, () => {
+                    this.loaderService.hide(); //on complete hide the loader
+                }
+            );
+    }
+
+    postUserEffort(state, obj): void {
+        var arr = obj.effort;
+        this.postUserData = this.prepareUserEffort(arr);
         console.log('post data is ', this.postUserData);
         if (this.postUserData.length) {
             //post data to the server
-            if (state === 'save') {
+            if (state === STATE.SAVED) {
                 // save the data
-                this.openNotificationbar('Effort data saved successfully!', 'Close');
-            } else if (state === 'submit') { //check for the total time 
+                console.log('save data is ', arr);
+                var message = "Effort data Saved successfuly.!"
+                this.postData(state, obj, this.postUserData, message);
+            } else if (state === STATE.SUBMITTED) { //check for the total time 
                 //submit the data
-                var finalSubmitData = {
-                    emp_id: this.employee.empinfo.emp_id,
-                    iris_date: "06-01-2018",
-                    filled_state: STATE.SUBMITTED,
-                    effort: this.postUserData
-                };
-                console.log('submit data is', finalSubmitData);
-                this.loaderService.show();
-                this.logeffortService.postEffort(finalSubmitData, STATE.SUBMITTED)
-                    .subscribe(
-                        (response) => {
-                            console.log('logeffort submit response is ', response);
-                            if(response['status'] == 'true'){
-                                this.openNotificationbar('Effort data submitted successfully!', 'Close');
-                            } else{
-                                this.openNotificationbar(response['message'], 'Close');
-                            }
-                        }, (err) => {
-                            console.error('logeffort submit error ',err);
-						    this.loaderService.hide();
-                        }, () => {
-                            this.loaderService.hide(); //on complete hide the loader
-                        }
-                    );
-            } else {
-                // do nothing
+                var message = "Effort data Submitted successfuly.!"
+                this.postData(state, obj, this.postUserData, message);
+            } else if (state === STATE.REJECTED) {
+                // self rejection
+                var message = "Effort data Rejected successfuly.!"
+                this.postData(state, obj, this.postUserData, message);
             }
         } else {
             //no data availble to post
@@ -268,17 +277,85 @@ export class LogeffortComponent implements OnInit {
         }
     }
 
+    postPrevNextWeek(weekNumber, year): void {
+        this.loaderService.show();
+        this.logeffortService.weekEffort(weekNumber, year)
+            .subscribe(
+                (response) => {
+                    console.log('week logeffort response is ', response);
+                    if (response['status'] == 'true') {
+                        this.logefforts = this.effortSumarry(response['data']);
+                        this.logefforts.time_sheet = JSON.parse(JSON.stringify(this.logefforts.time_sheet));
+                        this.selectedTab = JSON.parse(JSON.stringify(this.activeTab(this.logefforts.time_sheet)));
+                        this.selected.setValue(this.selectedTab);
+                        console.log('weekEffort selectedTab is', this.selectedTab);
+                    } else {
+                        this.openNotificationbar(response['message'], 'Close');
+                    }
+                }, (err) => {
+                    console.error('logeffort submit error ', err);
+                    this.loaderService.hide();
+                }, () => {
+                    this.loaderService.hide(); //on complete hide the loader
+                }
+            );
+    }
+
+    prevNextWeek(str): void {
+        if(str === 'prev'){
+            let weekNumber = this.logefforts.week_number - 1;
+            let year = this.logefforts.time_sheet[0].iris_date.split("-")[2];
+            this.postPrevNextWeek(weekNumber, year);
+        } else if(str === 'next'){
+            let weekNumber = this.logefforts.week_number + 1;
+            let year = this.logefforts.time_sheet[0].iris_date.split("-")[2];
+            this.postPrevNextWeek(weekNumber, year);
+        }
+
+    }
+
+    effortSumarry(obj): any {
+        var self = this;
+        obj.time_sheet.forEach(function (item) {
+            // if (item.effort.length) {
+            //     item.summaryEffort = self.summerizeUserEffort(item.effort);
+            // }
+            item.summaryEffort = self.summerizeUserEffort(item.effort);
+        });
+        return obj;
+    }
+
     ngOnInit() {
         this.windowheight = (60 * window.screen.height) / 100;
         //Math.floor(400 / window.screen.height * 100);
         console.log("window height " + this.windowheight);
         this.employee = JSON.parse(localStorage.getItem('employeeInfo'));
-        this.logefforts = LOGEFFORTSTWO;
-        this.selectedTab = this.activeTab(this.logefforts.effort);
 
-        //this.logeffortstwo = LOGEFFORTSTWO;
+        this.route.data
+            .subscribe((res: any) => {
+                console.log('resolved logeffort is ', res);
+                this.logefforts = this.effortSumarry(res.logeffort.data);
+                this.selectedTab = this.activeTab(this.logefforts.time_sheet);
+            });
+        console.log('logeffort data is ', this.logefforts);
 
-        //console.log('log effort two is ', this.logeffortstwo);
+        this.route.data
+            .subscribe((res: any) => {
+                console.log('resolved projectTasks list is ', res);
+                this.projects = res.projectTasks.data.projects;
+                this.projectTasks = res.projectTasks.data.projectTasks;
+                this.commonTasks = res.projectTasks.data.commonTasks;
+
+            })
+        
+        this.selected = new FormControl(this.selectedTab);
+
+        // if (localStorage.getItem('logEffort')) {
+        //     var obj = JSON.parse(localStorage.getItem('logEffort'))
+        //     this.logefforts = this.effortSumarry(obj);
+        //     this.selectedTab = this.activeTab(this.logefforts.time_sheet);
+        // }
+        this.STATE = STATE;
 
     }
 
