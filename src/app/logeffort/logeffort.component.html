@@ -3,8 +3,7 @@
     <div fxFlex="90%">
             <!-- [selectedIndex]="selectedTab" -->
         <mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectedTab" [@.disabled]="true">
-            <!-- .toDateString().slice(0,10) -->
-            <mat-tab *ngFor="let logeffort of logefforts.time_sheet; let j = index;" label={{logeffort.iris_date}}>
+            <mat-tab *ngFor="let logeffort of logefforts.time_sheet; let j = index;" label={{logeffort.displayDate}}>
                 <!-- background-color:rgba(0,0,0,.04); use it if needed for the tab background -->
                 <div class="container" style="text-align:center; padding:10px; overflow-y:auto" [style.height.px]="windowheight">
                     <h4 style="text-align: right!important; padding: 0; margin:0; color:#C3003C;">IRIS TIME {{logeffort.iris_time}}</h4>
@@ -27,8 +26,8 @@
                                         <mat-form-field style="width:90%;font-size: 16px;">
                                             <mat-select [placeholder]="!i ? 'Skill Set': ''" [(value)]="effort.skill_set" [matTooltip]="(effort.project_name === 'Common') ? 'Disabled': ''"
                                                 [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED || effort.project_name === 'Common') ? true : false">
-                                                <mat-option value="Primary Skill">Primary Skill</mat-option>
-                                                <mat-option value="Secondary Skill">Secondary Skill</mat-option>
+                                                <mat-option value="Primary Skill">{{employee.skill.primary_skill_three}}</mat-option>
+                                                <mat-option value="Secondary Skill">{{employee.skill.secondary_skill_three}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </mat-grid-tile>

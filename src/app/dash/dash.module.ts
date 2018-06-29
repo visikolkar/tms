@@ -35,6 +35,7 @@ import {
 } from '@angular/material';
 import { DashService } from './dash.service';
 import { LogeffortService } from '../logeffort/logeffort.service';
+import { ChartsModule } from 'ng2-charts';
 //import { DashResolve } from './dash.resolve.service';
 
 @NgModule({
@@ -66,6 +67,7 @@ import { LogeffortService } from '../logeffort/logeffort.service';
         MatGridListModule,
         MatSnackBarModule,
         MatTooltipModule,
+        ChartsModule
     ],
     declarations: [
         LogeffortComponent,

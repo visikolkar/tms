@@ -201,11 +201,11 @@ export class LogeffortComponent implements OnInit {
         output.forEach(function (item) {
             if (item.task.length > 1) {
                 var totalHours = item.task.reduce(function (v, n) {
-                    return +v.hours + +n.hours;
-                });
+                    return v + +n.hours;
+                }, 0);
                 var totalMins = item.task.reduce(function (v, n) {
-                    return +v.mins + +n.mins;
-                });
+                    return v + +n.mins;
+                }, 0);
 
                 item.time = self.minsToHours(totalHours, totalMins);
             } else {
@@ -320,6 +320,7 @@ export class LogeffortComponent implements OnInit {
             // if (item.effort.length) {
             //     item.summaryEffort = self.summerizeUserEffort(item.effort);
             // }
+            item.displayDate = new Date(item.iris_date.split('-')[2], item.iris_date.split('-')[1], item.iris_date.split('-')[0]).toDateString().slice(0,10);
             item.summaryEffort = self.summerizeUserEffort(item.effort);
         });
         return obj;
