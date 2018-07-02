@@ -15,7 +15,7 @@
                                     *ngFor="let effort of logeffort.effort; let i = index;" [rowHeight]="!i ? '69px' : '50px'">
                                     <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem">
                                         <mat-form-field style="width:90%;font-size: 16px;">
-                                            <mat-select [placeholder]="!i ? 'Project List': ''" [(value)]="effort.project_name" (change)="disableOption($event, i)" [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
+                                            <mat-select [placeholder]="!i ? 'Project List': ''" [(value)]="effort.project_name" (change)="disableOption($event, i, logeffort.effort)" [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
                                                 <mat-option *ngFor="let project of projects" [value]="project.value">
                                                     {{ project.value }}
                                                 </mat-option>

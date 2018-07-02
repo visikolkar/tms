@@ -81,11 +81,11 @@ export class LogeffortComponent implements OnInit {
         }
     }
 
-    disableOption(selected, index): void { //this function is not required
+    disableOption(selected, index, arr): void { //this function is not required
         console.log('selected value is', selected);
         if (selected.value === 'Common') {
             //this.disableSelect = true;
-            //this.userLogEfforts[index].skill_set = '';
+            arr[index].skill_set = '';
         } else {
             //this.disableSelect = false;
         }
