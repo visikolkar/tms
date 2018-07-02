@@ -31,34 +31,34 @@
 }
 
 /* Styles for tab labels */
-/deep/ .mat-tab-label {
+:host ::ng-deep .mat-tab-label {
     min-width: 100px !important;
 }
 
 /* Styles for the active tab label */
-/deep/ .mat-tab-label.mat-tab-label-active {
+:host ::ng-deep .mat-tab-label.mat-tab-label-active {
     min-width: 100px !important;
     color: #C3003C;
     border-color: #C3003C;
 }
 
 /* Styles for the ink bar */
-/deep/ .mat-ink-bar {
+:host ::ng-deep .mat-ink-bar {
     background-color: #C3003C!important;
 }
 .without::-webkit-datetime-edit-ampm-field {
     display: none;
   }
 
-  /deep/ .mat-select-value-text{
+  :host ::ng-deep .mat-select-value-text{
     color: #C3003C;
   }
 
-/deep/  .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  :host ::ng-deep  .mat-radio-button.mat-accent .mat-radio-inner-circle {
     background-color: #C3003C;
 }
 
-/deep/ .mat-radio-checked .mat-radio-outer-circle {
+:host ::ng-deep .mat-radio-checked .mat-radio-outer-circle {
     border-color: #C3003C;
 }
 

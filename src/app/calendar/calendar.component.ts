@@ -4,6 +4,7 @@ import * as _ from 'lodash';
 import { LoaderService } from '../loader/loader.service';
 import { MatSnackBar } from '@angular/material';
 import { CalendarService } from './calendar.service';
+import { SharedService } from '../shared/shared.service';
 
 export interface CalendarDate {
 	mDate: moment.Moment;
@@ -33,7 +34,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 	@Input() selectedDates: CalendarDate[] = [];
 	@Output() onSelectDate = new EventEmitter<CalendarDate>();
 
-	constructor(private calendarService: CalendarService, private loaderService: LoaderService, public notificationBar: MatSnackBar) { }
+	constructor(private calendarService: CalendarService, private loaderService: LoaderService, public notificationBar: MatSnackBar, private sharedService: SharedService) { }
 
 	openNotificationbar(message: string, action: string) {
         this.notificationBar.open(message, action, {
@@ -50,7 +51,18 @@ export class CalendarComponent implements OnInit, OnChanges {
 			this.approvedDates = colorDates.approvedDates;
 			this.rejectedDates = colorDates.rejectedDates;
 			this.notFilledDates = colorDates.notFilledDates;
+			this.generateCalendar();
 		}
+		this.sharedService.getEmittedValue()
+			.subscribe(
+				(item) => {
+					console.log('calendar emitted value is ', item);
+					this.approvedDates = JSON.parse(JSON.stringify(item.approvedDates));
+					this.rejectedDates = JSON.parse(JSON.stringify(item.rejectedDates));
+					this.notFilledDates = JSON.parse(JSON.stringify(item.notFilledDates));
+					this.generateCalendar();
+				}
+			);
 	}
 
 	calendar(): void {

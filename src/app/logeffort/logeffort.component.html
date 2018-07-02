@@ -1,7 +1,7 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0" fxLayoutAlign="center" style="background-color:transparent; margin-top:40px;">
     <!-- <a fxFlex="5%">prev</a> -->
     <div fxFlex="90%">
-            <!-- [selectedIndex]="selectedTab" -->
+        <!-- [selectedIndex]="selectedTab" -->
         <mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectedTab" [@.disabled]="true">
             <mat-tab *ngFor="let logeffort of logefforts.time_sheet; let j = index;" label={{logeffort.displayDate}}>
                 <!-- background-color:rgba(0,0,0,.04); use it if needed for the tab background -->
@@ -15,7 +15,8 @@
                                     *ngFor="let effort of logeffort.effort; let i = index;" [rowHeight]="!i ? '69px' : '50px'">
                                     <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem">
                                         <mat-form-field style="width:90%;font-size: 16px;">
-                                            <mat-select [placeholder]="!i ? 'Project List': ''" [(value)]="effort.project_name" (change)="disableOption($event, i, logeffort.effort)" [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
+                                            <mat-select [placeholder]="!i ? 'Project List': ''" [(value)]="effort.project_name" (change)="disableOption($event, i, logeffort.effort)"
+                                                [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
                                                 <mat-option *ngFor="let project of projects" [value]="project.value">
                                                     {{ project.value }}
                                                 </mat-option>
@@ -50,11 +51,13 @@
                                     <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem">
                                         <mat-form-field style="width:44%; margin-right: 4px;font-size: 16px;">
                                             <input matInput type="text" class="without" [placeholder]="!i ? 'Hours': ''" [(ngModel)]="effort.hours" (keypress)="keyPress($event)"
-                                                (input)="getEffortTime($event.target.value, 'hours', i, logeffort.effort)" maxlength="2" [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
+                                                (input)="getEffortTime($event.target.value, 'hours', i, logeffort.effort)" maxlength="2"
+                                                [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
                                         </mat-form-field>
                                         <mat-form-field style="width:44%; margin-left: 4px;font-size: 16px;">
                                             <input matInput type="text" class="without" [placeholder]="!i ? 'Mins': ''" [(ngModel)]="effort.mins" (keypress)="keyPress($event)"
-                                                (input)="getEffortTime($event.target.value, 'mins', i, logeffort.effort)" maxlength="2" [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
+                                                (input)="getEffortTime($event.target.value, 'mins', i, logeffort.effort)" maxlength="2"
+                                                [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
                                         </mat-form-field>
                                     </mat-grid-tile>
                                     <!-- add and delete not required for SUBMIT and APPROVED state -->
@@ -103,9 +106,15 @@
                                             </mat-list>
                                         </mat-expansion-panel>
                                     </mat-accordion>
-                                    <mat-card-actions style="text-align: right; margin-right: 0px; margin-left: 0px">
+                                    <!-- style="text-align: right; margin-right: 0px; margin-left: 0px" -->
+                                    <mat-card-actions style="margin-right: 0px; margin-left: 0px">
+                                        <mat-form-field style="text-align: left; margin-left: 0px; display: inline-block;">
+                                            <textarea matInput placeholder="Comments" [(ngModel)]="logeffort.comments"></textarea>
+                                        </mat-form-field>
+                                        <span fxFlex></span>
                                         <button mat-raised-button color="warn" (click)="postUserEffort(STATE.REJECTED, logeffort)" *ngIf="logeffort.filled_state == STATE.SUBMITTED">SELF REJECT</button>
                                         <button mat-raised-button color="primary" (click)="postUserEffort(STATE.SUBMITTED, logeffort)" *ngIf="logeffort.filled_state !== STATE.SUBMITTED && logeffort.filled_state !== STATE.APPROVED">SUBMIT</button>
+                                        
                                     </mat-card-actions>
 
                                 </mat-card-content>
@@ -120,7 +129,7 @@
         </mat-tab-group>
     </div>
     <!-- <a fxFlex="5%">next</a> -->
-    <a class="navigation navigation-prev " aria-label="Previous page: this" (click)="prevNextWeek('prev')" >
+    <a class="navigation navigation-prev " aria-label="Previous page: this" (click)="prevNextWeek('prev')">
         <span>
             <mat-icon>chevron_left</mat-icon>
         </span>

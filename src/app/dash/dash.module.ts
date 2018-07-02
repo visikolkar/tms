@@ -36,6 +36,7 @@ import {
 import { DashService } from './dash.service';
 import { LogeffortService } from '../logeffort/logeffort.service';
 import { ChartsModule } from 'ng2-charts';
+import { SharedService } from '../shared/shared.service';
 //import { DashResolve } from './dash.resolve.service';
 
 @NgModule({
@@ -77,6 +78,7 @@ import { ChartsModule } from 'ng2-charts';
         DashService,
         LogeffortService,
         //DashResolve,
+        SharedService
     ]
 })
 export class DashModule { }

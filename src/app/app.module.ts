@@ -44,6 +44,7 @@ import { AuthUserGuard } from './auth-user.guard';
 import { CalendarService } from './calendar/calendar.service';
 import { DashResolve, ProjectResolve } from './dash/dash.resolve.service';
 import { DashService } from './dash/dash.service';
+import { SharedService } from './shared/shared.service';
 // import { LogeffortService } from './logeffort/logeffort.service';
 
 
@@ -96,7 +97,8 @@ import { DashService } from './dash/dash.service';
         AuthUserGuard,
         DashService,
         DashResolve,
-        ProjectResolve
+        ProjectResolve,
+        SharedService
     ],
     bootstrap: [AppComponent],
     entryComponents: [
