@@ -16,9 +16,16 @@ export class CalendarService {
 
     calendarUrl = SERVER_URL + 'api/effort/cal/' + this.empID;
 
+    calendarSelectedDateUrl = SERVER_URL + 'api/effort/' + this.empID + '/';
+
     calendar(): Observable<any> {
         console.log('calendar api url is', this.calendarUrl);
         return this.http.get<any>(this.calendarUrl);
+    }
+
+    calendarSelectedDate(date: string): Observable<any> {
+        console.log('calendarSelectedDate api url is', this.calendarSelectedDateUrl + date);
+        return this.http.get<any>(this.calendarSelectedDateUrl + date);
     }
 
 }

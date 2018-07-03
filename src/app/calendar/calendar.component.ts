@@ -12,7 +12,7 @@ export interface CalendarDate {
 	today?: boolean; //? makes it optional parameter
 	approved?: boolean;
 	rejected?: boolean;
-  //isRange?: boolean;
+	//isRange?: boolean;
 }
 
 @Component({
@@ -34,19 +34,22 @@ export class CalendarComponent implements OnInit, OnChanges {
 	@Input() selectedDates: CalendarDate[] = [];
 	@Output() onSelectDate = new EventEmitter<CalendarDate>();
 
-	constructor(private calendarService: CalendarService, private loaderService: LoaderService, public notificationBar: MatSnackBar, private sharedService: SharedService) { }
+	constructor(private calendarService: CalendarService, 
+		private loaderService: LoaderService, 
+		public notificationBar: MatSnackBar, 
+		private sharedService: SharedService) { }
 
 	openNotificationbar(message: string, action: string) {
-        this.notificationBar.open(message, action, {
-            duration: 5000,
-        });
-    }
+		this.notificationBar.open(message, action, {
+			duration: 5000,
+		});
+	}
 
 	ngOnInit(): void {
 		this.generateCalendar();
 		this.calendar();
 		//assign approvedDates and rejectedDates from localStorage
-		if(localStorage.getItem('calendarInfo')){
+		if (localStorage.getItem('calendarInfo')) {
 			var colorDates = JSON.parse(localStorage.getItem('calendarInfo'));
 			this.approvedDates = colorDates.approvedDates;
 			this.rejectedDates = colorDates.rejectedDates;
@@ -66,29 +69,29 @@ export class CalendarComponent implements OnInit, OnChanges {
 	}
 
 	calendar(): void {
-        //this.showLoader();
-        this.loaderService.show();
-        this.calendarService.calendar()
-            .subscribe(
-                (response) => {
-                    console.log('calender api response is', response);
-                    if(response['status'] == 'true'){
+		//this.showLoader();
+		this.loaderService.show();
+		this.calendarService.calendar()
+			.subscribe(
+				(response) => {
+					console.log('calender api response is', response);
+					if (response['status'] == 'true') {
 						this.approvedDates = response['data']['approvedDates'];
 						this.rejectedDates = response['data']['rejectedDates'];
 						this.notFilledDates = response['data']['notFilledDates'];
-                        localStorage.setItem('calendarInfo', JSON.stringify(response['data']));
-                    } else {
-                        console.log('Login failed', response);
-                        this.openNotificationbar(response['message'], 'Close');
-                    }
-                }, (err) => {
-                    console.error('something does not look good',err);
-                    this.loaderService.hide();
-                }, () => {
-                    this.loaderService.hide(); //on complete hide the loader
-                }
-            );
-    }
+						localStorage.setItem('calendarInfo', JSON.stringify(response['data']));
+					} else {
+						console.log('Login failed', response);
+						this.openNotificationbar(response['message'], 'Close');
+					}
+				}, (err) => {
+					console.error('something does not look good', err);
+					this.loaderService.hide();
+				}, () => {
+					this.loaderService.hide(); //on complete hide the loader
+				}
+			);
+	}
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes.selectedDates &&
@@ -130,6 +133,25 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 	selectDate(date: CalendarDate): void {
 		this.onSelectDate.emit(date);
+		console.log('selected date is ', date.mDate.format('DD-MM-YYYY'));
+		this.loaderService.show();
+		this.calendarService.calendarSelectedDate(date.mDate.format('DD-MM-YYYY'))
+			.subscribe(
+				(response) => {
+					console.log('calendarSelectedDate api response is', response);
+					if (response['status'] == 'true') {
+						this.sharedService.logeffortUpdate(response['data']);
+					} else {
+						console.log('calendarSelectedDate failed', response);
+						this.openNotificationbar(response['message'], 'Close');
+					}
+				}, (err) => {
+					console.error('something does not look good', err);
+					this.loaderService.hide();
+				}, () => {
+					this.loaderService.hide(); //on complete hide the loader
+				}
+			);
 	}
 
 	// actions from calendar

@@ -50,12 +50,12 @@ export class LogeffortComponent implements OnInit {
     userLogEffortSummary = [];
     postUserData = [];
 
-    constructor(public notificationBar: MatSnackBar, 
-                private logeffortService: LogeffortService, 
-                private loaderService: LoaderService, 
-                private route: ActivatedRoute,
-                private sharedService: SharedService
-            ) { }
+    constructor(public notificationBar: MatSnackBar,
+        private logeffortService: LogeffortService,
+        private loaderService: LoaderService,
+        private route: ActivatedRoute,
+        private sharedService: SharedService
+    ) { }
 
     openNotificationbar(message: string, action: string) {
         this.notificationBar.open(message, action, {
@@ -113,7 +113,7 @@ export class LogeffortComponent implements OnInit {
             arr = this.filterUserEffort(arr);
             console.log('user filled data after filter is', arr);
             this.postUserData = this.prepareUserEffort(arr);
-            
+
             obj.effort = arr;
             obj.summaryEffort = this.summerizeUserEffort(arr);
             console.log('summary array is ', obj.summaryEffort);
@@ -121,7 +121,7 @@ export class LogeffortComponent implements OnInit {
             this.logefforts.time_sheet.splice(j, 1, obj);
             console.log('this.logefforts is ', this.logefforts);
             this.logefforts.time_sheet = JSON.parse(JSON.stringify(this.logefforts.time_sheet));
-            
+
         } else {
             //show an alert to fill required fields
             this.openNotificationbar('Fill all the required fields!', 'Close');
@@ -226,7 +226,7 @@ export class LogeffortComponent implements OnInit {
     totalLogTime(array): any {
         let self = this;
         //let arr = array.effort;//this.prepareUserEffort(array.effort);
-        array.forEach(function(item){
+        array.forEach(function (item) {
             let arr = self.prepareUserEffort(item.effort);
             var totalHours = arr.reduce(function (v, n) {
                 return v + +n.hours;
@@ -287,10 +287,10 @@ export class LogeffortComponent implements OnInit {
                 this.postData(state, obj, this.postUserData, message);
             } else if (state === STATE.SUBMITTED) { //check for the total time 
                 //submit the data
-                if(obj.total_log_time > obj.iris_time.split(' ')[0] && obj.comments){
+                if (obj.total_log_time > obj.iris_time.split(' ')[0] && obj.comments) {
                     var message = "Effort data Submitted successfuly.!"
                     this.postData(state, obj, this.postUserData, message);
-                } else{
+                } else {
                     this.openNotificationbar("Your total log time is more than IRIS Time. Please provide comments!", 'Close');
                 }
             } else if (state === STATE.REJECTED) {
@@ -330,11 +330,11 @@ export class LogeffortComponent implements OnInit {
     }
 
     prevNextWeek(str): void {
-        if(str === 'prev'){
+        if (str === 'prev') {
             let weekNumber = this.logefforts.week_number - 1;
             let year = this.logefforts.time_sheet[0].iris_date.split("-")[2];
             this.postPrevNextWeek(weekNumber, year);
-        } else if(str === 'next'){
+        } else if (str === 'next') {
             let weekNumber = this.logefforts.week_number + 1;
             let year = this.logefforts.time_sheet[0].iris_date.split("-")[2];
             this.postPrevNextWeek(weekNumber, year);
@@ -349,8 +349,8 @@ export class LogeffortComponent implements OnInit {
             // if (item.effort.length) {
             //     item.summaryEffort = self.summerizeUserEffort(item.effort);
             // }
-            var month = +item.iris_date.split('-')[1] -1 ;
-            item.displayDate = new Date(item.iris_date.split('-')[2], month, item.iris_date.split('-')[0]).toDateString().slice(0,10);
+            var month = +item.iris_date.split('-')[1] - 1;
+            item.displayDate = new Date(item.iris_date.split('-')[2], month, item.iris_date.split('-')[0]).toDateString().slice(0, 10);
             item.summaryEffort = self.summerizeUserEffort(item.effort);
         });
         console.log('logeffort with summary is ', obj);
@@ -379,7 +379,16 @@ export class LogeffortComponent implements OnInit {
                 this.commonTasks = res.projectTasks.data.commonTasks;
 
             })
-        
+
+        this.sharedService.getLogeffort()
+            .subscribe(
+                (item) => {
+                    console.log('calendarSelectedDate emitted value is ', item);
+                    this.logefforts = this.effortSumarry(item);
+                    this.selectedTab = this.activeTab(this.logefforts.time_sheet);
+                }
+            );
+
         // this.selected = new FormControl(this.selectedTab);
 
         // if (localStorage.getItem('logEffort')) {

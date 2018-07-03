@@ -14,7 +14,7 @@
         </a>
         <mat-menu #menu="matMenu" [overlapTrigger]="false">
             <button mat-menu-item [routerLink]="['logeffort']">Log Effort</button>
-            <button mat-menu-item [routerLink]="['approval']">Approval</button>
+            <button mat-menu-item [routerLink]="['approval']" *ngIf="employee.empinfo.emp_role == ROLES.APPROVER || employee.empinfo.emp_role == ROLES.ADMIN">Approval</button>
             <button mat-menu-item>My Project List</button>
         </mat-menu>
         <a mat-button style="font-size: 16px">Report</a>

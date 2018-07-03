@@ -45,6 +45,7 @@ import { CalendarService } from './calendar/calendar.service';
 import { DashResolve, ProjectResolve } from './dash/dash.resolve.service';
 import { DashService } from './dash/dash.service';
 import { SharedService } from './shared/shared.service';
+import { NotfoundComponent } from './notfound/notfound.component';
 // import { LogeffortService } from './logeffort/logeffort.service';
 
 
@@ -56,6 +57,7 @@ import { SharedService } from './shared/shared.service';
         CalendarComponent,
         EmployeeProfileComponent,
         LoaderComponent,
+        NotfoundComponent,
         // LogeffortComponent,
         // ApprovalComponent,
     ],

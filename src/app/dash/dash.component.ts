@@ -5,6 +5,7 @@ import { EMPLOYEEDETAILS } from '../shared/mock-employee';
 import { EmployeeProfileComponent } from '../employee-profile/employee-profile.component';
 import { DashService } from './dash.service';
 import { LoaderService } from '../loader/loader.service';
+import { ROLES } from '../shared/config';
 
 @Component({
     selector: 'app-dash',
@@ -12,6 +13,8 @@ import { LoaderService } from '../loader/loader.service';
     styleUrls: ['./dash.component.css']
 })
 export class DashComponent implements OnInit {
+
+    ROLES: any;
 
     constructor(public dialog: MatDialog, private dashService: DashService, private loaderService: LoaderService) { }
 
@@ -33,6 +36,7 @@ export class DashComponent implements OnInit {
         this.loadEffort();
         console.log('loadEffort is called');
         console.log(JSON.parse(localStorage.getItem('employeeInfo')));
+        this.ROLES = ROLES;
     }
 
     employee = JSON.parse(localStorage.getItem('employeeInfo'));//EMPLOYEEDETAILS;

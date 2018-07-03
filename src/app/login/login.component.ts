@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
 					(response) => {
 						console.log('login api response is', response);
 						if(response['status'] == 'true'){
-							localStorage.setItem('employeeInfo', response['data']);
+							localStorage.setItem('employeeInfo', JSON.stringify(response['data']));
 							this.loginService.setUserLoggedIn(true);
 							this.router.navigate(['/dash'], { replaceUrl: true }); //remove login page from history
 						} else {

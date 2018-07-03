@@ -8,3 +8,9 @@ export const STATE: any = {
     APPROVED: '3',
     REJECTED: '4'
 };
+
+export const ROLES: any = {
+    USER: '0',
+    APPROVER: '1',
+    ADMIN: '2'
+}

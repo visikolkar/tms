@@ -7,6 +7,7 @@ import { DashComponent } from './dash/dash.component';
 import { LogeffortComponent } from './logeffort/logeffort.component';
 import { ApprovalComponent } from './approval/approval.component';
 import { DashResolve, ProjectResolve } from './dash/dash.resolve.service';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
 	{
@@ -43,9 +44,8 @@ const routes: Routes = [
 		pathMatch: 'full'
 	},
 	{
-		path: '**', 
-		redirectTo: 'dash', 
-		pathMatch: 'full'
+		path: '**',
+		component: NotfoundComponent
 	},
 ]
 
