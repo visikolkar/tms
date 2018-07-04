@@ -12,6 +12,7 @@ export interface CalendarDate {
 	today?: boolean; //? makes it optional parameter
 	approved?: boolean;
 	rejected?: boolean;
+	notfilled?: boolean;
 	//isRange?: boolean;
 }
 
@@ -111,13 +112,19 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 	isApproved(date: moment.Moment): boolean {
 		return _.some(this.approvedDates, function (d) {
-			return moment(date.format("MM-DD-YYYY")).isSame(d);
+			return moment(date.format("DD-MM-YYYY")).isSame(d);
 		});
 	}
 
 	isRejected(date: moment.Moment): boolean {
 		return _.some(this.rejectedDates, function (d) {
-			return moment(date.format("MM-DD-YYYY")).isSame(d);
+			return moment(date.format("DD-MM-YYYY")).isSame(d);
+		});
+	}
+
+	isNotFilled(date: moment.Moment): boolean {
+		return _.some(this.notFilledDates, function (d) {
+			return moment(date.format("DD-MM-YYYY")).isSame(d);
 		});
 	}
 
@@ -210,6 +217,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 				return {
 					approved: this.isApproved(d),
 					rejected: this.isRejected(d),
+					notfilled: this.isNotFilled(d),
 					today: this.isToday(d),
 					selected: this.isSelected(d),
 					mDate: d,

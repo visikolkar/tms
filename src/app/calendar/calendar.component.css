@@ -105,6 +105,11 @@
     background-color: #7e3878;
   }
 
+  .calendar .month-grid .notfilled {
+    font-weight: bold;
+    background-color: rgba(0,0,0,.04);
+  }
+
   .cal-btn-raised{
     min-width:20px;
     width:34px;

@@ -4,7 +4,7 @@ import { Logeffort } from '../shared/logeffort';
 import { LOGEFFORTS } from '../shared/mock-logeffort';
 import { LogeffortTwo } from '../shared/logeffort-two';
 import { LOGEFFORTSTWO } from '../shared/mock-two-logeffort';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatTabChangeEvent } from '@angular/material';
 import { STATE } from '../shared/config';
 import { LogeffortService } from './logeffort.service';
 import { LoaderService } from '../loader/loader.service';
@@ -67,6 +67,10 @@ export class LogeffortComponent implements OnInit {
         return array.map(function (item) { return item.isActive; }).indexOf(true);
     }
 
+    onTabClick(event: MatTabChangeEvent): void {
+        console.log('Mat tab change ', event);
+    }
+
     getEffortTime(time, state, index, arr): void {
         console.log('user entered time is', time);
         if (state === "hours" && (Number(time) >= 24 || Number(time) < 0)) {
@@ -120,7 +124,8 @@ export class LogeffortComponent implements OnInit {
             console.log('this.logefforts before ', this.logefforts);
             this.logefforts.time_sheet.splice(j, 1, obj);
             console.log('this.logefforts is ', this.logefforts);
-            this.logefforts.time_sheet = JSON.parse(JSON.stringify(this.logefforts.time_sheet));
+            this.logefforts = this.effortSumarry(this.logefforts);
+            //this.logefforts.time_sheet = JSON.parse(JSON.stringify(this.logefforts.time_sheet));
 
         } else {
             //show an alert to fill required fields
@@ -287,7 +292,16 @@ export class LogeffortComponent implements OnInit {
                 this.postData(state, obj, this.postUserData, message);
             } else if (state === STATE.SUBMITTED) { //check for the total time 
                 //submit the data
-                if (obj.total_log_time > obj.iris_time.split(' ')[0] && obj.comments) {
+                console.log('obj is ', obj);
+                var user_mins = +obj.total_log_time.split(':')[0] * 60 + +obj.total_log_time.split(':')[1];
+                var iris_time = obj.iris_time.split(' ')[0];
+                var iris_mins = +iris_time.split(':')[0] * 60 + +iris_time.split(':')[1];
+                console.log('user minutes are ', user_mins);
+                console.log('iris minutes are ', iris_mins);
+                if (user_mins >= iris_mins && obj.comments) {
+                    var message = "Effort data Submitted successfuly.!"
+                    this.postData(state, obj, this.postUserData, message);
+                } else if(user_mins <= iris_mins){
                     var message = "Effort data Submitted successfuly.!"
                     this.postData(state, obj, this.postUserData, message);
                 } else {

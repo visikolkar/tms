@@ -72,4 +72,16 @@
   height: 95%!important;
   padding: 0;
 }
+
+:host ::ng-deep .mat-expansion-panel-content:not(.mat-expanded) {
+    height: 0px;
+    visibility: hidden;
+}
+
+.mat-expansion-panel-header {
+  height: 48px;
+}
+:host ::ng-deep .mat-expansion-panel-content:not(.mat-expanded):not(.ng-animating){
+  display: none;
+}
     
