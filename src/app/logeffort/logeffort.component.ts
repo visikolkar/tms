@@ -298,7 +298,7 @@ export class LogeffortComponent implements OnInit {
                 var iris_mins = +iris_time.split(':')[0] * 60 + +iris_time.split(':')[1];
                 console.log('user minutes are ', user_mins);
                 console.log('iris minutes are ', iris_mins);
-                if (user_mins >= iris_mins && obj.comments) {
+                if (user_mins > iris_mins && obj.comments) {
                     var message = "Effort data Submitted successfuly.!"
                     this.postData(state, obj, this.postUserData, message);
                 } else if(user_mins <= iris_mins){

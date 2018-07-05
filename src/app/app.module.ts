@@ -40,7 +40,7 @@ import { EmployeeProfileComponent } from './employee-profile/employee-profile.co
 import { LoaderComponent } from './loader/loader.component';
 import { LoginService } from './login/login.service';
 import { LoaderService } from './loader/loader.service';
-import { AuthUserGuard } from './auth-user.guard';
+import { AuthUserGuard, AuthRoleGuard } from './auth-user.guard';
 import { CalendarService } from './calendar/calendar.service';
 import { DashResolve, ProjectResolve } from './dash/dash.resolve.service';
 import { DashService } from './dash/dash.service';
@@ -97,6 +97,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
         CalendarService,
         // LogeffortService,
         AuthUserGuard,
+        AuthRoleGuard,
         DashService,
         DashResolve,
         ProjectResolve,

@@ -7,11 +7,11 @@
   .calendar * {
     box-sizing: border-box;
   }
-  .calendar .calendar-navs {
-    /* background-color: green; */
-    /* background-color: #61b2a7; */
-    /* box-shadow: inset 0 10px 10px #61b2a7; */
-  }
+  /* .calendar .calendar-navs {
+    background-color: green;
+    background-color: #61b2a7;
+    box-shadow: inset 0 10px 10px #61b2a7;
+  } */
   .calendar .month-nav {
     padding: 4px;
     display: flex;
@@ -97,17 +97,23 @@
 
   .calendar .month-grid .approved {
     font-weight: bold;
-    background-color: #00aba9;
+    background-color: #008b00;
+    /* #00aba9; */
   }
 
   .calendar .month-grid .rejected {
     font-weight: bold;
-    background-color: #7e3878;
+    background-color: #880061; /* #7e3878; #BB86FC*/
   }
 
   .calendar .month-grid .notfilled {
     font-weight: bold;
-    background-color: rgba(0,0,0,.04);
+    background-color: #757575;
+  }
+
+  .calendar .month-grid .submitted {
+    font-weight: bold;
+    background-color: #00838f;
   }
 
   .cal-btn-raised{

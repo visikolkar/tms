@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import { LoaderService } from '../loader/loader.service';
@@ -13,13 +13,14 @@ export interface CalendarDate {
 	approved?: boolean;
 	rejected?: boolean;
 	notfilled?: boolean;
-	//isRange?: boolean;
+	submitted?: boolean;
+	isRange?: boolean;
 }
 
 @Component({
 	selector: 'tms-calendar',
 	templateUrl: './calendar.component.html',
-	styleUrls: ['./calendar.component.css']
+	styleUrls: ['./calendar.component.css'],
 })
 export class CalendarComponent implements OnInit, OnChanges {
 
@@ -29,15 +30,16 @@ export class CalendarComponent implements OnInit, OnChanges {
 	approvedDates = [];
 	rejectedDates = [];
 	notFilledDates = [];
+	submittedDates = [];
 	weeks: CalendarDate[][] = [];
 	sortedDates: CalendarDate[] = [];
 
 	@Input() selectedDates: CalendarDate[] = [];
 	@Output() onSelectDate = new EventEmitter<CalendarDate>();
 
-	constructor(private calendarService: CalendarService, 
-		private loaderService: LoaderService, 
-		public notificationBar: MatSnackBar, 
+	constructor(private calendarService: CalendarService,
+		private loaderService: LoaderService,
+		public notificationBar: MatSnackBar,
 		private sharedService: SharedService) { }
 
 	openNotificationbar(message: string, action: string) {
@@ -50,13 +52,14 @@ export class CalendarComponent implements OnInit, OnChanges {
 		this.generateCalendar();
 		this.calendar();
 		//assign approvedDates and rejectedDates from localStorage
-		if (localStorage.getItem('calendarInfo')) {
-			var colorDates = JSON.parse(localStorage.getItem('calendarInfo'));
-			this.approvedDates = colorDates.approvedDates;
-			this.rejectedDates = colorDates.rejectedDates;
-			this.notFilledDates = colorDates.notFilledDates;
-			this.generateCalendar();
-		}
+		// if (localStorage.getItem('calendarInfo')) {
+		// 	var colorDates = JSON.parse(localStorage.getItem('calendarInfo'));
+		// 	this.approvedDates = colorDates.approvedDates;
+		// 	this.rejectedDates = colorDates.rejectedDates;
+		// 	this.notFilledDates = colorDates.notFilledDates;
+		// 	this.submittedDates = colorDates.submittedDates;
+		// 	this.generateCalendar();
+		// }
 		this.sharedService.getEmittedValue()
 			.subscribe(
 				(item) => {
@@ -64,6 +67,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 					this.approvedDates = JSON.parse(JSON.stringify(item.approvedDates));
 					this.rejectedDates = JSON.parse(JSON.stringify(item.rejectedDates));
 					this.notFilledDates = JSON.parse(JSON.stringify(item.notFilledDates));
+					this.submittedDates = JSON.parse(JSON.stringify(item.submittedDates));
 					this.generateCalendar();
 				}
 			);
@@ -80,6 +84,8 @@ export class CalendarComponent implements OnInit, OnChanges {
 						this.approvedDates = response['data']['approvedDates'];
 						this.rejectedDates = response['data']['rejectedDates'];
 						this.notFilledDates = response['data']['notFilledDates'];
+						this.submittedDates = response['data']['submittedDates'];
+						this.generateCalendar();
 						localStorage.setItem('calendarInfo', JSON.stringify(response['data']));
 					} else {
 						console.log('Login failed', response);
@@ -112,19 +118,47 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 	isApproved(date: moment.Moment): boolean {
 		return _.some(this.approvedDates, function (d) {
-			return moment(date.format("DD-MM-YYYY")).isSame(d);
+			//return moment(date.format("DD-MM-YYYY")).isSame(d);
+			if (date.format("DD-MM-YYYY") == d) {
+				return true;
+			} else {
+				return false;
+			}
 		});
 	}
 
 	isRejected(date: moment.Moment): boolean {
 		return _.some(this.rejectedDates, function (d) {
-			return moment(date.format("DD-MM-YYYY")).isSame(d);
+			//return moment(date.format("DD-MM-YYYY")).isSame(d);
+			if (date.format("DD-MM-YYYY") == d) {
+				return true;
+			} else {
+				return false;
+			}
 		});
 	}
 
 	isNotFilled(date: moment.Moment): boolean {
 		return _.some(this.notFilledDates, function (d) {
-			return moment(date.format("DD-MM-YYYY")).isSame(d);
+			//return moment(date.format("DD-MM-YYYY")).isSame(d);
+			if (date.format("DD-MM-YYYY") == d) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+	}
+
+	isSubmitted(date: moment.Moment): boolean {
+		console.log('date is ', date);
+		return _.some(this.submittedDates, function (d) {
+			console.log('inside submitted d value is ', d);
+			//return moment(date.format("DD-MM-YYYY")).isSame(d);
+			if (date.format("DD-MM-YYYY") == d) {
+				return true;
+			} else {
+				return false;
+			}
 		});
 	}
 
@@ -140,6 +174,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 
 	selectDate(date: CalendarDate): void {
 		this.onSelectDate.emit(date);
+		console.log('selected date before format is ', date);
 		console.log('selected date is ', date.mDate.format('DD-MM-YYYY'));
 		this.loaderService.show();
 		this.calendarService.calendarSelectedDate(date.mDate.format('DD-MM-YYYY'))
@@ -213,11 +248,13 @@ export class CalendarComponent implements OnInit, OnChanges {
 			.map((date: number): CalendarDate => {
 				console.log('date value of type number is', date);
 				const d = moment(firstDayOfGrid).date(date);
-				console.log('the approved date is ', this.isApproved(d));
+				console.log('value of d is ', d);
+				console.log('the submitted date is ', this.isSubmitted(d));
 				return {
 					approved: this.isApproved(d),
 					rejected: this.isRejected(d),
 					notfilled: this.isNotFilled(d),
+					submitted: this.isSubmitted(d),
 					today: this.isToday(d),
 					selected: this.isSelected(d),
 					mDate: d,

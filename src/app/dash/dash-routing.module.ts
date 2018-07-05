@@ -11,7 +11,7 @@ const dashRoutes: Routes = [
     },
     { 
         path: 'approval', 
-        component: ApprovalComponent 
+        component: ApprovalComponent
     },
 ];
 
