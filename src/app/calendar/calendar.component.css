@@ -92,7 +92,8 @@
   }
   .calendar .month-grid .today {
     font-weight: bold;
-    background-color: #C3003C;
+    /* background-color: lime; */
+    color: red;
   }
 
   .calendar .month-grid .approved {
@@ -103,12 +104,12 @@
 
   .calendar .month-grid .rejected {
     font-weight: bold;
-    background-color: #880061; /* #7e3878; #BB86FC*/
+    background-color: #C3003C; /* #7e3878; #BB86FC*/
   }
 
-  .calendar .month-grid .notfilled {
+  .calendar .month-grid .saved {
     font-weight: bold;
-    background-color: #757575;
+    background-color: rgb(0, 0, 0.4);
   }
 
   .calendar .month-grid .submitted {

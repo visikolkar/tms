@@ -6,6 +6,16 @@
     font-family: 'Open Sans', sans-serif;
   }
 
+  html {
+    /* -ms-overflow-style: -ms-autohiding-scrollbar; */
+    -ms-overflow-style: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+  }
+
   body{
     margin: 0;
   }

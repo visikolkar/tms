@@ -107,7 +107,7 @@
                                         </mat-expansion-panel>
                                     </mat-accordion>
                                     <!-- style="text-align: right; margin-right: 0px; margin-left: 0px" -->
-                                    <mat-card-actions style="margin-right: 0px; margin-left: 0px">
+                                    <mat-card-actions style="margin-right: 0px; margin-left: 0px" *ngIf="logeffort.summaryEffort.length">
                                         <mat-form-field style="text-align: left; margin-left: 0px; display: inline-block;">
                                             <textarea matInput placeholder="Comments" [(ngModel)]="logeffort.comments"></textarea>
                                         </mat-form-field>

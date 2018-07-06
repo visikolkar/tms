@@ -12,9 +12,9 @@ export interface CalendarDate {
 	today?: boolean; //? makes it optional parameter
 	approved?: boolean;
 	rejected?: boolean;
-	notfilled?: boolean;
+	saved?: boolean;
 	submitted?: boolean;
-	isRange?: boolean;
+	// isRange?: boolean;
 }
 
 @Component({
@@ -29,7 +29,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 	//below dates to be fetched from employee data through an api call
 	approvedDates = [];
 	rejectedDates = [];
-	notFilledDates = [];
+	savedDates = [];
 	submittedDates = [];
 	weeks: CalendarDate[][] = [];
 	sortedDates: CalendarDate[] = [];
@@ -56,7 +56,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 		// 	var colorDates = JSON.parse(localStorage.getItem('calendarInfo'));
 		// 	this.approvedDates = colorDates.approvedDates;
 		// 	this.rejectedDates = colorDates.rejectedDates;
-		// 	this.notFilledDates = colorDates.notFilledDates;
+		// 	this.savedDates = colorDates.savedDates;
 		// 	this.submittedDates = colorDates.submittedDates;
 		// 	this.generateCalendar();
 		// }
@@ -66,7 +66,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 					console.log('calendar emitted value is ', item);
 					this.approvedDates = JSON.parse(JSON.stringify(item.approvedDates));
 					this.rejectedDates = JSON.parse(JSON.stringify(item.rejectedDates));
-					this.notFilledDates = JSON.parse(JSON.stringify(item.notFilledDates));
+					this.savedDates = JSON.parse(JSON.stringify(item.savedDates));
 					this.submittedDates = JSON.parse(JSON.stringify(item.submittedDates));
 					this.generateCalendar();
 				}
@@ -83,7 +83,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 					if (response['status'] == 'true') {
 						this.approvedDates = response['data']['approvedDates'];
 						this.rejectedDates = response['data']['rejectedDates'];
-						this.notFilledDates = response['data']['notFilledDates'];
+						this.savedDates = response['data']['savedDates'];
 						this.submittedDates = response['data']['submittedDates'];
 						this.generateCalendar();
 						localStorage.setItem('calendarInfo', JSON.stringify(response['data']));
@@ -138,8 +138,8 @@ export class CalendarComponent implements OnInit, OnChanges {
 		});
 	}
 
-	isNotFilled(date: moment.Moment): boolean {
-		return _.some(this.notFilledDates, function (d) {
+	isSaved(date: moment.Moment): boolean {
+		return _.some(this.savedDates, function (d) {
 			//return moment(date.format("DD-MM-YYYY")).isSame(d);
 			if (date.format("DD-MM-YYYY") == d) {
 				return true;
@@ -253,7 +253,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 				return {
 					approved: this.isApproved(d),
 					rejected: this.isRejected(d),
-					notfilled: this.isNotFilled(d),
+					saved: this.isSaved(d),
 					submitted: this.isSubmitted(d),
 					today: this.isToday(d),
 					selected: this.isSelected(d),

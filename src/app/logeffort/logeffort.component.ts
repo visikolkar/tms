@@ -310,7 +310,8 @@ export class LogeffortComponent implements OnInit {
             } else if (state === STATE.REJECTED) {
                 // self rejection
                 var message = "Effort data Rejected successfuly.!"
-                this.postData(state, obj, this.postUserData, message);
+                //after self reject make the state to saved
+                this.postData(STATE.SAVED, obj, this.postUserData, message);
             }
         } else {
             //no data availble to post
