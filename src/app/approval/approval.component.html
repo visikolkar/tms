@@ -1,4 +1,106 @@
-<div style="display: block">
-	<canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
-	 (chartClick)="chartClicked($event)"></canvas>
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0" fxLayoutAlign="center" style="background-color:transparent; margin-top:40px;">
+    <!-- <a fxFlex="5%">prev</a> -->
+    <div fxFlex="90%">
+        <!-- [selectedIndex]="selectedTab" -->
+        <!-- <div class="container"> -->
+        <mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectedTab" [@.disabled]="true">
+            <mat-tab *ngFor="let approval of approvals; let j = index;" label={{approval.iris_date}}>
+                <!-- background-color:rgba(0,0,0,.04); use it if needed for the tab background -->
+                <div class="container" style=" padding:10px;overflow-y:auto;" [style.height.px]="windowheight">
+                    <mat-card style="padding-left: 4px; padding-right: 4px; padding-top: 4px;">
+                        <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" *ngFor="let effort of approval.empEfforts"
+                            style="padding: 5px; min-height: 72px;">
+                            <div fxFlex="15%" style=" background-color:rgba(0,0,0,.04); display: flex;
+                                justify-content: left;
+                                align-items: center; padding:10px;">
+                                {{effort.emp_name}}
+                            </div>
+                            <div fxFlex="70%" style=" background-color:rgba(0,0,0,.04);display: flex;
+                                justify-content: left;
+                                align-items: center; overflow-y: auto; padding:10px;">
+                                <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5px" *ngIf="effort.effort.length else notFilled">
+                                    <mat-card style="height: 50px; width: 100px; display: flex;
+                                            justify-content: center;
+                                            align-items: center; padding: 4px;" *ngFor="let task of effort.effort">
+                                        <mat-card-header style="margin: 0px;">
+                                            <mat-card-title style="margin: 0px; font-size: 0.4em; display: block;"> {{task.project_name}} </mat-card-title>
+                                            <mat-card-subtitle style="margin: 0px; font-size: 0.6em; display: block;"> Time {{task.hours}}:{{task.mins}} </mat-card-subtitle>
+                                        </mat-card-header>
+                                    </mat-card>
+                                </div>
+                                <ng-template #notFilled>
+                                    Effort data not avilable
+                                </ng-template>
+                            </div>
+                            <div fxFlex="15%" style=" display: flex;
+                                justify-content: center;
+                                align-items: center; background-color:rgba(0,0,0,.04);">
+                                <div class="button-row">
+                                    <button mat-stroked-button mat-icon-button class="basic" matTooltip="View details">
+                                        <mat-icon>desktop_windows</mat-icon>
+                                    </button>
+                                    <button *ngIf="effort.filled_state == '0'" mat-stroked-button mat-icon-button color="primary" style="margin-left: 10px;"
+                                        class="done">
+                                        <mat-icon>done</mat-icon>
+                                    </button>
+                                    <button *ngIf="effort.filled_state == '0'" mat-stroked-button mat-icon-button color="warn" style="margin-left: 10px;" class="clear">
+                                        <mat-icon>clear</mat-icon>
+                                    </button>
+                                    <button *ngIf="effort.filled_state == '3'" mat-raised-button style="margin-left: 10px;padding: 0 10px 0 10px;color:green"
+                                        disabled>
+                                        <mat-icon>done</mat-icon> APPROVED</button>
+                                    <button *ngIf="effort.filled_state == '4'" mat-raised-button style="margin-left: 10px;padding: 0 10px 0 10px;color:red" disabled>
+                                        <mat-icon>clear</mat-icon> REJECTED</button>
+                                </div>
+                            </div>
+                            <!-- <mat-divider></mat-divider> -->
+                        </div>
+                        <mat-card-actions style="text-align: right; margin-right: 25px; margin-left: 0px">
+                            <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #3f51B5">
+                                <mat-icon>done_all</mat-icon> Approve All</button>
+                        </mat-card-actions>
+                    </mat-card>
+                    <br/>
+                    <mat-card style="padding-left: 4px; padding-right: 4px;">
+                        <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5%" style=" padding:10px; display: flex;
+                                justify-content: center;
+                                align-items: center;">
+                            <mat-card style="width: 30%; display: flex;
+                                                justify-content: center;
+                                                align-items: center; padding: 4px; background-color:rgba(0,0,0,.04)">
+                                <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
+                            </mat-card>
+                            <mat-card style="width: 30%; display: flex;
+                                                justify-content: center;
+                                                align-items: center; padding: 4px; background-color:rgba(0,0,0,.04)">
+                                <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
+                            </mat-card>
+                            <mat-card style="width: 30%; display: flex;
+                                                justify-content: center;
+                                                align-items: center; padding: 4px; background-color:rgba(0,0,0,.04)">
+                                <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
+                            </mat-card>
+                        </div>
+                    </mat-card>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+        <!-- </div> -->
+    </div>
+    <!-- <a fxFlex="5%">next</a> -->
+    <a class="navigation navigation-prev " aria-label="Previous page: this" (click)="prevNextWeek('prev')">
+        <span>
+            <mat-icon>chevron_left</mat-icon>
+        </span>
+        <span style="font-size:0.3em;">Prev</span>
+    </a>
+    <a class="navigation navigation-next " aria-label="Next page: Number" (click)="prevNextWeek('next')">
+        <span>
+            <mat-icon>chevron_right</mat-icon>
+        </span>
+        <span style="font-size:0.3em;">Next</span>
+    </a>
 </div>
