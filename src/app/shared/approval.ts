@@ -94,7 +94,7 @@ export const APPROVAL = {
                     emp_id: 'SI002068',
                     emp_name: 'Vijay Kumar N C',
                     iris_date: '01-07-2018',
-                    filled_state: '0',
+                    filled_state: '2',
                     comments: '',
                     isActive: false,
                     effort: [{

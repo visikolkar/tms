@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { APPROVAL } from '../shared/approval';
+import { MatSnackBar } from '@angular/material';
+import { ApprovalService } from './approval.service';
+import { LoaderService } from '../loader/loader.service';
+import { ActivatedRoute } from '@angular/router';
+import { SharedService } from '../shared/shared.service';
+import { STATE } from '../shared/config';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
 	selector: 'app-approval',
@@ -11,18 +18,144 @@ export class ApprovalComponent implements OnInit {
 	approvals: any;
 	selectedTab: number;
 	windowheight: number;
+	STATES: any;
 
-	constructor() { }
+	constructor(public notificationBar: MatSnackBar,
+		private approvalService: ApprovalService,
+		private loaderService: LoaderService,
+		private route: ActivatedRoute,
+		private sharedService: SharedService,
+		public dialog: MatDialog
+	) { }
+
+	openNotificationbar(message: string, action: string) {
+        this.notificationBar.open(message, action, {
+            duration: 5000,
+        });
+    }
 
 	activeTab(array): any {
-        return array.map(function (item) { return item.isActive; }).indexOf(true);
-    }
+		return array.map(function (item) { return item.isActive; }).indexOf(true);
+	}
+
+	postApproverAction(data: any, message): void {
+		this.loaderService.show()
+		this.approvalService.postApproverAction(data)
+			.subscribe(
+				(response) => {
+					console.log('approver action res is ', response);
+					this.openNotificationbar(message, 'Close');
+				}, (err) => {
+					console.log('approver action err is ', err);
+					this.loaderService.hide();
+				}, () => {
+					this.loaderService.hide();
+				}
+			);
+	}
+
+	approverAction(state: string, date: string, emp: any, all: boolean): void {
+		var self = this;
+		console.log('apppver action is ', state);
+		console.log('apppver date is ', date);
+		console.log('apppver employee is ', emp.emp_id);
+
+		if (state == this.STATES.APPROVED) {
+			if (all) {
+				//approve all
+				const dialogRef = this.dialog.open(DialogApproveAll, {
+					width: '250px',
+				});
+
+				dialogRef.afterClosed().subscribe(result => {
+					console.log('The dialog was closed', result);
+					if (result) {
+						var empArr = [];
+						emp.forEach(function (item) {
+							if (item.filled_state == self.STATES.SUBMITTED) {
+								empArr.push(item.emp_id);
+							}
+						});
+						var actionData = {
+							iris_date: date,
+							filled_state: state,
+							emp_ids: empArr,
+							comments: 'Approved'
+						};
+						console.log('action data is ', actionData);
+						var message = 'All employee Approval is complete';
+						this.postApproverAction(actionData, message);
+					} else {
+						console.log('approve all aborted');
+					}
+				});
+			} else {
+				var empArr = [];
+				empArr.push(emp.emp_id);
+				var actionData = {
+					iris_date: date,
+					filled_state: state,
+					emp_ids: empArr,
+					comments: 'Approved'
+				};
+				console.log('action data is ', actionData);
+				var message = 'Approval is complete';
+				this.postApproverAction(actionData, message);
+			}
+		} else {
+			var empArr = [];
+			empArr.push(emp.emp_id);
+			var actionData = {
+				iris_date: date,
+				filled_state: state,
+				emp_ids: empArr,
+				comments: 'Reject'
+			};
+			const dialogRef = this.dialog.open(DialogReject, {
+				width: '250px',
+				data: { comment: actionData }
+			});
+
+			dialogRef.afterClosed().subscribe(result => {
+				console.log('The dialog was closed', result);
+				console.log('action data is ', actionData);
+				// actionData.comments = result;
+				if (result && actionData.comments) {
+					console.log('action data is ', actionData);
+					var message = 'Rejection is complete';
+					this.postApproverAction(actionData, message);
+				} else {
+					console.log('reject aborted');
+				}
+			});
+		}
+	}
+
+	effortSumarry(arr): any {
+		var self = this;
+		arr.forEach(function (item) {
+			var month = +item.iris_date.split('-')[1] - 1;
+			item.displayDate = new Date(item.iris_date.split('-')[2], month, item.iris_date.split('-')[0]).toDateString().slice(0, 10);
+		});
+		console.log('logeffort with summary is ', arr);
+		return arr;
+	}
 
 	ngOnInit() {
 		this.windowheight = (73 * window.screen.height) / 100;
-		this.approvals = APPROVAL.data;
-		console.log(this.approvals[0].empEfforts);
+		this.approvals = this.effortSumarry(APPROVAL.data);
 		this.selectedTab = this.activeTab(this.approvals);
+		this.STATES = STATE;
+		this.route.data
+			.subscribe((res: any) => {
+				console.log('resolved approvals are ', res);
+				// this.approvals = this.effortSumarry(APPROVAL.data);
+				// this.selectedTab = this.activeTab(this.approvals);
+			});
+	}
+
+	prevNextWeek(str: string): void {
+		console.log("prevNextWeek fucntion call", str);
 	}
 
 	// Doughnut
@@ -37,6 +170,38 @@ export class ApprovalComponent implements OnInit {
 
 	public chartHovered(e: any): void {
 		console.log(e);
+	}
+
+}
+
+@Component({
+	selector: 'dialog-approve-all',
+	templateUrl: './dialog-approve-all.html',
+})
+export class DialogApproveAll {
+
+	constructor(
+		public dialogRef: MatDialogRef<DialogApproveAll>,
+		@Inject(MAT_DIALOG_DATA) public data: any) { }
+
+	onNoClick(): void {
+		this.dialogRef.close();
+	}
+
+}
+
+@Component({
+	selector: 'dialog-reject',
+	templateUrl: './dialog-reject.html',
+})
+export class DialogReject {
+
+	constructor(
+		public dialogRef: MatDialogRef<DialogApproveAll>,
+		@Inject(MAT_DIALOG_DATA) public data: any) { }
+
+	onNoClick(): void {
+		this.dialogRef.close();
 	}
 
 }

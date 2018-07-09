@@ -27,3 +27,15 @@ export class ProjectResolve implements Resolve<any> {
         return this.dashService.projectTaskList();
     }
 }
+
+@Injectable()
+export class ApprovalResolve implements Resolve<any> {
+    constructor(private dashService: DashService ) { }
+
+    resolve(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
+
+        return this.dashService.loadApproval();
+    }
+}

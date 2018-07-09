@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { DashComponent } from './dash/dash.component';
 import { LogeffortComponent } from './logeffort/logeffort.component';
 import { ApprovalComponent } from './approval/approval.component';
-import { DashResolve, ProjectResolve } from './dash/dash.resolve.service';
+import { DashResolve, ProjectResolve, ApprovalResolve } from './dash/dash.resolve.service';
 import { NotfoundComponent } from './notfound/notfound.component';
 
 const routes: Routes = [
@@ -34,7 +34,10 @@ const routes: Routes = [
 			}, {
 				path: 'approval',
 				component: ApprovalComponent,
-				canActivate: [AuthRoleGuard]
+				//canActivate: [AuthRoleGuard],
+				resolve: {
+					approvals: ApprovalResolve
+				}
 			}
 		]
 	},

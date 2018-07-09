@@ -42,10 +42,11 @@ import { LoginService } from './login/login.service';
 import { LoaderService } from './loader/loader.service';
 import { AuthUserGuard, AuthRoleGuard } from './auth-user.guard';
 import { CalendarService } from './calendar/calendar.service';
-import { DashResolve, ProjectResolve } from './dash/dash.resolve.service';
+import { DashResolve, ProjectResolve, ApprovalResolve } from './dash/dash.resolve.service';
 import { DashService } from './dash/dash.service';
 import { SharedService } from './shared/shared.service';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { DialogApproveAll, DialogReject } from './approval/approval.component';
 // import { LogeffortService } from './logeffort/logeffort.service';
 
 
@@ -56,6 +57,8 @@ import { NotfoundComponent } from './notfound/notfound.component';
         DashComponent,
         CalendarComponent,
         EmployeeProfileComponent,
+        DialogApproveAll,
+        DialogReject,
         LoaderComponent,
         NotfoundComponent,
         // LogeffortComponent,
@@ -101,11 +104,14 @@ import { NotfoundComponent } from './notfound/notfound.component';
         DashService,
         DashResolve,
         ProjectResolve,
+        ApprovalResolve,
         SharedService
     ],
     bootstrap: [AppComponent],
     entryComponents: [
-        EmployeeProfileComponent
+        EmployeeProfileComponent,
+        DialogApproveAll,
+        DialogReject
     ]
 })
 export class AppModule { }

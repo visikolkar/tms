@@ -37,6 +37,7 @@ import { DashService } from './dash.service';
 import { LogeffortService } from '../logeffort/logeffort.service';
 import { ChartsModule } from 'ng2-charts';
 import { SharedService } from '../shared/shared.service';
+import { ApprovalService } from '../approval/approval.service';
 //import { DashResolve } from './dash.resolve.service';
 
 @NgModule({
@@ -77,7 +78,7 @@ import { SharedService } from '../shared/shared.service';
     providers: [
         DashService,
         LogeffortService,
-        //DashResolve,
+        ApprovalService,
         SharedService
     ]
 })
