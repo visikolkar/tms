@@ -44,8 +44,8 @@ export class LogeffortComponent implements OnInit {
         project_name: '',
         skill_set: '',
         task_name: '',
-        hours: '00',
-        mins: '00'
+        hours: '',
+        mins: ''
     }];
     userLogEffortSummary = [];
     postUserData = [];
@@ -105,14 +105,14 @@ export class LogeffortComponent implements OnInit {
         console.log('adding item to the array ', obj);
         console.log('j value is ', j);
         var arr = obj.effort;
-        if (arr[index].project_name && arr[index].task_name && (arr[index].hours !== '00' || arr[index].mins !== '00')) {
+        if (arr[index].project_name && arr[index].task_name && (arr[index].hours !== '' || arr[index].mins !== '')) {
             //push an empty object
             arr.push({
                 project_name: '',
                 skill_set: '',
                 task_name: '',
-                hours: '00',
-                mins: '00'
+                hours: '',
+                mins: ''
             });
             arr = this.filterUserEffort(arr);
             console.log('user filled data after filter is', arr);
@@ -136,6 +136,7 @@ export class LogeffortComponent implements OnInit {
 
     filterUserEffort(array): any {
         //this will retun an array of unique objects
+        array.sort(function(a,b) { if(a.project_name && b.project_name){return (a.project_name > b.project_name) ? 1 : ((b.project_name > a.project_name) ? -1 : 0);}} );
         return array = array.filter((item, index, self) =>
             index === self.findIndex((obj) =>
                 obj.project_name === item.project_name && obj.skill_set === item.skill_set && obj.task_name === item.task_name)
@@ -156,7 +157,7 @@ export class LogeffortComponent implements OnInit {
         let self = this;
         let prepareArray = [];
         array.forEach(function (item) {
-            if (item.project_name !== '' && item.task_name !== '' && (item.hours !== '00' || item.mins !== '00')) {
+            if (item.project_name !== '' && item.task_name !== '' && (item.hours !== '' || item.mins !== '')) {
                 prepareArray.push(item);
             }
         });

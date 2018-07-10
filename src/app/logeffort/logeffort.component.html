@@ -11,7 +11,7 @@
                     <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
                         <div fxFlex="70%">
                             <mat-card style="padding-left: 4px; padding-right: 4px; padding-top: 4px;">
-                                <mat-grid-list [cols]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? 4 : 5" style="margin: 0 auto;"
+                                <!-- <mat-grid-list [cols]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? 4 : 5" style="margin: 0 auto;"
                                     *ngFor="let effort of logeffort.effort; let i = index;" [rowHeight]="!i ? '69px' : '50px'">
                                     <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem">
                                         <mat-form-field style="width:90%;font-size: 16px;">
@@ -60,7 +60,6 @@
                                                 [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
                                         </mat-form-field>
                                     </mat-grid-tile>
-                                    <!-- add and delete not required for SUBMIT and APPROVED state -->
                                     <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem" *ngIf="logeffort.filled_state !== STATE.SUBMITTED && logeffort.filled_state !== STATE.APPROVED">
                                         <div class="button-row">
                                             <button mat-button color="primary" *ngIf="i === logeffort.effort.length - 1" (click)="addUserEffort(i, logeffort, j)">
@@ -71,7 +70,70 @@
                                             </button>
                                         </div>
                                     </mat-grid-tile>
-                                </mat-grid-list>
+                                </mat-grid-list> -->
+                                <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="padding: 4px 4px 2px 4px; min-height: 30px;"
+                                    *ngFor="let effort of logeffort.effort; let i = index;">
+                                    <div fxFlex="15%" style=" background-color:rgba(0,0,0,.04); display: flex;
+                                        justify-content: left;
+                                        align-items: center; padding:10px 0 10px 0;">
+                                        <mat-select style="font-size: .9em" placeholder="Project List" [(value)]="effort.project_name" (change)="disableOption($event, i, logeffort.effort)"
+                                            [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
+                                            <mat-option *ngFor="let project of logeffort.projects" [value]="project.value">
+                                                {{ project.value }}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                    <div fxFlex="25%" style=" background-color:rgba(0,0,0,.04); display: flex;
+                                        justify-content: left;
+                                        align-items: center; padding:10px 0 10px 0;">
+                                        <mat-select style="font-size: .9em" placeholder="Skill List" [(value)]="effort.skill_set" [matTooltip]="(effort.project_name === 'Common') ? 'Disabled': ''"
+                                            [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED || effort.project_name === 'Common') ? true : false">
+                                            <mat-option value="{{employee.skill.primary_skill_three}}">{{employee.skill.primary_skill_three}}</mat-option>
+                                            <mat-option value="{{employee.skill.secondary_skill_three}}">{{employee.skill.secondary_skill_three}}</mat-option>
+                                        </mat-select>
+                                    </div>
+                                    <div fxFlex="45%" style=" background-color:rgba(0,0,0,.04);display: flex;
+                                        justify-content: left;
+                                        align-items: center; overflow-x: auto; padding:10px 0 10px 0;">
+                                        <mat-select style="font-size: .9em" placeholder="Task List" [(value)]="effort.task_name" [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
+                                            <div *ngIf="effort.project_name === 'Common'; else projectTaskOptions">
+                                                <mat-option *ngFor="let cTask of commonTasks" [value]="cTask.value">
+                                                    {{ cTask.value }}
+                                                </mat-option>
+                                            </div>
+                                            <ng-template #projectTaskOptions>
+                                                <mat-option *ngFor="let pTask of projectTasks" [value]="pTask.value">
+                                                    {{ pTask.value }}
+                                                </mat-option>
+                                            </ng-template>
+                                        </mat-select>
+                                    </div>
+                                    <div fxFlex="5%" style=" background-color:rgba(0,0,0,.04); display: flex;
+                                        justify-content: left;
+                                        align-items: center; padding:10px 0 10px 0;">
+                                        <input style="font-size: .9em" matInput type="text" class="without" placeholder='Hours' [(ngModel)]="effort.hours" (keypress)="keyPress($event)"
+                                            (input)="getEffortTime($event.target.value, 'hours', i, logeffort.effort)" maxlength="2"
+                                            [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
+                                    </div>
+                                    <div fxFlex="5%" style=" background-color:rgba(0,0,0,.04); display: flex;
+                                        justify-content: left;
+                                        align-items: center; padding:10px 0 10px 0;">
+                                        <input style="font-size: .9em" matInput type="text" class="without" placeholder="Mins" [(ngModel)]="effort.mins" (keypress)="keyPress($event)"
+                                            (input)="getEffortTime($event.target.value, 'mins', i, logeffort.effort)" maxlength="2"
+                                            [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
+                                    </div>
+                                    <div fxFlex="5%" style=" display: flex;
+                                        justify-content: center;
+                                        align-items: center;" *ngIf="logeffort.filled_state !== STATE.SUBMITTED && logeffort.filled_state !== STATE.APPROVED">
+                                        <button mat-icon-button class="basic" color="primary" *ngIf="i === logeffort.effort.length - 1" (click)="addUserEffort(i, logeffort, j)">
+                                            <mat-icon>add</mat-icon>
+                                        </button>
+                                        <button mat-icon-button class="basic" color="warn" *ngIf="(logeffort.effort.length !== 1 && !(i === logeffort.effort.length - 1))"
+                                            (click)="deleteUserEffort(i, logeffort, j)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
                                 <mat-card-actions style="text-align: right; margin-right: 0px; margin-left: 0px" *ngIf="logeffort.filled_state !== STATE.SUBMITTED && logeffort.filled_state !== STATE.APPROVED">
                                     <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #3f51B5" (click)="postUserEffort(STATE.SAVED, logeffort)">SAVE</button>
                                 </mat-card-actions>
@@ -79,11 +141,11 @@
                             </mat-card>
                         </div>
                         <div fxFlex="30%">
-                            <mat-card style="padding: 4px">
+                            <mat-card style="padding: 4px; min-height: 95px;">
                                 <mat-card-title style="background-color:rgba(0,0,0,.04); height: 40px;">
                                     Summary
                                 </mat-card-title>
-                                <mat-card-content style="padding: 10px 10px 0 10px">
+                                <mat-card-content style="padding: 0">
                                     <mat-accordion *ngIf="logeffort.effort.length">
                                         <mat-expansion-panel *ngFor="let effort of logeffort.summaryEffort" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                                             <mat-expansion-panel-header>
@@ -97,11 +159,14 @@
 
                                             <mat-list>
                                                 <mat-list-item *ngFor="let task of effort.task">
-                                                    <span> {{task.task_name}} </span>
+                                                    <span style="font-size: 0.9em"> {{task.task_name}} </span>
                                                     <span fxFlex></span>
                                                     <!-- <span> {{task.skill_set}} </span> -->
                                                     <span fxFlex></span>
-                                                    <span> {{task.hours}}:{{task.mins}} </span>
+                                                    <span style="font-size: 0.9em" *ngIf="task.mins; else withZero"> {{task.hours}}:{{task.mins}} </span>
+                                                    <ng-template #withZero>
+                                                        <span style="font-size: 0.9em"> {{task.hours}}:00 </span>
+                                                    </ng-template>
                                                 </mat-list-item>
                                             </mat-list>
                                         </mat-expansion-panel>
@@ -114,7 +179,7 @@
                                         <span fxFlex></span>
                                         <button mat-raised-button color="warn" (click)="postUserEffort(STATE.REJECTED, logeffort)" *ngIf="logeffort.filled_state == STATE.SUBMITTED">SELF REJECT</button>
                                         <button mat-raised-button color="primary" (click)="postUserEffort(STATE.SUBMITTED, logeffort)" *ngIf="logeffort.filled_state !== STATE.SUBMITTED && logeffort.filled_state !== STATE.APPROVED">SUBMIT</button>
-                                        
+
                                     </mat-card-actions>
 
                                 </mat-card-content>

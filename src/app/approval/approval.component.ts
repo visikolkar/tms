@@ -20,6 +20,10 @@ export class ApprovalComponent implements OnInit {
 	windowheight: number;
 	STATES: any;
 
+	employee = JSON.parse(localStorage.getItem('employeeInfo'));
+
+	empEmail = this.employee.empinfo.emp_email;
+
 	constructor(public notificationBar: MatSnackBar,
 		private approvalService: ApprovalService,
 		private loaderService: LoaderService,
@@ -44,6 +48,8 @@ export class ApprovalComponent implements OnInit {
 			.subscribe(
 				(response) => {
 					console.log('approver action res is ', response);
+					this.approvals = this.effortSumarry(response['data']);
+					this.selectedTab = this.activeTab(this.approvals);
 					this.openNotificationbar(message, 'Close');
 				}, (err) => {
 					console.log('approver action err is ', err);
@@ -80,7 +86,8 @@ export class ApprovalComponent implements OnInit {
 							iris_date: date,
 							filled_state: state,
 							emp_ids: empArr,
-							comments: 'Approved'
+							comments: 'Approved',
+							approverEmail: this.empEmail
 						};
 						console.log('action data is ', actionData);
 						var message = 'All employee Approval is complete';
@@ -96,7 +103,8 @@ export class ApprovalComponent implements OnInit {
 					iris_date: date,
 					filled_state: state,
 					emp_ids: empArr,
-					comments: 'Approved'
+					comments: 'Approved',
+					approverEmail: 'chetan.lavti'//this.empEmail
 				};
 				console.log('action data is ', actionData);
 				var message = 'Approval is complete';
@@ -109,7 +117,8 @@ export class ApprovalComponent implements OnInit {
 				iris_date: date,
 				filled_state: state,
 				emp_ids: empArr,
-				comments: 'Reject'
+				comments: 'Reject',
+				approverEmail: 'chetan.lavti'//this.empEmail
 			};
 			const dialogRef = this.dialog.open(DialogReject, {
 				width: '250px',
@@ -143,14 +152,14 @@ export class ApprovalComponent implements OnInit {
 
 	ngOnInit() {
 		this.windowheight = (73 * window.screen.height) / 100;
-		this.approvals = this.effortSumarry(APPROVAL.data);
-		this.selectedTab = this.activeTab(this.approvals);
+		// this.approvals = this.effortSumarry(APPROVAL.data);
+		// this.selectedTab = this.activeTab(this.approvals);
 		this.STATES = STATE;
 		this.route.data
 			.subscribe((res: any) => {
 				console.log('resolved approvals are ', res);
-				// this.approvals = this.effortSumarry(APPROVAL.data);
-				// this.selectedTab = this.activeTab(this.approvals);
+				this.approvals = this.effortSumarry(res.approvals.data);
+				this.selectedTab = this.activeTab(this.approvals);
 			});
 	}
 

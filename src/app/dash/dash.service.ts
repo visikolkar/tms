@@ -28,7 +28,7 @@ export class DashService {
     }
 
     empEmail = this.employee.empinfo.emp_email;
-	approvalUrl = SERVER_URL + 'api/approval/' + this.empEmail;
+	approvalUrl = SERVER_URL + 'api/approval/chetan.lavti' //+ this.empEmail;
 
 	loadApproval(): Observable<any> {
 		console.log('approval api url is', this.approvalUrl);

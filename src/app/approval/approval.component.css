@@ -35,7 +35,7 @@
 /* Styles for tab labels */
 :host ::ng-deep .mat-tab-label {
     min-width: 100px !important;
-    width: 150px !important;
+    /* width: 150px !important; */
 }
 
 /* Styles for the active tab label */
