@@ -4,6 +4,7 @@ import { Injectable, Output, EventEmitter } from '@angular/core';
 export class SharedService {
     @Output() fire: EventEmitter<any> = new EventEmitter();
     @Output() calendarSelectedDate: EventEmitter<any> = new EventEmitter();
+    @Output() projectLists: EventEmitter<any> = new EventEmitter();
 
     constructor() { }
 
@@ -23,5 +24,13 @@ export class SharedService {
 
     getLogeffort() {
         return this.calendarSelectedDate;
+    }
+
+    activeProjectLists(obj) {
+        this.projectLists.emit(obj);
+    }
+
+    getActiveProjectLists() {
+        return this.projectLists;
     }
 }

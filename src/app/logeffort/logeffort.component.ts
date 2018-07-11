@@ -299,14 +299,18 @@ export class LogeffortComponent implements OnInit {
                 var iris_mins = +iris_time.split(':')[0] * 60 + +iris_time.split(':')[1];
                 console.log('user minutes are ', user_mins);
                 console.log('iris minutes are ', iris_mins);
-                if (user_mins > iris_mins && obj.comments) {
-                    var message = "Effort data Submitted successfuly.!"
-                    this.postData(state, obj, this.postUserData, message);
-                } else if(user_mins <= iris_mins){
-                    var message = "Effort data Submitted successfuly.!"
-                    this.postData(state, obj, this.postUserData, message);
+                if(user_mins < 1440){
+                    if (user_mins > iris_mins && obj.comments) {
+                        var message = "Effort data Submitted successfuly.!"
+                        this.postData(state, obj, this.postUserData, message);
+                    } else if(user_mins <= iris_mins){
+                        var message = "Effort data Submitted successfuly.!"
+                        this.postData(state, obj, this.postUserData, message);
+                    } else {
+                        this.openNotificationbar("Your total log time is more than IRIS Time. Please provide comments!", 'Close');
+                    }
                 } else {
-                    this.openNotificationbar("Your total log time is more than IRIS Time. Please provide comments!", 'Close');
+                    this.openNotificationbar("Your total log time is more than 24 Hours. Please take a break!", 'Close');
                 }
             } else if (state === STATE.REJECTED) {
                 // self rejection
@@ -393,7 +397,6 @@ export class LogeffortComponent implements OnInit {
                 this.projects = res.projectTasks.data.projects;
                 this.projectTasks = res.projectTasks.data.projectTasks;
                 this.commonTasks = res.projectTasks.data.commonTasks;
-
             })
 
         this.sharedService.getLogeffort()

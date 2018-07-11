@@ -8,6 +8,7 @@ import { LogeffortComponent } from './logeffort/logeffort.component';
 import { ApprovalComponent } from './approval/approval.component';
 import { DashResolve, ProjectResolve, ApprovalResolve } from './dash/dash.resolve.service';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { MyProjectListComponent } from './my-project-list/my-project-list.component';
 
 const routes: Routes = [
 	{
@@ -37,6 +38,12 @@ const routes: Routes = [
 				//canActivate: [AuthRoleGuard],
 				resolve: {
 					approvals: ApprovalResolve
+				}
+			}, {
+				path: 'my-project-list',
+				component: MyProjectListComponent,
+				resolve : {
+					projectTasks: ProjectResolve
 				}
 			}
 		]

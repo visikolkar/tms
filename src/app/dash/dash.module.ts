@@ -38,6 +38,7 @@ import { LogeffortService } from '../logeffort/logeffort.service';
 import { ChartsModule } from 'ng2-charts';
 import { SharedService } from '../shared/shared.service';
 import { ApprovalService } from '../approval/approval.service';
+import { MyProjectListComponent } from '../my-project-list/my-project-list.component';
 //import { DashResolve } from './dash.resolve.service';
 
 @NgModule({
@@ -74,6 +75,7 @@ import { ApprovalService } from '../approval/approval.service';
     declarations: [
         LogeffortComponent,
         ApprovalComponent,
+        MyProjectListComponent
     ],
     providers: [
         DashService,

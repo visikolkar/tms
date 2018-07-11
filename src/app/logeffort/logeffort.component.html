@@ -111,7 +111,7 @@
                                     <div fxFlex="5%" style=" background-color:rgba(0,0,0,.04); display: flex;
                                         justify-content: left;
                                         align-items: center; padding:10px 0 10px 0;">
-                                        <input style="font-size: .9em" matInput type="text" class="without" placeholder='Hours' [(ngModel)]="effort.hours" (keypress)="keyPress($event)"
+                                        <input style="font-size: .9em" matInput type="text" class="without" placeholder='Hrs' [(ngModel)]="effort.hours" (keypress)="keyPress($event)"
                                             (input)="getEffortTime($event.target.value, 'hours', i, logeffort.effort)" maxlength="2"
                                             [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
                                     </div>
@@ -140,8 +140,8 @@
 
                             </mat-card>
                         </div>
-                        <div fxFlex="30%">
-                            <mat-card style="padding: 4px; min-height: 95px;">
+                        <div fxFlex="30%" fxLayoutAlign=" stretch">
+                            <mat-card style="padding: 4px; width: 100%;">
                                 <mat-card-title style="background-color:rgba(0,0,0,.04); height: 40px;">
                                     Summary
                                 </mat-card-title>

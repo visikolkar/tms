@@ -16,7 +16,7 @@
             <button mat-menu-item [routerLink]="['logeffort']">Log Effort</button>
             <!-- *ngIf="employee.empinfo.emp_role == ROLES.APPROVER || employee.empinfo.emp_role == ROLES.ADMIN" -->
             <button mat-menu-item [routerLink]="['approval']" >Approval</button>
-            <!-- <button mat-menu-item>My Project List</button> -->
+            <button mat-menu-item [routerLink]="['my-project-list']" >My Project List</button>
         </mat-menu>
         <a mat-button style="font-size: 16px">Report</a>
         <a mat-button style="font-size: 16px">Monitoring</a>
@@ -38,7 +38,8 @@
             </mat-list-item>
             <mat-list-item class="list-item">
                 <mat-icon mat-list-icon class="list-font">code</mat-icon>
-                <h4 mat-line>{{employee.skill.primary_skill_three}}</h4>
+                <h4 mat-line [matTooltip]="(employee.skill.primary_skill_three.length > 13) ? employee.skill.primary_skill_three : ''" [matTooltipClass]="'tooltip'">{{employee.skill.primary_skill_three}}</h4>
+                <!-- <marquee mat-line behavior="alternate">{{employee.skill.primary_skill_three}}</marquee> -->
                 <p mat-line>Primary Skill</p>
             </mat-list-item>
             <mat-list-item class="list-item">

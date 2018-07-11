@@ -61,8 +61,6 @@ import { DialogApproveAll, DialogReject } from './approval/approval.component';
         DialogReject,
         LoaderComponent,
         NotfoundComponent,
-        // LogeffortComponent,
-        // ApprovalComponent,
     ],
     imports: [
         BrowserModule,

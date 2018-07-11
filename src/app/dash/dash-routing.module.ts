@@ -3,15 +3,18 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { LogeffortComponent } from '../logeffort/logeffort.component';
 import { ApprovalComponent } from '../approval/approval.component';
+import { MyProjectListComponent } from '../my-project-list/my-project-list.component';
 
 const dashRoutes: Routes = [
     { 
         path: 'logeffort', 
         component: LogeffortComponent 
-    },
-    { 
+    }, { 
         path: 'approval', 
         component: ApprovalComponent
+    }, { 
+        path: 'my-project-list', 
+        component: MyProjectListComponent
     },
 ];
 
