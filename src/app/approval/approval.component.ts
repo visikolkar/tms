@@ -206,7 +206,7 @@ export class DialogApproveAll {
 export class DialogReject {
 
 	constructor(
-		public dialogRef: MatDialogRef<DialogApproveAll>,
+		public dialogRef: MatDialogRef<DialogReject>,
 		@Inject(MAT_DIALOG_DATA) public data: any) { }
 
 	onNoClick(): void {

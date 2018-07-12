@@ -28,6 +28,8 @@ import {
     MatGridListModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 } from '@angular/material';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashModule } from './dash/dash.module';
@@ -47,6 +49,7 @@ import { DashService } from './dash/dash.service';
 import { SharedService } from './shared/shared.service';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { DialogApproveAll, DialogReject } from './approval/approval.component';
+import { DialogLeave } from './logeffort/logeffort.component';
 // import { LogeffortService } from './logeffort/logeffort.service';
 
 
@@ -59,6 +62,7 @@ import { DialogApproveAll, DialogReject } from './approval/approval.component';
         EmployeeProfileComponent,
         DialogApproveAll,
         DialogReject,
+        DialogLeave,
         LoaderComponent,
         NotfoundComponent,
     ],
@@ -89,6 +93,8 @@ import { DialogApproveAll, DialogReject } from './approval/approval.component';
         MatGridListModule,
         MatSnackBarModule,
         MatTooltipModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
         AppRoutingModule,
         DashModule,
     ],
@@ -103,13 +109,15 @@ import { DialogApproveAll, DialogReject } from './approval/approval.component';
         DashResolve,
         ProjectResolve,
         ApprovalResolve,
-        SharedService
+        SharedService,
+        MatDatepickerModule
     ],
     bootstrap: [AppComponent],
     entryComponents: [
         EmployeeProfileComponent,
         DialogApproveAll,
-        DialogReject
+        DialogReject,
+        DialogLeave
     ]
 })
 export class AppModule { }

@@ -135,6 +135,7 @@
                                     </div>
                                 </div>
                                 <mat-card-actions style="text-align: right; margin-right: 0px; margin-left: 0px" *ngIf="logeffort.filled_state !== STATE.SUBMITTED && logeffort.filled_state !== STATE.APPROVED">
+                                    <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: rgb(181, 63, 63)" (click)="applyLeave()">Apply Leave</button>
                                     <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #3f51B5" (click)="postUserEffort(STATE.SAVED, logeffort)">SAVE</button>
                                 </mat-card-actions>
 

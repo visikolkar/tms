@@ -32,6 +32,8 @@ import {
     MatGridListModule,
     MatTooltipModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
 } from '@angular/material';
 import { DashService } from './dash.service';
 import { LogeffortService } from '../logeffort/logeffort.service';
@@ -70,7 +72,9 @@ import { MyProjectListComponent } from '../my-project-list/my-project-list.compo
         MatGridListModule,
         MatSnackBarModule,
         MatTooltipModule,
-        ChartsModule
+        ChartsModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
     declarations: [
         LogeffortComponent,
@@ -81,7 +85,8 @@ import { MyProjectListComponent } from '../my-project-list/my-project-list.compo
         DashService,
         LogeffortService,
         ApprovalService,
-        SharedService
+        SharedService,
+        MatDatepickerModule
     ]
 })
 export class DashModule { }

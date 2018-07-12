@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Logeffort } from '../shared/logeffort';
 import { LOGEFFORTS } from '../shared/mock-logeffort';
@@ -10,6 +10,7 @@ import { LogeffortService } from './logeffort.service';
 import { LoaderService } from '../loader/loader.service';
 import { ActivatedRoute } from '@angular/router';
 import { SharedService } from '../shared/shared.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
     selector: 'app-logeffort',
@@ -54,7 +55,8 @@ export class LogeffortComponent implements OnInit {
         private logeffortService: LogeffortService,
         private loaderService: LoaderService,
         private route: ActivatedRoute,
-        private sharedService: SharedService
+        private sharedService: SharedService,
+        public dialog: MatDialog
     ) { }
 
     openNotificationbar(message: string, action: string) {
@@ -136,7 +138,7 @@ export class LogeffortComponent implements OnInit {
 
     filterUserEffort(array): any {
         //this will retun an array of unique objects
-        array.sort(function(a,b) { if(a.project_name && b.project_name){return (a.project_name > b.project_name) ? 1 : ((b.project_name > a.project_name) ? -1 : 0);}} );
+        array.sort(function (a, b) { if (a.project_name && b.project_name) { return (a.project_name > b.project_name) ? 1 : ((b.project_name > a.project_name) ? -1 : 0); } });
         return array = array.filter((item, index, self) =>
             index === self.findIndex((obj) =>
                 obj.project_name === item.project_name && obj.skill_set === item.skill_set && obj.task_name === item.task_name)
@@ -299,11 +301,11 @@ export class LogeffortComponent implements OnInit {
                 var iris_mins = +iris_time.split(':')[0] * 60 + +iris_time.split(':')[1];
                 console.log('user minutes are ', user_mins);
                 console.log('iris minutes are ', iris_mins);
-                if(user_mins < 1440){
+                if (user_mins < 1440) {
                     if (user_mins > iris_mins && obj.comments) {
                         var message = "Effort data Submitted successfuly.!"
                         this.postData(state, obj, this.postUserData, message);
-                    } else if(user_mins <= iris_mins){
+                    } else if (user_mins <= iris_mins) {
                         var message = "Effort data Submitted successfuly.!"
                         this.postData(state, obj, this.postUserData, message);
                     } else {
@@ -417,6 +419,57 @@ export class LogeffortComponent implements OnInit {
         // }
         this.STATE = STATE;
 
+    }
+
+    applyLeave() {
+        var restrictYear = new Date().getFullYear();
+        var minDate = new Date(restrictYear, 0, 1);
+        var maxDate = new Date(restrictYear, 11, 31);
+        var leaveData = {
+            from_date: '',
+            end_date: '',
+        };
+
+        const dialogRef = this.dialog.open(DialogLeave, {
+            width: '500px',
+            data: {
+                leave: leaveData, 
+                minDate: minDate, 
+                maxDate: maxDate, 
+                key_press: function(event) {
+                    //block user from entering in leave dates
+                    console.log('event fired');
+                    event.preventDefault();
+                }
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            console.log('The dialog was closed', result);
+            console.log('leave data is ', leaveData);
+            // actionData.comments = result;
+            if (result) {
+            } else {
+                console.log('leave aborted');
+            }
+        });
+
+    }
+
+}
+
+@Component({
+    selector: 'dialog-leave',
+    templateUrl: './dialog-leave.html',
+})
+export class DialogLeave {
+
+    constructor(
+        public dialogRef: MatDialogRef<DialogLeave>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+    onNoClick(): void {
+        this.dialogRef.close();
     }
 
 }

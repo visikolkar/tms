@@ -54,4 +54,7 @@ export class MyProjectListComponent implements OnInit {
 		});
 	}
 
+	saveFav(){
+		console.log('fav projects are ', this.favProjects);
+	}
 }

@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>Apply Leave</h2>
+<mat-dialog-content>
+    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5px" fxLayoutAlign="center" style="padding: 4px 4px 2px 4px; min-height: 30px;">
+        <div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); display: flex;
+            justify-content: left;
+            align-items: center; padding:10px 0 10px 0;">
+            <mat-form-field style="font-size: 0.9em; width:100%">
+                <input matInput [min]="data.minDate" [max]="data.maxDate" [matDatepicker]="fromDatepicker" placeholder="From" (keypress)="data.key_press($event)">
+                <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #fromDatepicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); display: flex;
+            justify-content: left;
+            align-items: center; padding:10px 0 10px 0;">
+            <mat-form-field style="font-size: 0.9em; width:100%">
+                <input matInput [min]="data.minDate" [max]="data.maxDate" [matDatepicker]="toDatepicker" placeholder="To" (keypress)="data.key_press($event)">
+                <mat-datepicker-toggle matSuffix [for]="toDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #toDatepicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div fxFlex="40%" style=" background-color:rgba(0,0,0,.04); display: flex;
+            justify-content: left;
+            align-items: center; padding:10px 0 10px 0;">
+            <mat-radio-group style=" display: inline-flex;flex-direction: row; font-size: 0.8em;">
+                <mat-radio-button color="primary" value="8:00" style="padding-right: 5px">Full Day</mat-radio-button>
+                <mat-radio-button color="primary" value="4:00">Half Day</mat-radio-button>
+            </mat-radio-group>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions style="float: right;">
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog.  [disabled]="data.comment.comments == ''" -->
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">Apply</button>
+</mat-dialog-actions>
