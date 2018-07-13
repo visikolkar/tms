@@ -642,3 +642,56 @@ export const APPROVAL = {
         }
     ]
 }
+
+export const PROJECTS = [  
+    {  
+        "sl_no":"2",
+        "project_name":"CV1 Prime",
+        "project_code":"RAZ18WW129384",
+        "project_type":"CA",
+        "project_category":"Smart Phone",
+        "mc_category":"Model Development",
+        "start_date":"2017-12-01",
+        "end_date":"2018-08-31"
+    },
+    {  
+        "sl_no":"3",
+        "project_name":"CV3 Prime",
+        "project_code":"RAZ18WW129385",
+        "project_type":"CA",
+        "project_category":"Smart Phone",
+        "mc_category":"Model Development",
+        "start_date":"2017-12-01",
+        "end_date":"2018-08-31"
+    },
+    {  
+        "sl_no":"3",
+        "project_name":"CV4",
+        "project_code":"RAZ18WW129385",
+        "project_type":"CA",
+        "project_category":"OSU",
+        "mc_category":"Model Development",
+        "start_date":"2017-12-01",
+        "end_date":"2018-08-31"
+    },
+    {  
+        "sl_no":"3",
+        "project_name":"CV8",
+        "project_code":"RAZ18WW129385",
+        "project_type":"CA",
+        "project_category":"OSU",
+        "mc_category":"Model Development",
+        "start_date":"2017-12-01",
+        "end_date":"2018-08-31"
+    },
+    {  
+        "sl_no":"3",
+        "project_name":"CV10",
+        "project_code":"RAZ18WW129385",
+        "project_type":"CA",
+        "project_category":"Platform/Function",
+        "mc_category":"Model Development",
+        "start_date":"2017-12-01",
+        "end_date":"2018-08-31"
+    }
+]

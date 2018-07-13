@@ -7,3 +7,7 @@
     background-color:#C3003C;
     color: white!important;
 }
+
+.active:last-child {
+    margin-bottom: 0!important;
+}

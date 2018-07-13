@@ -27,4 +27,9 @@ export class LogeffortService {
         console.log('weekEffort api url is', weekUrl);
         return this.http.get<any>(weekUrl);
     }
+
+    leaveUrl = SERVER_URL + 'api/effort/leave';
+    postLeave(leave): Observable<any> {
+        return this.http.post<any>(this.leaveUrl, leave);
+    }
 }

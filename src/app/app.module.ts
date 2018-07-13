@@ -44,7 +44,7 @@ import { LoginService } from './login/login.service';
 import { LoaderService } from './loader/loader.service';
 import { AuthUserGuard, AuthRoleGuard } from './auth-user.guard';
 import { CalendarService } from './calendar/calendar.service';
-import { DashResolve, ProjectResolve, ApprovalResolve } from './dash/dash.resolve.service';
+import { DashResolve, ProjectResolve, ApprovalResolve, FavProjectResolve, ActiveProjectResolve } from './dash/dash.resolve.service';
 import { DashService } from './dash/dash.service';
 import { SharedService } from './shared/shared.service';
 import { NotfoundComponent } from './notfound/notfound.component';
@@ -108,6 +108,8 @@ import { DialogLeave } from './logeffort/logeffort.component';
         DashService,
         DashResolve,
         ProjectResolve,
+        FavProjectResolve,
+        ActiveProjectResolve,
         ApprovalResolve,
         SharedService,
         MatDatepickerModule

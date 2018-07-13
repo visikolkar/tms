@@ -11,6 +11,7 @@ import { LoaderService } from '../loader/loader.service';
 import { ActivatedRoute } from '@angular/router';
 import { SharedService } from '../shared/shared.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import * as moment from 'moment';
 
 @Component({
     selector: 'app-logeffort',
@@ -371,6 +372,15 @@ export class LogeffortComponent implements OnInit {
             // if (item.effort.length) {
             //     item.summaryEffort = self.summerizeUserEffort(item.effort);
             // }
+            if (!item.effort.length) {
+                item.effort.push({
+                    project_name: '',
+                    skill_set: '',
+                    task_name: '',
+                    hours: '',
+                    mins: ''
+                })
+            }
             var month = +item.iris_date.split('-')[1] - 1;
             item.displayDate = new Date(item.iris_date.split('-')[2], month, item.iris_date.split('-')[0]).toDateString().slice(0, 10);
             item.summaryEffort = self.summerizeUserEffort(item.effort);
@@ -421,25 +431,59 @@ export class LogeffortComponent implements OnInit {
 
     }
 
+    postLeave(leave, message): void {
+        this.loaderService.show();
+        this.logeffortService.postLeave(leave)
+            .subscribe(
+                (response) => {
+                    console.log('leave response is ', response);
+                    if (response['status'] == 'true') {
+                        this.openNotificationbar(message, 'Close');
+                    } else {
+                        this.openNotificationbar(response['message'], 'Close');
+                    }
+                }, (err) => {
+                    console.error('logeffort submit error ', err);
+                    this.loaderService.hide();
+                }, () => {
+                    this.loaderService.hide(); //on complete hide the loader
+                }
+            );
+    }
+
     applyLeave() {
+        var self = this;
         var restrictYear = new Date().getFullYear();
         var minDate = new Date(restrictYear, 0, 1);
         var maxDate = new Date(restrictYear, 11, 31);
         var leaveData = {
+            emp_id: this.employee.empinfo.emp_id,
             from_date: '',
-            end_date: '',
+            to_date: '',
+            comments: '',
+            iris_time: '',
+            filled_state: ''
         };
 
         const dialogRef = this.dialog.open(DialogLeave, {
-            width: '500px',
+            width: '600px',
             data: {
-                leave: leaveData, 
-                minDate: minDate, 
-                maxDate: maxDate, 
-                key_press: function(event) {
+                leave: leaveData,
+                minDate: minDate,
+                maxDate: maxDate,
+                key_press: function (event) {
                     //block user from entering in leave dates
                     console.log('event fired');
                     event.preventDefault();
+                },
+                minMaxDates: function(str){
+                    if(str == 'from'){
+                        this.minDate = new Date(leaveData.from_date);
+                        console.log('min date is ', this.minDate);
+                    } else {
+                        this.maxDate = new Date(leaveData.to_date);
+                        console.log('max date is ', this.maxDate);
+                    }
                 }
             }
         });
@@ -447,8 +491,18 @@ export class LogeffortComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             console.log('The dialog was closed', result);
             console.log('leave data is ', leaveData);
-            // actionData.comments = result;
             if (result) {
+                leaveData.from_date = moment(leaveData.from_date).format("DD-MM-YYYY");
+                leaveData.to_date = moment(leaveData.to_date).format("DD-MM-YYYY");
+                if (leaveData.iris_time == "4:00") {
+                    leaveData.filled_state = STATE.SAVED;
+                    //console.log('leave data is ', leaveData);
+                    self.postLeave(leaveData, 'Leave data saved successfully');
+                } else {
+                    leaveData.filled_state = STATE.SUBMITTED;
+                    //console.log('leave data is ', leaveData);
+                    self.postLeave(leaveData, 'Leave data submitted successfully');
+                }
             } else {
                 console.log('leave aborted');
             }

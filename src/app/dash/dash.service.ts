@@ -22,6 +22,20 @@ export class DashService {
         return this.http.get<any>(this.loadEffortUrl);
     }
 
+    favProjectsUrl = SERVER_URL + 'api/project/favorites/' + this.empID;
+    favProjectList(): Observable<any> {
+        return this.http.get<any>(this.favProjectsUrl);
+    }
+
+    postFavProjects(favList): Observable<any> {
+        return this.http.post<any>(this.favProjectsUrl, favList);
+    }
+
+    activeProjectsUrl = SERVER_URL + 'api/project/all/active';
+    activeProjectList(): Observable<any> {
+        return this.http.get<any>(this.activeProjectsUrl);
+    }
+
     projectTaskUrl = SERVER_URL + 'api/project/list';
     projectTaskList(): Observable<any> {
         return this.http.get<any>(this.projectTaskUrl);

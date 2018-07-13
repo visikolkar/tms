@@ -6,7 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { DashComponent } from './dash/dash.component';
 import { LogeffortComponent } from './logeffort/logeffort.component';
 import { ApprovalComponent } from './approval/approval.component';
-import { DashResolve, ProjectResolve, ApprovalResolve } from './dash/dash.resolve.service';
+import { DashResolve, ProjectResolve, ApprovalResolve, FavProjectResolve, ActiveProjectResolve } from './dash/dash.resolve.service';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { MyProjectListComponent } from './my-project-list/my-project-list.component';
 
@@ -29,7 +29,8 @@ const routes: Routes = [
 				component: LogeffortComponent,
 				resolve : {
 					logeffort: DashResolve,
-					projectTasks: ProjectResolve
+					projectTasks: ProjectResolve,
+					favorites: FavProjectResolve
 				}
 
 			}, {
@@ -43,7 +44,8 @@ const routes: Routes = [
 				path: 'my-project-list',
 				component: MyProjectListComponent,
 				resolve : {
-					projectTasks: ProjectResolve
+					projects: ActiveProjectResolve,
+					favorites: FavProjectResolve
 				}
 			}
 		]
