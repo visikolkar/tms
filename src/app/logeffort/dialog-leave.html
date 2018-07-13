@@ -39,5 +39,5 @@
 <mat-dialog-actions style="float: right;">
     <button mat-raised-button mat-dialog-close>Cancel</button>
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog.  [disabled]="data.comment.comments == ''" -->
-    <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="data.leave.from_date== '' || data.leave.to_date== '' || data.leave.iris_time== '' || data.leave.comments== ''">Apply</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="data.leave.from_date== '' || data.leave.to_date== '' || data.leave.iris_time== '' || data.leave.comments== '' || data.leave.from_date > data.leave.to_date">Apply</button>
 </mat-dialog-actions>

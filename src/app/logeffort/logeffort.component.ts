@@ -439,6 +439,7 @@ export class LogeffortComponent implements OnInit {
                     console.log('leave response is ', response);
                     if (response['status'] == 'true') {
                         this.openNotificationbar(message, 'Close');
+                        //update the logefforts
                     } else {
                         this.openNotificationbar(response['message'], 'Close');
                     }
@@ -478,11 +479,25 @@ export class LogeffortComponent implements OnInit {
                 },
                 minMaxDates: function(str){
                     if(str == 'from'){
-                        this.minDate = new Date(leaveData.from_date);
-                        console.log('min date is ', this.minDate);
+                        if(leaveData.from_date){
+                            if(new Date(leaveData.from_date) < new Date(restrictYear, 0, 1)){
+                                this.minDate = new Date(restrictYear, 0, 1);
+                                console.log('min date is ', this.minDate);
+                            } else {
+                                this.minDate = new Date(leaveData.from_date);
+                                console.log('min date is ', this.minDate);
+                            }
+                        }
                     } else {
-                        this.maxDate = new Date(leaveData.to_date);
-                        console.log('max date is ', this.maxDate);
+                        if(leaveData.to_date){
+                            if(new Date(leaveData.to_date) < new Date(restrictYear, 11, 31)){
+                                this.maxDate = new Date(restrictYear, 11, 31);
+                                console.log('max date is ', this.maxDate);
+                            } else {
+                                this.maxDate = new Date(leaveData.to_date);
+                                console.log('max date is ', this.maxDate);
+                            }
+                        }
                     }
                 }
             }
