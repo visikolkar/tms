@@ -1,4 +1,4 @@
-.example-container {
+/* .example-container {
     position: absolute;
     top: 100px;
     bottom: 0;
@@ -12,24 +12,18 @@
     align-items: center;
     justify-content: center;
     min-width: 227px;
-    /* width: auto; */
     background: #333;
     padding: 10px;
   }
 
   .side-list{
-      /* padding-top: 0;
-      margin-top: 0; */
       position: absolute;
       top: 0;
       left: 0;
       width:100%;
-  }
-  /* .mat-list-icon {
-    color: rgba(0, 0, 0, 0.54);
   } overide with .list-font */
 
-  .list-divider{
+  /* .list-divider{
     background-color:#121212; 
     color:lightgray;
   }
@@ -49,12 +43,12 @@
   }
   .list-expansion:hover{
     background-color: #292929;
-  }
-  :host /deep/ .mat-expansion-indicator:after{
+  } */
+  :host ::ng-deep .mat-expansion-indicator:after{
       color: #3f51B5;
   }
 
-  .mat-list-item:hover{
+  /* .mat-list-item:hover{
       background-color: #292929;
   }
 
@@ -67,4 +61,4 @@
     width:40px;
     padding: 0;
     color: white;
-}
+} */

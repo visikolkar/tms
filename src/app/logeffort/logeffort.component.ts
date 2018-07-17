@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { Logeffort } from '../shared/logeffort';
 import { LOGEFFORTS } from '../shared/mock-logeffort';
@@ -20,6 +20,8 @@ import * as moment from 'moment';
 })
 export class LogeffortComponent implements OnInit {
 
+    window: any = window;
+    Object = Object;
     windowheight: any;
     logefforts: any;
     logeffortstwo: any;
@@ -57,7 +59,8 @@ export class LogeffortComponent implements OnInit {
         private loaderService: LoaderService,
         private route: ActivatedRoute,
         private sharedService: SharedService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        public cdRef: ChangeDetectorRef
     ) { }
 
     openNotificationbar(message: string, action: string) {
@@ -383,13 +386,27 @@ export class LogeffortComponent implements OnInit {
             }
             var month = +item.iris_date.split('-')[1] - 1;
             item.displayDate = new Date(item.iris_date.split('-')[2], month, item.iris_date.split('-')[0]).toDateString().slice(0, 10);
+            item.favProjects = {
+                favorites: item.favorite,
+                projects: item.projects
+            }
             item.summaryEffort = self.summerizeUserEffort(item.effort);
         });
         console.log('logeffort with summary is ', obj);
         return obj;
     }
 
+    ngAfterViewInit() {
+        setTimeout(_ => this.window.showSidenav = true);
+        // this.cdRef.detectChanges();
+    }
+
+    ngOnDestroy() {
+        this.window.showSidenav = false;
+    }
+
     ngOnInit() {
+        // this.window.showSidenav = true;
         this.windowheight = (60 * window.screen.height) / 100;
         //Math.floor(400 / window.screen.height * 100);
         console.log("window height " + this.windowheight);
@@ -438,8 +455,12 @@ export class LogeffortComponent implements OnInit {
                 (response) => {
                     console.log('leave response is ', response);
                     if (response['status'] == 'true') {
+                        this.logefforts = this.effortSumarry(response['data']);
+                        console.log('logeffort after leave ', this.logefforts);
+                        this.logefforts.time_sheet = JSON.parse(JSON.stringify(this.logefforts.time_sheet));
+                        this.selectedTab = JSON.parse(JSON.stringify(this.activeTab(this.logefforts.time_sheet)));
                         this.openNotificationbar(message, 'Close');
-                        //update the logefforts
+                        this.sharedService.update(this.logefforts.color_dates);
                     } else {
                         this.openNotificationbar(response['message'], 'Close');
                     }
@@ -472,15 +493,20 @@ export class LogeffortComponent implements OnInit {
                 leave: leaveData,
                 minDate: minDate,
                 maxDate: maxDate,
+                tab_key: function (event) {
+                    if (event.keyCode == 9 || event.keyCode == 13) {
+                        event.preventDefault();
+                    }
+                },
                 key_press: function (event) {
                     //block user from entering in leave dates
                     console.log('event fired');
                     event.preventDefault();
                 },
-                minMaxDates: function(str){
-                    if(str == 'from'){
-                        if(leaveData.from_date){
-                            if(new Date(leaveData.from_date) < new Date(restrictYear, 0, 1)){
+                minMaxDates: function (str) {
+                    if (str == 'from') {
+                        if (leaveData.from_date) {
+                            if (new Date(leaveData.from_date) < new Date(restrictYear, 0, 1)) {
                                 this.minDate = new Date(restrictYear, 0, 1);
                                 console.log('min date is ', this.minDate);
                             } else {
@@ -489,8 +515,8 @@ export class LogeffortComponent implements OnInit {
                             }
                         }
                     } else {
-                        if(leaveData.to_date){
-                            if(new Date(leaveData.to_date) < new Date(restrictYear, 11, 31)){
+                        if (leaveData.to_date) {
+                            if (new Date(leaveData.to_date) < new Date(restrictYear, 11, 31)) {
                                 this.maxDate = new Date(restrictYear, 11, 31);
                                 console.log('max date is ', this.maxDate);
                             } else {

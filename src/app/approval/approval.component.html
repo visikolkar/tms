@@ -4,7 +4,7 @@
 		<!-- [selectedIndex]="selectedTab" -->
 		<!-- <div class="container"> -->
 		<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectedTab" [@.disabled]="true">
-			<mat-tab *ngFor="let approval of approvals; let j = index;" label={{approval.displayDate}}>
+			<mat-tab *ngFor="let approval of approvals.approval; let j = index;" label={{approval.displayDate}}>
 				<!-- background-color:rgba(0,0,0,.04); use it if needed for the tab background -->
 				<div class="container" style=" padding:10px;overflow-y:auto;" [style.height.px]="windowheight">
 					<mat-card style="padding-left: 4px; padding-right: 4px; padding-top: 4px;">

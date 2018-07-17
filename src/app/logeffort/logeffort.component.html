@@ -78,9 +78,11 @@
                                         align-items: center; padding:10px 0 10px 0;">
                                         <mat-select style="font-size: .9em" placeholder="Project List" [(value)]="effort.project_name" (change)="disableOption($event, i, logeffort.effort)"
                                             [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
-                                            <mat-option *ngFor="let project of logeffort.projects" [value]="project.value">
-                                                {{ project.value }}
-                                            </mat-option>
+                                            <mat-optgroup *ngFor="let key of Object.keys(logeffort.favProjects);" [label]="key">
+                                                <mat-option *ngFor="let project of logeffort.favProjects[key]" [value]="project.value">
+                                                    {{ project.value }}
+                                                </mat-option>
+                                            </mat-optgroup>
                                         </mat-select>
                                     </div>
                                     <div fxFlex="25%" style=" background-color:rgba(0,0,0,.04); display: flex;
@@ -135,7 +137,7 @@
                                     </div>
                                 </div>
                                 <mat-card-actions style="text-align: right; margin-right: 0px; margin-left: 0px" *ngIf="logeffort.filled_state !== STATE.SUBMITTED && logeffort.filled_state !== STATE.APPROVED">
-                                    <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: rgb(181, 63, 63)" (click)="applyLeave()">Apply Leave</button>
+                                    <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: rgb(181, 63, 63); position: absolute;left: 10px" (click)="applyLeave()">Apply Leave</button>
                                     <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #3f51B5" (click)="postUserEffort(STATE.SAVED, logeffort)">SAVE</button>
                                 </mat-card-actions>
 

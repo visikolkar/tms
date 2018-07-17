@@ -1,4 +1,4 @@
-<mat-toolbar style="height: 100px;background-color:#C3003C;" class="mat-elevation-z6">
+<!-- <mat-toolbar style="height: 100px;background-color:#C3003C;" class="mat-elevation-z6">
     <button class="hamburger mat-button" mat-button="" (click)="sidenav.toggle()" matTooltip="Side menu">
         <mat-icon class="mat-icon" role="img" svgicon="menu" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" focusable="false" viewBox="0 0 24 24">
@@ -6,7 +6,7 @@
             </svg>
         </mat-icon>
     </button>
-    <!-- <img src="/TMS2/assets/img/lg.png" width="80" height="80" alt="" style="cursor:pointer" matTooltip="Home"> -->
+    ---- comment----<img src="/TMS2/assets/img/lg.png" width="80" height="80" alt="" style="cursor:pointer" matTooltip="Home">
     <h1 class="mat-display-1" style="width:150px; display: inline-block; font-size:1.8em;color:white; margin-left: 10px">TMS</h1>
     <div style="color:white;">
         <a mat-button [matMenuTriggerFor]="menu" style="font-size: 16px">My Work
@@ -14,17 +14,17 @@
         </a>
         <mat-menu #menu="matMenu" [overlapTrigger]="false">
             <button mat-menu-item [routerLink]="['logeffort']">Log Effort</button>
-            <!-- *ngIf="employee.empinfo.emp_role == ROLES.APPROVER || employee.empinfo.emp_role == ROLES.ADMIN" -->
+            --- comment ----*ngIf="employee.empinfo.emp_role == ROLES.APPROVER || employee.empinfo.emp_role == ROLES.ADMIN"
             <button mat-menu-item [routerLink]="['approval']" >Approval</button>
             <button mat-menu-item [routerLink]="['my-project-list']" >My Project List</button>
         </mat-menu>
         <a mat-button style="font-size: 16px">Report</a>
         <a mat-button style="font-size: 16px">Monitoring</a>
     </div>
-</mat-toolbar>
+</mat-toolbar> -->
 
-<mat-sidenav-container class="example-container">
-    <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav"  [fixedTopGap]="0" [fixedBottomGap]="0" style="overflow-x:hidden;">
+<!-- <mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" opened="true" class="example-sidenav"  [fixedTopGap]="0" [fixedBottomGap]="0" style="overflow-x:hidden;" *ngIf="window.showSidenav">
         <mat-list class="side-list">
             <div mat-subheader class="list-divider" style="padding-top:4px;">
                 <h6 style="position: inline-block; color:lightgray;font-size: 14px;font-weight: 500;">PROFILE</h6>
@@ -39,7 +39,7 @@
             <mat-list-item class="list-item">
                 <mat-icon mat-list-icon class="list-font">code</mat-icon>
                 <h4 mat-line [matTooltip]="(employee.skill.primary_skill_three.length > 13) ? employee.skill.primary_skill_three : ''" [matTooltipClass]="'tooltip'">{{employee.skill.primary_skill_three}}</h4>
-                <!-- <marquee mat-line behavior="alternate">{{employee.skill.primary_skill_three}}</marquee> -->
+                
                 <p mat-line>Primary Skill</p>
             </mat-list-item>
             <mat-list-item class="list-item">
@@ -68,11 +68,8 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <!-- <p >
-            <button mat-button (click)="sidenav.toggle()">Toggle</button>
-        </p> -->
         <router-outlet></router-outlet>
-
-
     </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container> -->
+
+<router-outlet></router-outlet>

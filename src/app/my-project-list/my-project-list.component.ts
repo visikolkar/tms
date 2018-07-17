@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class MyProjectListComponent implements OnInit {
 
+	window:any = window;
 	Object = Object;
 	activeProjects: any;
 	favProjects: any;
@@ -33,6 +34,11 @@ export class MyProjectListComponent implements OnInit {
 		this.notificationBar.open(message, action, {
 			duration: 5000,
 		});
+	}
+
+	ngAfterViewInit() {
+		// setTimeout(_ => this.window.showSidenav = false);
+		// this.cdRef.detectChanges();
 	}
 	ngOnInit() {
 		this.route.data

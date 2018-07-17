@@ -9,6 +9,10 @@ import { ApprovalComponent } from './approval/approval.component';
 import { DashResolve, ProjectResolve, ApprovalResolve, FavProjectResolve, ActiveProjectResolve } from './dash/dash.resolve.service';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { MyProjectListComponent } from './my-project-list/my-project-list.component';
+import { AdminComponent } from './admin/admin.component';
+import { ProjectStatusComponent } from './project-status/project-status.component';
+import { JobTaskListComponent } from './job-task-list/job-task-list.component';
+import { AdminResolve } from './admin/admin.resolve';
 
 const routes: Routes = [
 	{
@@ -36,7 +40,7 @@ const routes: Routes = [
 			}, {
 				path: 'approval',
 				component: ApprovalComponent,
-				//canActivate: [AuthRoleGuard],
+				canActivate: [AuthRoleGuard],
 				resolve: {
 					approvals: ApprovalResolve
 				}
@@ -46,6 +50,31 @@ const routes: Routes = [
 				resolve : {
 					projects: ActiveProjectResolve,
 					favorites: FavProjectResolve
+				}
+			}
+		]
+	},
+	{
+		path: 'admin',
+		component: AdminComponent,
+		canActivate: [AuthRoleGuard],
+		children: [
+			{
+				path:'',
+				redirectTo: 'project-status',
+				pathMatch: 'full' 
+			}, {
+				path: 'project-status',
+				component: ProjectStatusComponent,
+				resolve : {
+					projects: AdminResolve,
+				}
+
+			}, {
+				path: 'job-task-list',
+				component: JobTaskListComponent,
+				resolve: {
+					tasks: AdminResolve
 				}
 			}
 		]

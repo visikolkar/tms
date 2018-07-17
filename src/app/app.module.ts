@@ -33,12 +33,11 @@ import {
 } from '@angular/material';
 import { AppRoutingModule } from './/app-routing.module';
 import { DashModule } from './dash/dash.module';
+import { AdminModule } from './admin/admin.module';
 import { LoginComponent } from './login/login.component';
 import { DashComponent } from './dash/dash.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
-// import { LogeffortComponent } from './logeffort/logeffort.component';
-// import { ApprovalComponent } from './approval/approval.component';
 import { LoaderComponent } from './loader/loader.component';
 import { LoginService } from './login/login.service';
 import { LoaderService } from './loader/loader.service';
@@ -50,7 +49,11 @@ import { SharedService } from './shared/shared.service';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { DialogApproveAll, DialogReject } from './approval/approval.component';
 import { DialogLeave } from './logeffort/logeffort.component';
-// import { LogeffortService } from './logeffort/logeffort.service';
+import { AdminComponent } from './admin/admin.component';
+import { AdminService } from './admin/admin.service';
+import { AdminResolve } from './admin/admin.resolve';
+// import { ProjectStatusComponent } from './project-status/project-status.component';
+// import { JobTaskListComponent } from './job-task-list/job-task-list.component';
 
 
 @NgModule({
@@ -65,6 +68,7 @@ import { DialogLeave } from './logeffort/logeffort.component';
         DialogLeave,
         LoaderComponent,
         NotfoundComponent,
+        AdminComponent,
     ],
     imports: [
         BrowserModule,
@@ -97,6 +101,7 @@ import { DialogLeave } from './logeffort/logeffort.component';
         MatNativeDateModule,
         AppRoutingModule,
         DashModule,
+        AdminModule,
     ],
     providers: [
         LoginService,
@@ -107,6 +112,8 @@ import { DialogLeave } from './logeffort/logeffort.component';
         AuthRoleGuard,
         DashService,
         DashResolve,
+        AdminService,
+        AdminResolve,
         ProjectResolve,
         FavProjectResolve,
         ActiveProjectResolve,

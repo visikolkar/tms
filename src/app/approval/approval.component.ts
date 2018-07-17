@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { APPROVAL } from '../shared/approval';
 import { MatSnackBar } from '@angular/material';
 import { ApprovalService } from './approval.service';
@@ -15,6 +15,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class ApprovalComponent implements OnInit {
 
+	window: any = window;
 	approvals: any;
 	selectedTab: number;
 	windowheight: number;
@@ -29,14 +30,20 @@ export class ApprovalComponent implements OnInit {
 		private loaderService: LoaderService,
 		private route: ActivatedRoute,
 		private sharedService: SharedService,
-		public dialog: MatDialog
+		public dialog: MatDialog,
+		public cdRef: ChangeDetectorRef
 	) { }
 
+	ngAfterViewInit() {
+		// setTimeout(_ => this.window.showSidenav = false);
+		// this.cdRef.detectChanges();
+	}
+
 	openNotificationbar(message: string, action: string) {
-        this.notificationBar.open(message, action, {
-            duration: 5000,
-        });
-    }
+		this.notificationBar.open(message, action, {
+			duration: 5000,
+		});
+	}
 
 	activeTab(array): any {
 		return array.map(function (item) { return item.isActive; }).indexOf(true);
@@ -140,17 +147,19 @@ export class ApprovalComponent implements OnInit {
 		}
 	}
 
-	effortSumarry(arr): any {
+	effortSumarry(obj): any {
 		var self = this;
-		arr.forEach(function (item) {
+		obj.approval.forEach(function (item) {
 			var month = +item.iris_date.split('-')[1] - 1;
 			item.displayDate = new Date(item.iris_date.split('-')[2], month, item.iris_date.split('-')[0]).toDateString().slice(0, 10);
 		});
-		console.log('logeffort with summary is ', arr);
-		return arr;
+
+		console.log('approval with summary is ', obj);
+		return obj;
 	}
 
 	ngOnInit() {
+		// this.window.showSidenav = true;
 		this.windowheight = (73 * window.screen.height) / 100;
 		// this.approvals = this.effortSumarry(APPROVAL.data);
 		// this.selectedTab = this.activeTab(this.approvals);
@@ -159,12 +168,47 @@ export class ApprovalComponent implements OnInit {
 			.subscribe((res: any) => {
 				console.log('resolved approvals are ', res);
 				this.approvals = this.effortSumarry(res.approvals.data);
-				this.selectedTab = this.activeTab(this.approvals);
+				this.selectedTab = this.activeTab(this.approvals.approval);
 			});
+	}
+
+	postPrevNextWeek(weekNumber, year) {
+		this.loaderService.show();
+		this.approvalService.weekEffort(weekNumber, year)
+			.subscribe(
+				(response) => {
+					console.log('week approval response is ', response);
+					if (response['status'] == 'true') {
+						this.approvals = this.effortSumarry(response['data']);
+						this.selectedTab = this.activeTab(this.approvals.approval);
+						// this.logefforts.time_sheet = JSON.parse(JSON.stringify(this.logefforts.time_sheet));
+						// this.selectedTab = JSON.parse(JSON.stringify(this.activeTab(this.logefforts.time_sheet)));
+						// this.selected.setValue(this.selectedTab);
+						console.log('weekEffort selectedTab is', this.selectedTab);
+
+					} else {
+						this.openNotificationbar(response['message'], 'Close');
+					}
+				}, (err) => {
+					console.error('logeffort submit error ', err);
+					this.loaderService.hide();
+				}, () => {
+					this.loaderService.hide(); //on complete hide the loader
+				}
+			);
 	}
 
 	prevNextWeek(str: string): void {
 		console.log("prevNextWeek fucntion call", str);
+		if (str === 'prev') {
+			let weekNumber = this.approvals.week_number - 1;
+			let year = this.approvals.approval[0].iris_date.split("-")[2];
+			this.postPrevNextWeek(weekNumber, year);
+		} else if (str === 'next') {
+			let weekNumber = this.approvals.week_number + 1;
+			let year = this.approvals.approval[0].iris_date.split("-")[2];
+			this.postPrevNextWeek(weekNumber, year);
+		}
 	}
 
 	// Doughnut

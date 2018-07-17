@@ -10,7 +10,7 @@ export class ApprovalService {
 
 	employee = JSON.parse(localStorage.getItem('employeeInfo'));
 
-	empEmail = this.employee.empinfo.emp_email;
+	empEmail = this.employee.empinfo.emp_email.split('@')[0];
 
 	approvalActionUrl = SERVER_URL + 'api/approval/update';
 
@@ -18,5 +18,12 @@ export class ApprovalService {
 		console.log('approval api url is', this.approvalActionUrl);
 		return this.http.post<any>(this.approvalActionUrl, data);
 	}
+
+	// empEmail = this.employee.empinfo.emp_id.substr(this.employee.empinfo.emp_id.length - 4);
+	weekEffort(week, year): Observable<any> {
+        var weekUrl = SERVER_URL+ '/api/approval/' + 'chetan.lavti' + '/w/' + week + '/y/' + year;  //this.empEmail
+        console.log('weekEffort approval api url is', weekUrl);
+        return this.http.get<any>(weekUrl);
+    }
 
 }

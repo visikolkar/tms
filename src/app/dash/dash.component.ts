@@ -14,25 +14,27 @@ import { ROLES } from '../shared/config';
 })
 export class DashComponent implements OnInit {
 
+    window: any = window;
     ROLES: any;
 
     constructor(public dialog: MatDialog, private dashService: DashService, private loaderService: LoaderService) { }
 
-    openDialog(): void {
-        const dialogConfig = new MatDialogConfig();
+    // openDialog(): void {
+    //     const dialogConfig = new MatDialogConfig();
 
-        dialogConfig.disableClose = true;
-        dialogConfig.autoFocus = true;
-        let dialogRef = this.dialog.open(EmployeeProfileComponent, {
-            width: '250px',
-        });
+    //     dialogConfig.disableClose = true;
+    //     dialogConfig.autoFocus = true;
+    //     let dialogRef = this.dialog.open(EmployeeProfileComponent, {
+    //         width: '250px',
+    //     });
 
-        dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-        });
-    }
+    //     dialogRef.afterClosed().subscribe(result => {
+    //         console.log('The dialog was closed');
+    //     });
+    // }
 
     ngOnInit() {
+        this.window.sidenav = true;
         this.loadEffort();
         console.log('loadEffort is called');
         console.log(JSON.parse(localStorage.getItem('employeeInfo')));
