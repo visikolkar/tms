@@ -57,13 +57,9 @@ const routes: Routes = [
 	{
 		path: 'admin',
 		component: AdminComponent,
-		canActivate: [AuthRoleGuard],
+		canActivate: [AuthUserGuard, AuthRoleGuard],
 		children: [
 			{
-				path:'',
-				redirectTo: 'project-status',
-				pathMatch: 'full' 
-			}, {
 				path: 'project-status',
 				component: ProjectStatusComponent,
 				resolve : {
