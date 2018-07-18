@@ -111,7 +111,7 @@ export class ApprovalComponent implements OnInit {
 					filled_state: state,
 					emp_ids: empArr,
 					comments: 'Approved',
-					approverEmail: 'chetan.lavti'//this.empEmail
+					approverEmail: this.empEmail//'chetan.lavti'
 				};
 				console.log('action data is ', actionData);
 				var message = 'Approval is complete';
@@ -125,7 +125,7 @@ export class ApprovalComponent implements OnInit {
 				filled_state: state,
 				emp_ids: empArr,
 				comments: 'Reject',
-				approverEmail: 'chetan.lavti'//this.empEmail
+				approverEmail: this.empEmail//'chetan.lavti'
 			};
 			const dialogRef = this.dialog.open(DialogReject, {
 				width: '250px',

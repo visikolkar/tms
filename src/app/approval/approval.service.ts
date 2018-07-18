@@ -21,7 +21,7 @@ export class ApprovalService {
 
 	// empEmail = this.employee.empinfo.emp_id.substr(this.employee.empinfo.emp_id.length - 4);
 	weekEffort(week, year): Observable<any> {
-        var weekUrl = SERVER_URL+ '/api/approval/' + 'chetan.lavti' + '/w/' + week + '/y/' + year;  //this.empEmail
+        var weekUrl = SERVER_URL+ '/api/approval/' + this.empEmail + '/w/' + week + '/y/' + year;  //'chetan.lavti'
         console.log('weekEffort approval api url is', weekUrl);
         return this.http.get<any>(weekUrl);
     }

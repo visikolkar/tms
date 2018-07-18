@@ -15,7 +15,8 @@ export class ProjectStatusComponent implements OnInit {
 	projects:any;
 	detailsShow: boolean;
 	addNewShow: boolean;
-	detailsHeader = 'Project Details'
+	detailsHeader = 'Project Details';
+	searchText: string;
 	constructor(public sharedService: SharedService,
 		public route: ActivatedRoute,
 		public adminService: AdminService,
@@ -37,11 +38,20 @@ export class ProjectStatusComponent implements OnInit {
 		this.detailsShow = true;
 		this.addNewShow = false;
 		this.detailsHeader = obj.project_name + ' Project Details';
+		this.projects.forEach(function(item){
+			item.selected = false;
+			if (item.project_name == obj.project_name && item.project_category == obj.project_category){
+				item.selected = true;
+			}
+		})
 	}
 
 	addNew(): void{
 		this.detailsShow = false;
 		this.addNewShow = true;
+		this.projects.forEach(function(item){
+			item.selected = false;
+		})
 	}
 
 }

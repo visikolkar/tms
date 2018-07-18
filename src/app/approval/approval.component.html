@@ -9,7 +9,7 @@
 				<div class="container" style=" padding:10px;overflow-y:auto;" [style.height.px]="windowheight">
 					<mat-card style="padding-left: 4px; padding-right: 4px; padding-top: 4px;">
 						<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" *ngFor="let effort of approval.empEfforts"
-						 style="padding: 5px; min-height: 72px;">
+						 style="padding: 5px;">
 							<div fxFlex="15%" style=" background-color:rgba(0,0,0,.04); display: flex;
                                 justify-content: left;
                                 align-items: center; padding:10px;">
@@ -17,9 +17,9 @@
 							</div>
 							<div fxFlex="70%" style=" background-color:rgba(0,0,0,.04);display: flex;
                                 justify-content: left;
-                                align-items: center; overflow-x: scroll; padding:10px;">
+                                align-items: center; overflow-x: auto; padding: 10px; overflow-x: visible!important;">
 								<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5px" *ngIf="effort.effort.length else notFilled">
-									<mat-card style="height: 50px; width: 100px; display: flex;
+									<mat-card style="height: 40px; width: 100px; display: flex;
                                             justify-content: center;
                                             align-items: center; padding: 4px;" *ngFor="let task of effort.effort">
 										<mat-card-header style="margin: 0px;">
@@ -34,7 +34,7 @@
 							</div>
 							<div fxFlex="15%" style=" display: flex;
                                 justify-content: center;
-                                align-items: center; background-color:rgba(0,0,0,.04); min-width: 174px;">
+                                align-items: center; background-color:rgba(0,0,0,.04); padding: 10px;">
 								<div class="button-row">
 									<button mat-stroked-button mat-icon-button class="basic" matTooltip="View details" *ngIf="effort.filled_state !== '0'">
 										<mat-icon>desktop_windows</mat-icon>
@@ -61,7 +61,7 @@
 							</div>
 							<!-- <mat-divider></mat-divider> -->
 						</div>
-						<mat-card-actions style="text-align: right; margin-right: 25px; margin-left: 0px">
+						<mat-card-actions style="text-align: right; margin-right: 25px; margin-left: 0px" *ngIf="approval.empEfforts.length">
 							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color:teal;">
 								<mat-icon>notification_important</mat-icon> Notify All
 							</button>

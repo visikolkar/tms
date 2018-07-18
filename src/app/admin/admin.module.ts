@@ -37,6 +37,7 @@ import { SharedService } from '../shared/shared.service';
 import { ProjectStatusComponent } from '../project-status/project-status.component';
 import { JobTaskListComponent } from '../job-task-list/job-task-list.component';
 import { AdminService } from './admin.service';
+import { FilterPipe } from '../project-status/filter.pipe';
 
 @NgModule({
     imports: [
@@ -73,7 +74,8 @@ import { AdminService } from './admin.service';
     ],
     declarations: [
         ProjectStatusComponent,
-        JobTaskListComponent
+        JobTaskListComponent,
+        FilterPipe
     ],
     providers: [
         SharedService,

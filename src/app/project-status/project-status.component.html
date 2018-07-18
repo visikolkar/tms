@@ -5,12 +5,12 @@
 				<h4>Project List</h4>
 				<mat-form-field appearance="standard" style="position: absolute; right:10px; top:4px">
 					<mat-icon matSuffix>search</mat-icon>
-					<input matInput>
+					<input matInput [(ngModel)]="searchText">
 				</mat-form-field>
 			</mat-card-header>
 			<mat-card-content style="padding: 5px;">
 				<ul style="display:flex; flex-wrap: wrap; list-style: none;">
-					<li *ngFor="let project of projects;" style="padding: 4px;">
+					<li *ngFor="let project of (searchText ? (projects | filter : searchText) : (projects)) " style="padding: 4px;">
 						<mat-card style="height: 30px; width: 100px; display: flex;
 											justify-content: center;
 											align-items: center; padding: 4px;" (click)="selectProject(project)" [ngClass]="{'selected': project.selected}">
