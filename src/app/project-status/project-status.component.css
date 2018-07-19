@@ -7,3 +7,9 @@
     background-color:#C3003C;
     color: white!important;
 }
+
+.save:disabled {
+    background-color:grey;
+    color: white!important;
+    border-color: grey!important;
+}
