@@ -91,6 +91,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 						console.log('Login failed', response);
 						this.openNotificationbar(response['message'], 'Close');
 					}
+					this.loaderService.hide();
 				}, (err) => {
 					console.error('something does not look good', err);
 					this.loaderService.hide();
@@ -187,6 +188,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 						console.log('calendarSelectedDate failed', response);
 						this.openNotificationbar(response['message'], 'Close');
 					}
+					this.loaderService.hide();
 				}, (err) => {
 					console.error('something does not look good', err);
 					this.loaderService.hide();

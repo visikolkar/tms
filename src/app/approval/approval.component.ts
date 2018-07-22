@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { APPROVAL } from '../shared/approval';
 import { MatSnackBar } from '@angular/material';
 import { ApprovalService } from './approval.service';
@@ -13,6 +13,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 	templateUrl: './approval.component.html',
 	styleUrls: ['./approval.component.css']
 })
+
+
 export class ApprovalComponent implements OnInit {
 
 	window: any = window;
@@ -20,6 +22,7 @@ export class ApprovalComponent implements OnInit {
 	selectedTab: number;
 	windowheight: number;
 	STATES: any;
+	@ViewChild('taskListToMeasure')elementView: ElementRef;
 
 	employee = JSON.parse(localStorage.getItem('employeeInfo'));
 
@@ -31,12 +34,18 @@ export class ApprovalComponent implements OnInit {
 		private route: ActivatedRoute,
 		private sharedService: SharedService,
 		public dialog: MatDialog,
-		public cdRef: ChangeDetectorRef
-	) { }
+		public cdRef: ChangeDetectorRef,
+		public el: ElementRef,
+		public renderer: Renderer
+	) { 
+		this.el = el.nativeElement; 
+    	this.renderer = renderer;
+	}
 
 	ngAfterViewInit() {
 		// setTimeout(_ => this.window.showSidenav = false);
 		// this.cdRef.detectChanges();
+		console.log(this.elementView.nativeElement.width);
 	}
 
 	openNotificationbar(message: string, action: string) {
@@ -56,8 +65,9 @@ export class ApprovalComponent implements OnInit {
 				(response) => {
 					console.log('approver action res is ', response);
 					this.approvals = this.effortSumarry(response['data']);
-					this.selectedTab = this.activeTab(this.approvals);
+					this.selectedTab = this.activeTab(this.approvals.approval);
 					this.openNotificationbar(message, 'Close');
+					this.loaderService.hide();
 				}, (err) => {
 					console.log('approver action err is ', err);
 					this.loaderService.hide();
@@ -185,10 +195,11 @@ export class ApprovalComponent implements OnInit {
 						// this.selectedTab = JSON.parse(JSON.stringify(this.activeTab(this.logefforts.time_sheet)));
 						// this.selected.setValue(this.selectedTab);
 						console.log('weekEffort selectedTab is', this.selectedTab);
-
+						
 					} else {
 						this.openNotificationbar(response['message'], 'Close');
 					}
+					this.loaderService.hide();
 				}, (err) => {
 					console.error('logeffort submit error ', err);
 					this.loaderService.hide();

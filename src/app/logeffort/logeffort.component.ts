@@ -277,6 +277,7 @@ export class LogeffortComponent implements OnInit {
                     } else {
                         this.openNotificationbar(response['message'], 'Close');
                     }
+                    this.loaderService.hide();
                 }, (err) => {
                     console.error('logeffort submit error ', err);
                     this.loaderService.hide();
@@ -346,6 +347,7 @@ export class LogeffortComponent implements OnInit {
                     } else {
                         this.openNotificationbar(response['message'], 'Close');
                     }
+                    this.loaderService.hide();
                 }, (err) => {
                     console.error('logeffort submit error ', err);
                     this.loaderService.hide();
@@ -464,6 +466,7 @@ export class LogeffortComponent implements OnInit {
                     } else {
                         this.openNotificationbar(response['message'], 'Close');
                     }
+                    this.loaderService.hide();
                 }, (err) => {
                     console.error('logeffort submit error ', err);
                     this.loaderService.hide();

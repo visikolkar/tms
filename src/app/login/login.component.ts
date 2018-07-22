@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit {
 							this.loginService.setUserLoggedIn(false);
 							this.openNotificationbar(response['message'], 'Close');
 						}
+						this.loaderService.hide();
 					}, (err) => {
 						console.error('something does not look good',err);
 						this.loaderService.hide();

@@ -17,8 +17,8 @@
 							</div>
 							<div fxFlex="70%" style=" background-color:rgba(0,0,0,.04);display: flex;
                                 justify-content: left;
-                                align-items: center; overflow-x: auto; padding: 10px; overflow-x: visible!important;">
-								<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5px" *ngIf="effort.effort.length else notFilled">
+                                align-items: center; overflow-x: auto; padding: 10px; overflow-x: visible!important;" #taskListToMeasure>
+								<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5px" *ngIf="effort.effort.length else notFilled" >
 									<mat-card style="height: 40px; width: 100px; display: flex;
                                             justify-content: center;
                                             align-items: center; padding: 4px;" *ngFor="let task of effort.effort">

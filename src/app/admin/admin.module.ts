@@ -38,6 +38,7 @@ import { ProjectStatusComponent } from '../project-status/project-status.compone
 import { JobTaskListComponent } from '../job-task-list/job-task-list.component';
 import { AdminService } from './admin.service';
 import { FilterPipe } from '../project-status/filter.pipe';
+import { ProjectStatusService } from '../project-status/project-status.service';
 
 @NgModule({
     imports: [
@@ -81,6 +82,7 @@ import { FilterPipe } from '../project-status/filter.pipe';
         SharedService,
         MatDatepickerModule,
         AdminService,
+        ProjectStatusService
     ]
 })
 export class AdminModule { }
