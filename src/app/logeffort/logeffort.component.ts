@@ -32,6 +32,7 @@ export class LogeffortComponent implements OnInit {
     skillSet: string;
     taskName: string;
     time: string;
+    workingDay:boolean = true;
     panelOpenState: boolean = false;
     employee: any;
     projects = [];
@@ -113,6 +114,10 @@ export class LogeffortComponent implements OnInit {
         var arr = obj.effort;
         if (arr[index].project_name && arr[index].task_name && (arr[index].hours !== '' || arr[index].mins !== '')) {
             //push an empty object
+            if(arr[index].project_name != "Common" && !arr[index].skill_set){
+                this.openNotificationbar('Fill all the required fields!', 'Close');
+                return;
+            }
             arr.push({
                 project_name: '',
                 skill_set: '',
@@ -393,6 +398,12 @@ export class LogeffortComponent implements OnInit {
                 projects: item.projects
             }
             item.summaryEffort = self.summerizeUserEffort(item.effort);
+            //below condition will be changed with iris_status i.e RR and HH
+            if((item.displayDate.split(" ")[0]== 'Sun' || item.displayDate.split(" ")[0] == 'Sat') && item.iris_time == "00:00 Hours"){
+                item.workingDay = false;
+            } else {
+                item.workingDay = true;
+            }
         });
         console.log('logeffort with summary is ', obj);
         return obj;

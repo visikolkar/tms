@@ -15,6 +15,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 
 
+
+
 export class ApprovalComponent implements OnInit {
 
 	window: any = window;
@@ -22,12 +24,13 @@ export class ApprovalComponent implements OnInit {
 	selectedTab: number;
 	windowheight: number;
 	STATES: any;
-	@ViewChild('taskListToMeasure')elementView: ElementRef;
-
+	widthPerMin: any;
+	
+	@ViewChild('widthToMeasure', {read: ElementRef} )elementView: ElementRef;
 	employee = JSON.parse(localStorage.getItem('employeeInfo'));
 
 	empEmail = this.employee.empinfo.emp_email;
-
+	private el: ElementRef;
 	constructor(public notificationBar: MatSnackBar,
 		private approvalService: ApprovalService,
 		private loaderService: LoaderService,
@@ -35,7 +38,7 @@ export class ApprovalComponent implements OnInit {
 		private sharedService: SharedService,
 		public dialog: MatDialog,
 		public cdRef: ChangeDetectorRef,
-		public el: ElementRef,
+		el: ElementRef,
 		public renderer: Renderer
 	) { 
 		this.el = el.nativeElement; 
@@ -45,7 +48,15 @@ export class ApprovalComponent implements OnInit {
 	ngAfterViewInit() {
 		// setTimeout(_ => this.window.showSidenav = false);
 		// this.cdRef.detectChanges();
-		console.log(this.elementView.nativeElement.width);
+		console.log('task list div width', this.elementView.nativeElement.offsetWidth);
+		setTimeout(_ => this.onResize());
+	}
+
+	onResize(): void {
+		console.log('resize is called');
+		let totalWidth = (window.innerWidth * 60) / 100;
+		this.widthPerMin = totalWidth / 660 ;
+		console.log('width per min ', this.widthPerMin);
 	}
 
 	openNotificationbar(message: string, action: string) {

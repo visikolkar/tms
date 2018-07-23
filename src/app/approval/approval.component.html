@@ -17,14 +17,14 @@
 							</div>
 							<div fxFlex="70%" style=" background-color:rgba(0,0,0,.04);display: flex;
                                 justify-content: left;
-                                align-items: center; overflow-x: auto; padding: 10px; overflow-x: visible!important;" #taskListToMeasure>
+                                align-items: center; overflow-x: auto; padding: 10px; overflow-x: visible!important; width:100%" (window:resize)="onResize()">
 								<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5px" *ngIf="effort.effort.length else notFilled" >
-									<mat-card style="height: 40px; width: 100px; display: flex;
+									<mat-card [style.width.px]="(+task.hours * 60 + +task.mins) * widthPerMin" style="height: 40px; display: flex;
                                             justify-content: center;
-                                            align-items: center; padding: 4px;" *ngFor="let task of effort.effort">
+                                            align-items: center; padding: 4px;" *ngFor="let task of effort.effort" #widthToMeasure>
 										<mat-card-header style="margin: 0px;">
-											<mat-card-title style="margin: 0px; font-size: 0.8em; display: block;"> {{task.project_name}} </mat-card-title>
-											<mat-card-subtitle style="margin: 0px; font-size: 0.8em; display: block;"> Time {{task.hours}}:{{task.mins}} </mat-card-subtitle>
+											<mat-card-title style="margin: 0px;  display: block;" [style.font-size.em]="( ((+task.hours * 60 + +task.mins) * widthPerMin) <= 70 ? 0.5 : 0.8)"> {{task.project_name}}</mat-card-title>
+											<mat-card-subtitle style="margin: 0px; font-size: 0.8em; display: block; color: teal"> {{task.hours}}:{{task.mins}} </mat-card-subtitle>
 										</mat-card-header>
 									</mat-card>
 								</div>

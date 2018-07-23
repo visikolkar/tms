@@ -8,69 +8,9 @@
                 <div class="container" style="text-align:center; padding:10px; overflow-y:auto" [style.height.px]="windowheight">
                     <h4 style="text-align: right!important; padding: 0; margin:0; color:#C3003C;">IRIS TIME {{logeffort.iris_time}}</h4>
                     <!-- <div *ngIf="logeffort.filled_state; else editable"> -->
-                    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center">
+                    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" *ngIf="logeffort.workingDay else restDay">
                         <div fxFlex="70%">
                             <mat-card style="padding-left: 4px; padding-right: 4px; padding-top: 4px;">
-                                <!-- <mat-grid-list [cols]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? 4 : 5" style="margin: 0 auto;"
-                                    *ngFor="let effort of logeffort.effort; let i = index;" [rowHeight]="!i ? '69px' : '50px'">
-                                    <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem">
-                                        <mat-form-field style="width:90%;font-size: 16px;">
-                                            <mat-select [placeholder]="!i ? 'Project List': ''" [(value)]="effort.project_name" (change)="disableOption($event, i, logeffort.effort)"
-                                                [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
-                                                <mat-option *ngFor="let project of logeffort.projects" [value]="project.value">
-                                                    {{ project.value }}
-                                                </mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </mat-grid-tile>
-                                    <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem">
-                                        <mat-form-field style="width:90%;font-size: 16px;">
-                                            <mat-select [placeholder]="!i ? 'Skill Set': ''" [(value)]="effort.skill_set" [matTooltip]="(effort.project_name === 'Common') ? 'Disabled': ''"
-                                                [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED || effort.project_name === 'Common') ? true : false">
-                                                <mat-option value="{{employee.skill.primary_skill_three}}">{{employee.skill.primary_skill_three}}</mat-option>
-                                                <mat-option value="{{employee.skill.secondary_skill_three}}">{{employee.skill.secondary_skill_three}}</mat-option>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </mat-grid-tile>
-                                    <mat-grid-tile colspan='1' style="background-color:rgba(0,0,0,.04);" role="listitem">
-                                        <mat-form-field style="width:90%;font-size: 16px;">
-                                            <mat-select [placeholder]="!i ? 'Task List': ''" [(value)]="effort.task_name" [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
-                                                <div *ngIf="effort.project_name === 'Common'; else projectTaskOptions">
-                                                    <mat-option *ngFor="let cTask of commonTasks" [value]="cTask.value">
-                                                        {{ cTask.value }}
-                                                    </mat-option>
-                                                </div>
-                                                <ng-template #projectTaskOptions>
-                                                    <mat-option *ngFor="let pTask of projectTasks" [value]="pTask.value">
-                                                        {{ pTask.value }}
-                                                    </mat-option>
-                                                </ng-template>
-                                            </mat-select>
-                                        </mat-form-field>
-                                    </mat-grid-tile>
-                                    <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem">
-                                        <mat-form-field style="width:44%; margin-right: 4px;font-size: 16px;">
-                                            <input matInput type="text" class="without" [placeholder]="!i ? 'Hours': ''" [(ngModel)]="effort.hours" (keypress)="keyPress($event)"
-                                                (input)="getEffortTime($event.target.value, 'hours', i, logeffort.effort)" maxlength="2"
-                                                [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
-                                        </mat-form-field>
-                                        <mat-form-field style="width:44%; margin-left: 4px;font-size: 16px;">
-                                            <input matInput type="text" class="without" [placeholder]="!i ? 'Mins': ''" [(ngModel)]="effort.mins" (keypress)="keyPress($event)"
-                                                (input)="getEffortTime($event.target.value, 'mins', i, logeffort.effort)" maxlength="2"
-                                                [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
-                                        </mat-form-field>
-                                    </mat-grid-tile>
-                                    <mat-grid-tile colspan='1' style="background-color: rgba(0,0,0,.04);" role="listitem" *ngIf="logeffort.filled_state !== STATE.SUBMITTED && logeffort.filled_state !== STATE.APPROVED">
-                                        <div class="button-row">
-                                            <button mat-button color="primary" *ngIf="i === logeffort.effort.length - 1" (click)="addUserEffort(i, logeffort, j)">
-                                                <mat-icon mat-list-icon>add</mat-icon>
-                                            </button>
-                                            <button mat-button color="warn" *ngIf="(logeffort.effort.length !== 1 && !(i === logeffort.effort.length - 1))" (click)="deleteUserEffort(i, logeffort, j)">
-                                                <mat-icon mat-list-icon>delete</mat-icon>
-                                            </button>
-                                        </div>
-                                    </mat-grid-tile>
-                                </mat-grid-list> -->
                                 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="padding: 4px 4px 2px 4px; min-height: 30px;"
                                     *ngFor="let effort of logeffort.effort; let i = index;">
                                     <div fxFlex="15%" style=" background-color:rgba(0,0,0,.04); display: flex;
@@ -137,7 +77,8 @@
                                     </div>
                                 </div>
                                 <mat-card-actions style="text-align: right; margin-right: 0px; margin-left: 0px" *ngIf="logeffort.filled_state !== STATE.SUBMITTED && logeffort.filled_state !== STATE.APPROVED">
-                                    <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: rgb(181, 63, 63); position: absolute;left: 10px" (click)="applyLeave()">Apply Leave</button>
+                                    <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: rgb(181, 63, 63); position: absolute;left: 10px"
+                                        (click)="applyLeave()">Apply Leave</button>
                                     <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #3f51B5" (click)="postUserEffort(STATE.SAVED, logeffort)">SAVE</button>
                                 </mat-card-actions>
 
@@ -190,6 +131,11 @@
                             </mat-card>
                         </div>
                     </div>
+                    <ng-template #restDay>
+                        <mat-card class="note">
+                            <mat-card-title style="font-size: 1.4em">Rest Day</mat-card-title>
+                        </mat-card>
+                    </ng-template>
 
                     <!-- </div> -->
                 </div>
