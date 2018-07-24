@@ -47,9 +47,9 @@
 :host ::ng-deep .mat-ink-bar {
     background-color: #C3003C!important;
 }
-.without::-webkit-datetime-edit-ampm-field {
+/* .without::-webkit-datetime-edit-ampm-field {
     display: none;
-  }
+  } */
 
   :host ::ng-deep .mat-select-value-text{
     color: #C3003C;

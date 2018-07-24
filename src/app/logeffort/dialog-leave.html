@@ -22,7 +22,7 @@
         <div fxFlex="35%" style=" background-color:rgba(0,0,0,.04); display: flex;
             justify-content: center;
             align-items: center; padding:10px 0 10px 0;">
-            <mat-radio-group [(ngModel)]="data.leave.iris_time" style=" display: inline-flex;flex-direction: row; font-size: 0.8em;" (keydown)="data.tab_key($event)">
+            <mat-radio-group [(ngModel)]="data.leave.hours" style=" display: inline-flex;flex-direction: row; font-size: 0.8em;" (keydown)="data.tab_key($event)">
                 <mat-radio-button color="primary" value="8:00" style="padding-right: 5px">Full Day</mat-radio-button>
                 <mat-radio-button color="primary" value="4:00">Half Day</mat-radio-button>
             </mat-radio-group>
@@ -39,5 +39,5 @@
 <mat-dialog-actions style="float: right;">
     <button mat-raised-button mat-dialog-close>Cancel</button>
     <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog.  [disabled]="data.comment.comments == ''" -->
-    <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="data.leave.from_date== '' || data.leave.to_date== '' || data.leave.iris_time== '' || data.leave.comments== '' || data.leave.from_date > data.leave.to_date">Apply</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="data.leave.from_date== '' || data.leave.to_date== '' || data.leave.hours== '' || data.leave.comments== '' || data.leave.from_date > data.leave.to_date">Apply</button>
 </mat-dialog-actions>

@@ -27,9 +27,9 @@
 				<mat-card-content style="padding: 5px;">
 					<ul style="display:flex; flex-wrap: wrap; list-style: none;">
 						<li *ngFor="let project of results[key];" style="padding: 4px;">
-							<mat-card style="height: 30px; width: 100px; display: flex;
+							<mat-card style="height: 30px; display: flex;
 											justify-content: center;
-											align-items: center; padding: 4px;" (click)="addToFav(project)" [ngClass]="{'selected': project.selected}">
+											align-items: center; padding: 4px;" (click)="addToFav(project)" [ngClass]="{'selected': project.selected}" [style.width.px]="( project.project_name.split('').length >= 13 ? auto : 100)">
 								<mat-card-header style="margin: 0px;">
 									<mat-card-title style="margin: 0px; font-size: 1em; display: block;"> {{project.project_name}} </mat-card-title>
 								</mat-card-header>
@@ -49,9 +49,9 @@
 			<mat-card-content style="padding: 5px;">
 				<ul style="display:flex; flex-wrap: wrap; list-style: none;">
 					<li *ngFor="let project of favProjects" style="padding: 4px;">
-						<mat-card style="height: 30px; width: 100px; display: flex;
+						<mat-card style="height: 30px; display: flex;
 										justify-content: center;
-										align-items: center; padding: 4px;" (click)="addToFav(project)" [ngClass]="{'selected': project.selected}">
+										align-items: center; padding: 4px;" (click)="addToFav(project)" [ngClass]="{'selected': project.selected}" [style.width.px]="( project.project_name.split('').length >= 13 ? auto : 100)">
 							<mat-card-header style="margin: 0px;">
 								<mat-card-title style="margin: 0px; font-size: 1em; display: block;"> {{project.project_name}} </mat-card-title>
 							</mat-card-header>

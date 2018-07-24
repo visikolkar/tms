@@ -259,6 +259,7 @@ export class LogeffortComponent implements OnInit {
         var finalSubmitData = {
             emp_id: this.employee.empinfo.emp_id,
             iris_date: obj.iris_date,
+            iris_time: obj.iris_time.split(' ')[0],
             filled_state: state,
             effort: arr,
             comments: obj.comments
@@ -497,7 +498,7 @@ export class LogeffortComponent implements OnInit {
             from_date: '',
             to_date: '',
             comments: '',
-            iris_time: '',
+            hours: '',
             filled_state: ''
         };
 
@@ -549,7 +550,7 @@ export class LogeffortComponent implements OnInit {
             if (result) {
                 leaveData.from_date = moment(leaveData.from_date).format("DD-MM-YYYY");
                 leaveData.to_date = moment(leaveData.to_date).format("DD-MM-YYYY");
-                if (leaveData.iris_time == "4:00") {
+                if (leaveData.hours == "4:00") {
                     leaveData.filled_state = STATE.SAVED;
                     //console.log('leave data is ', leaveData);
                     self.postLeave(leaveData, 'Leave data saved successfully');

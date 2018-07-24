@@ -54,15 +54,15 @@
 									 disabled>
 										<mat-icon>clear</mat-icon> REJECTED
 									</button>
-									<button *ngIf="effort.filled_state == '0' || effort.filled_state == '1'" mat-raised-button style="margin-left: 0.2em;padding: 0 10px 0 10px;color:teal; font-size: 0.8em">
+									<a href="mailto:{{effort.emp_email}}?subject=Fill your logefforts!&amp;body=Dear {{effort.emp_name}},%0D%0A%0D%0AKindly fill the Timesheet.%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A{{employee.empinfo.emp_name}}" class="button" *ngIf="effort.filled_state == '0' || effort.filled_state == '1'" mat-raised-button style="margin-left: 0.2em;padding: 0 10px 0 10px;color:teal; font-size: 0.8em">
 										<mat-icon>notifications_none</mat-icon> NOTIFY
-									</button>
+									</a>
 								</div>
 							</div>
 							<!-- <mat-divider></mat-divider> -->
 						</div>
 						<mat-card-actions style="text-align: right; margin-right: 25px; margin-left: 0px" *ngIf="approval.empEfforts.length">
-							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color:teal;">
+							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color:teal;" (click)="notify(approval.empEfforts)" >
 								<mat-icon>notification_important</mat-icon> Notify All
 							</button>
 							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color: green" (click)="approverAction(STATES.APPROVED, approval.iris_date, approval.empEfforts, 1)">

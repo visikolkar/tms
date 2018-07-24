@@ -88,6 +88,17 @@ export class ApprovalComponent implements OnInit {
 			);
 	}
 
+	notify(emp: any) {
+		console.log('notify employee are ', emp);
+		let recipients = ''; 
+		emp.forEach(function(item){
+			if(item.filled_state == '0' || item.filled_state == '1'){
+				recipients += item.emp_email +';';
+			}
+		})
+		location.href = ("mailto:" + recipients + "?subject=Fill your logefforts!&body=Dears,%0D%0A%0D%0AKinldy fill the Timesheet.%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A" + this.employee.empinfo.emp_name);
+	}
+
 	approverAction(state: string, date: string, emp: any, all: boolean): void {
 		var self = this;
 		console.log('apppver action is ', state);
@@ -131,6 +142,7 @@ export class ApprovalComponent implements OnInit {
 					iris_date: date,
 					filled_state: state,
 					emp_ids: empArr,
+					emp_email: emp.emp_email,
 					comments: 'Approved',
 					approverEmail: this.empEmail//'chetan.lavti'
 				};
@@ -145,6 +157,7 @@ export class ApprovalComponent implements OnInit {
 				iris_date: date,
 				filled_state: state,
 				emp_ids: empArr,
+				emp_email: emp.emp_email,
 				comments: 'Reject',
 				approverEmail: this.empEmail//'chetan.lavti'
 			};
