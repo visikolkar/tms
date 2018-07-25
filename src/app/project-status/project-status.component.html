@@ -134,6 +134,32 @@
 						</mat-form-field>
 					</div>
 				</div>
+				<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="padding: 5px;">
+					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
+								display: flex;
+								justify-content: left;
+								align-items: center; padding:10px;">
+						<mat-form-field style="width: 100%">
+							<input matInput [(ngModel)]="addProject.project_code" placeholder="Project Code" >
+						</mat-form-field>
+					</div>
+					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
+								display: flex;
+								justify-content: left;
+								align-items: center; padding:10px; visibility: hidden;">
+						<mat-form-field style="width: 100%">
+							<input matInput [(ngModel)]="addProject.project_code" placeholder="Project Code" >
+						</mat-form-field>
+					</div>
+					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
+								display: flex;
+								justify-content: left;
+								align-items: center; padding:10px; visibility: hidden;">
+						<mat-form-field style="width: 100%">
+							<input matInput [(ngModel)]="addProject.project_code" placeholder="Project Code" >
+						</mat-form-field>
+					</div>
+				</div>
 				<mat-card-actions style="text-align: right; margin-right: 25px; margin-left: 0px">
 					<button mat-raised-button style="background-color:rgba(0,0,0,.04);color:red;">
 						Cancel
@@ -220,7 +246,8 @@
 								justify-content: left;
 								align-items: center; padding:10px;">
 						<mat-form-field style="font-size: 0.9em; width:100%">
-							<input matInput [(ngModel)]="selectedProject.base_ta" [matDatepicker]="baseTADatepicker" placeholder="Base TA" (keypress)="key_press($event)" [disabled]="disableEditFields">
+							<input matInput [(ngModel)]="selectedProject.base_ta" [matDatepicker]="baseTADatepicker" placeholder="Base TA" (keypress)="key_press($event)"
+							 [disabled]="disableEditFields">
 							<mat-datepicker-toggle matSuffix [for]="baseTADatepicker"></mat-datepicker-toggle>
 							<mat-datepicker #baseTADatepicker></mat-datepicker>
 						</mat-form-field>
@@ -231,8 +258,9 @@
 								display: flex;
 								justify-content: left;
 								align-items: center; padding:10px;">
-						<mat-form-field style="font-size: 0.9em; width:100%" >
-							<input matInput [(ngModel)]="selectedProject.start_date" [matDatepicker]="startDatepicker" placeholder="Dev Start Date" (keypress)="key_press($event)" [disabled]="disableEditFields">
+						<mat-form-field style="font-size: 0.9em; width:100%">
+							<input matInput [(ngModel)]="selectedProject.start_date" [matDatepicker]="startDatepicker" placeholder="Dev Start Date" (keypress)="key_press($event)"
+							 [disabled]="disableEditFields">
 							<mat-datepicker-toggle matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
 							<mat-datepicker #startDatepicker></mat-datepicker>
 						</mat-form-field>
@@ -241,8 +269,9 @@
 						display: flex;
 						justify-content: left;
 						align-items: center; padding:10px;">
-						<mat-form-field style="font-size: 0.9em; width:100%" >
-							<input matInput [(ngModel)]="selectedProject.end_date" [matDatepicker]="endDatepicker" placeholder="Dev End Date" (keypress)="key_press($event)" [disabled]="disableEditFields">
+						<mat-form-field style="font-size: 0.9em; width:100%">
+							<input matInput [(ngModel)]="selectedProject.end_date" [matDatepicker]="endDatepicker" placeholder="Dev End Date" (keypress)="key_press($event)"
+							 [disabled]="disableEditFields">
 							<mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
 							<mat-datepicker #endDatepicker></mat-datepicker>
 						</mat-form-field>
@@ -253,6 +282,32 @@
 								align-items: center; padding:10px;">
 						<mat-form-field style="width: 100%">
 							<input matInput [(ngModel)]="selectedProject.description" placeholder="Description" [disabled]="disableEditFields">
+						</mat-form-field>
+					</div>
+				</div>
+				<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="padding: 5px;">
+					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
+								display: flex;
+								justify-content: left;
+								align-items: center; padding:10px;">
+						<mat-form-field style="width: 100%">
+							<input matInput [(ngModel)]="selectedProject.project_code" placeholder="Project Code" disabled>
+						</mat-form-field>
+					</div>
+					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
+								display: flex;
+								justify-content: left;
+								align-items: center; padding:10px; visibility: hidden;">
+						<mat-form-field style="width: 100%">
+							<input matInput [(ngModel)]="selectedProject.project_code" placeholder="Project Code" >
+						</mat-form-field>
+					</div>
+					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
+								display: flex;
+								justify-content: left;
+								align-items: center; padding:10px; visibility: hidden;">
+						<mat-form-field style="width: 100%">
+							<input matInput [(ngModel)]="selectedProject.project_code" placeholder="Project Code" >
 						</mat-form-field>
 					</div>
 				</div>

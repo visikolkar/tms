@@ -26,7 +26,7 @@ export class ApprovalComponent implements OnInit {
 	STATES: any;
 	widthPerMin: any;
 	
-	@ViewChild('widthToMeasure', {read: ElementRef} )elementView: ElementRef;
+	@ViewChild('widthToMeasure', {read: ElementRef} )elementView: ElementRef; 
 	employee = JSON.parse(localStorage.getItem('employeeInfo'));
 
 	empEmail = this.employee.empinfo.emp_email;
@@ -88,15 +88,15 @@ export class ApprovalComponent implements OnInit {
 			);
 	}
 
-	notify(emp: any) {
-		console.log('notify employee are ', emp);
+	notify(approval: any) {
+		console.log('notify employee are ', approval);
 		let recipients = ''; 
-		emp.forEach(function(item){
+		approval.empEfforts.forEach(function(item){
 			if(item.filled_state == '0' || item.filled_state == '1'){
 				recipients += item.emp_email +';';
 			}
 		})
-		location.href = ("mailto:" + recipients + "?subject=Fill your logefforts!&body=Dears,%0D%0A%0D%0AKinldy fill the Timesheet.%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A" + this.employee.empinfo.emp_name);
+		location.href = ("mailto:" + recipients + "?subject=Fill your logefforts for ["+ approval.displayDate + "]"+"!&body=Dears,%0D%0A%0D%0AKinldy fill the Timesheet for "+ approval.displayDate +".%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A" + this.employee.empinfo.emp_name);
 	}
 
 	approverAction(state: string, date: string, emp: any, all: boolean): void {

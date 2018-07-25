@@ -30,6 +30,7 @@ export class ProjectStatusComponent implements OnInit {
 	addProject = {
 		project_name: '',
 		project_category: '',
+		project_code: '',
 		os_version: '',
 		suffix: '',
 		// active: '',
@@ -129,7 +130,7 @@ export class ProjectStatusComponent implements OnInit {
 		// console.log('isEmpty ', isEmpty);
 		// return isEmpty;
 
-		if(obj.base_ta !== 'Invalid date' && obj.end_date !== 'Invalid date' && obj.os_version !== '' && obj.project_category !== '' && obj.project_leader !== '' && obj.project_name !== '' && obj.start_date !== 'Invalid date' && obj.suffix !== ''){
+		if(obj.base_ta !== 'Invalid date' && obj.end_date !== 'Invalid date' && obj.os_version !== '' && obj.project_category !== '' && obj.project_code !== '' && obj.project_leader !== '' && obj.project_name !== '' && obj.start_date !== 'Invalid date' && obj.suffix !== ''){
 			return true;
 		} else {
 			return false;
@@ -171,7 +172,8 @@ export class ProjectStatusComponent implements OnInit {
 								base_ta: '',
 								start_date: '',
 								end_date: '',
-								description: ''
+								description: '',
+								project_code: ''
 							}
 						} else {
 							this.disableEditFields = true;

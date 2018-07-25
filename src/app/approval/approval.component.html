@@ -18,10 +18,10 @@
 							<div fxFlex="70%" style=" background-color:rgba(0,0,0,.04);display: flex;
                                 justify-content: left;
                                 align-items: center; overflow-x: auto; padding: 10px; overflow-x: visible!important; width:100%" (window:resize)="onResize()">
-								<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5px" *ngIf="effort.effort.length else notFilled" >
+								<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1px" *ngIf="effort.effort.length else notFilled" >
 									<mat-card [style.width.px]="(+task.hours * 60 + +task.mins) * widthPerMin" style="height: 40px; display: flex;
                                             justify-content: center;
-                                            align-items: center; padding: 4px;" *ngFor="let task of effort.effort" #widthToMeasure>
+                                            align-items: center; padding: 4px;" *ngFor="let task of effort.effort" #widthToMeasure matTooltip="{{task.task_name}}">
 										<mat-card-header style="margin: 0px;">
 											<mat-card-title style="margin: 0px;  display: block;" [style.font-size.em]="( ((+task.hours * 60 + +task.mins) * widthPerMin) <= 70 ? 0.5 : 0.8)"> {{task.project_name}}</mat-card-title>
 											<mat-card-subtitle style="margin: 0px; font-size: 0.8em; display: block; color: teal"> {{task.hours}}:{{task.mins}} </mat-card-subtitle>
@@ -54,7 +54,7 @@
 									 disabled>
 										<mat-icon>clear</mat-icon> REJECTED
 									</button>
-									<a href="mailto:{{effort.emp_email}}?subject=Fill your logefforts!&amp;body=Dear {{effort.emp_name}},%0D%0A%0D%0AKindly fill the Timesheet.%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A{{employee.empinfo.emp_name}}" class="button" *ngIf="effort.filled_state == '0' || effort.filled_state == '1'" mat-raised-button style="margin-left: 0.2em;padding: 0 10px 0 10px;color:teal; font-size: 0.8em">
+									<a href="mailto:{{effort.emp_email}}?subject=Fill your logefforts for [{{approval.displayDate}}]!&amp;body=Dear {{effort.emp_name}},%0D%0A%0D%0AKindly fill the Timesheet for {{approval.displayDate}}.%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A{{employee.empinfo.emp_name}}" class="button" *ngIf="effort.filled_state == '0' || effort.filled_state == '1'" mat-raised-button style="margin-left: 0.2em;padding: 0 10px 0 10px;color:teal; font-size: 0.8em">
 										<mat-icon>notifications_none</mat-icon> NOTIFY
 									</a>
 								</div>
@@ -62,7 +62,7 @@
 							<!-- <mat-divider></mat-divider> -->
 						</div>
 						<mat-card-actions style="text-align: right; margin-right: 25px; margin-left: 0px" *ngIf="approval.empEfforts.length">
-							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color:teal;" (click)="notify(approval.empEfforts)" >
+							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color:teal;" (click)="notify(approval)" >
 								<mat-icon>notification_important</mat-icon> Notify All
 							</button>
 							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color: green" (click)="approverAction(STATES.APPROVED, approval.iris_date, approval.empEfforts, 1)">

@@ -34,6 +34,7 @@ export class LogeffortComponent implements OnInit {
     time: string;
     workingDay:boolean = true;
     panelOpenState: boolean = false;
+    checked: boolean = false;
     employee: any;
     projects = [];
     projectTasks = [];
@@ -75,7 +76,13 @@ export class LogeffortComponent implements OnInit {
     }
 
     onTabClick(event: MatTabChangeEvent): void {
+        let self = this;
         console.log('Mat tab change ', event);
+        this.checked = false; //make the on site false on each tab click
+        this.logefforts.time_sheet.forEach(function(item){
+            self.onSite(item);
+        });
+        
     }
 
     getEffortTime(time, state, index, arr): void {
@@ -147,7 +154,7 @@ export class LogeffortComponent implements OnInit {
 
     filterUserEffort(array): any {
         //this will retun an array of unique objects
-        array.sort(function (a, b) { if (a.project_name && b.project_name) { return (a.project_name > b.project_name) ? 1 : ((b.project_name > a.project_name) ? -1 : 0); } });
+        //array.sort(function (a, b) { if (a.project_name && b.project_name) { return (a.project_name > b.project_name) ? 1 : ((b.project_name > a.project_name) ? -1 : 0); } });
         return array = array.filter((item, index, self) =>
             index === self.findIndex((obj) =>
                 obj.project_name === item.project_name && obj.skill_set === item.skill_set && obj.task_name === item.task_name)
@@ -312,18 +319,29 @@ export class LogeffortComponent implements OnInit {
                 var iris_mins = +iris_time.split(':')[0] * 60 + +iris_time.split(':')[1];
                 console.log('user minutes are ', user_mins);
                 console.log('iris minutes are ', iris_mins);
-                if (user_mins < 1440) {
-                    if (user_mins > iris_mins && obj.comments) {
-                        var message = "Effort data Submitted successfuly.!"
-                        this.postData(state, obj, this.postUserData, message);
-                    } else if (user_mins <= iris_mins) {
+                if(this.checked && obj.iris_time == "0:0 Hours"){
+                    //on site employee
+                    if (user_mins < 1440) {
                         var message = "Effort data Submitted successfuly.!"
                         this.postData(state, obj, this.postUserData, message);
                     } else {
-                        this.openNotificationbar("Your total log time is more than IRIS Time. Please provide comments!", 'Close');
+                        this.openNotificationbar("Your total log time is more than 23:59 Hours. Please take a break!", 'Close');
                     }
                 } else {
-                    this.openNotificationbar("Your total log time is more than 24 Hours. Please take a break!", 'Close');
+                    //lgsi employee
+                    if (user_mins < 1440) {
+                        if (user_mins > iris_mins && obj.comments) {
+                            var message = "Effort data Submitted successfuly.!"
+                            this.postData(state, obj, this.postUserData, message);
+                        } else if (user_mins <= iris_mins) {
+                            var message = "Effort data Submitted successfuly.!"
+                            this.postData(state, obj, this.postUserData, message);
+                        } else {
+                            this.openNotificationbar("Your total log time is more than IRIS Time. Please provide comments!", 'Close');
+                        }
+                    } else {
+                        this.openNotificationbar("Your total log time is more than 23:59 Hours. Please take a break!", 'Close');
+                    }
                 }
             } else if (state === STATE.REJECTED) {
                 // self rejection
@@ -400,14 +418,23 @@ export class LogeffortComponent implements OnInit {
             }
             item.summaryEffort = self.summerizeUserEffort(item.effort);
             //below condition will be changed with iris_status i.e RR and HH
-            if((item.displayDate.split(" ")[0]== 'Sun' || item.displayDate.split(" ")[0] == 'Sat') && item.iris_time == "00:00 Hours"){
-                item.workingDay = false;
-            } else {
-                item.workingDay = true;
-            }
+            // if((item.displayDate.split(" ")[0]== 'Sun' || item.displayDate.split(" ")[0] == 'Sat') && item.iris_time == "0:0 Hours" && !self.checked){
+            //     item.workingDay = false;
+            // } else {
+            //     item.workingDay = true;
+            // }
+            self.onSite(item);
         });
         console.log('logeffort with summary is ', obj);
         return obj;
+    }
+
+    onSite(item: any): void {
+        if((item.displayDate.split(" ")[0]== 'Sun' || item.displayDate.split(" ")[0] == 'Sat') && item.iris_time == "0:0 Hours" && !this.checked){
+            item.workingDay = false;
+        } else {
+            item.workingDay = true;
+        }
     }
 
     ngAfterViewInit() {
