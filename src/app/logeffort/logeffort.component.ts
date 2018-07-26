@@ -319,7 +319,7 @@ export class LogeffortComponent implements OnInit {
                 var iris_mins = +iris_time.split(':')[0] * 60 + +iris_time.split(':')[1];
                 console.log('user minutes are ', user_mins);
                 console.log('iris minutes are ', iris_mins);
-                if(this.checked && obj.iris_time == "0:0 Hours"){
+                if( +obj.onsite && obj.iris_time == "0:0 Hours"){
                     //on site employee
                     if (user_mins < 1440) {
                         var message = "Effort data Submitted successfuly.!"
@@ -430,7 +430,7 @@ export class LogeffortComponent implements OnInit {
     }
 
     onSite(item: any): void {
-        if((item.displayDate.split(" ")[0]== 'Sun' || item.displayDate.split(" ")[0] == 'Sat') && item.iris_time == "0:0 Hours" && !this.checked){
+        if((item.displayDate.split(" ")[0]== 'Sun' || item.displayDate.split(" ")[0] == 'Sat') && item.iris_time == "0:0 Hours" && ! +item.onsite){
             item.workingDay = false;
         } else {
             item.workingDay = true;

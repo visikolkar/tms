@@ -151,9 +151,9 @@ export class CalendarComponent implements OnInit, OnChanges {
 	}
 
 	isSubmitted(date: moment.Moment): boolean {
-		console.log('date is ', date);
+		//console.log('date is ', date);
 		return _.some(this.submittedDates, function (d) {
-			console.log('inside submitted d value is ', d);
+			//console.log('inside submitted d value is ', d);
 			//return moment(date.format("DD-MM-YYYY")).isSame(d);
 			if (date.format("DD-MM-YYYY") == d) {
 				return true;
@@ -233,7 +233,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 	// generate the calendar grid
 
 	generateCalendar(): void {
-		console.log('curretDate value is', this.currentDate);
+		//console.log('curretDate value is', this.currentDate);
 		const dates = this.fillDates(this.currentDate);
 		const weeks: CalendarDate[][] = [];
 		while (dates.length > 0) {
@@ -248,10 +248,10 @@ export class CalendarComponent implements OnInit, OnChanges {
 		const start = firstDayOfGrid.date();
 		return _.range(start, start + 42)
 			.map((date: number): CalendarDate => {
-				console.log('date value of type number is', date);
+				//console.log('date value of type number is', date);
 				const d = moment(firstDayOfGrid).date(date);
-				console.log('value of d is ', d);
-				console.log('the submitted date is ', this.isSubmitted(d));
+				//console.log('value of d is ', d);
+				//console.log('the submitted date is ', this.isSubmitted(d));
 				return {
 					approved: this.isApproved(d),
 					rejected: this.isRejected(d),

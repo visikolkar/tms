@@ -8,7 +8,7 @@
                 <div class="container" style="text-align:center; padding:10px; overflow-y:auto" [style.height.px]="windowheight">
                     <div style="text-align: right; padding: 0; margin: 0">
                         <h4 style="text-align: right; padding: 0; margin:0 50px 0 0; color:#C3003C; display: inline;">IRIS TIME {{logeffort.iris_time}}</h4>
-                        <mat-checkbox style="text-align: right;padding: 0; margin:0;color:#C3003C!important; font-size: 16px; display: inline;" [(ngModel)]="checked" [disabled]="(logeffort.iris_time !== '0:0 Hours')" (ngModelChange)="onSite(logeffort)" >On Site</mat-checkbox>    
+                        <mat-checkbox style="text-align: right;padding: 0; margin:0;color:#C3003C!important; font-size: 16px; display: inline;" [(ngModel)]="+logeffort.onsite" [disabled]="(logeffort.iris_time !== '0:0 Hours')" (ngModelChange)="onSite(logeffort)" >On Site</mat-checkbox>    
                     </div>
                     <!-- <div *ngIf="logeffort.filled_state; else editable"> -->
                     <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" *ngIf="logeffort.workingDay else restDay">
@@ -58,14 +58,14 @@
                                         align-items: center; padding:10px 0 10px 0;">
                                         <input style="font-size: .9em" matInput type="text" placeholder='Hours' [(ngModel)]="effort.hours" (keypress)="keyPress($event)"
                                             (input)="getEffortTime($event.target.value, 'hours', i, logeffort.effort)" maxlength="2"
-                                            [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false" autocomplete="off">
+                                            [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false" autocomplete="off" class="hours-mins">
                                     </div>
                                     <div fxFlex="5%" style=" background-color:rgba(0,0,0,.04); display: flex;
                                         justify-content: left;
                                         align-items: center; padding:10px 0 10px 0;">
                                         <input style="font-size: .9em" matInput type="text" placeholder="Mins" [(ngModel)]="effort.mins" (keypress)="keyPress($event)"
                                             (input)="getEffortTime($event.target.value, 'mins', i, logeffort.effort)" maxlength="2"
-                                            [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false" autocomplete="off">
+                                            [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false" autocomplete="off" class="hours-mins">
                                     </div>
                                     <div fxFlex="5%" style=" display: flex;
                                         justify-content: center;

@@ -21,7 +21,7 @@ export class ProjectStatusComponent implements OnInit {
 	detailsHeader = 'Project Details';
 	searchText: string;
 	selectedProject: any;
-	disableEditFields:boolean = true;
+	//disableEditFields:boolean = true;
 	dates = {
 		start_date: '',
 		end_date: '',
@@ -69,6 +69,7 @@ export class ProjectStatusComponent implements OnInit {
 		this.selectedProject = obj;
 		this.detailsShow = true;
 		this.addNewShow = false;
+		this.showEditOptions = false;
 		this.detailsHeader = obj.project_name + ' Project Details';
 		// obj.base_ta = this.dates.base_ta;
 		// obj.start_date = this.dates.start_date;
@@ -93,7 +94,7 @@ export class ProjectStatusComponent implements OnInit {
 	enableEdit(): void {
 		console.log('click event')
 		this.showEditOptions = true;
-		this.disableEditFields = false;
+		//this.disableEditFields = false; //this variable is depricated
 
 	}
 
@@ -176,7 +177,7 @@ export class ProjectStatusComponent implements OnInit {
 								project_code: ''
 							}
 						} else {
-							this.disableEditFields = true;
+							//this.disableEditFields = true;
 							this.showEditOptions = false;
 						}
 					} else{

@@ -14,7 +14,8 @@
 					<li *ngFor="let project of (searchText ? (projects | filter : searchText) : (projects)) " style="padding: 4px;">
 						<mat-card style="height: 30px; display: flex;
 											justify-content: center;
-											align-items: center; padding: 4px;" (click)="selectProject(project)" [ngClass]="{'selected': project.selected}" [style.width.px]="( project.project_name.split('').length >= 13 ? auto : 100)">
+											align-items: center; padding: 4px;" (click)="selectProject(project)" [ngClass]="{'selected': project.selected}"
+						 [style.width.px]="( project.project_name.split('').length >= 13 ? auto : 100)">
 							<mat-card-header style="margin: 0px;">
 								<mat-card-title style="margin: 0px; font-size: 1em; display: block;"> {{project.project_name}} </mat-card-title>
 							</mat-card-header>
@@ -66,12 +67,13 @@
 					</div>
 				</div>
 				<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="padding: 5px;">
+
 					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
-						display: flex;
-						justify-content: left;
-						align-items: center; padding:10px;">
+								display: flex;
+								justify-content: left;
+								align-items: center; padding:10px;">
 						<mat-form-field style="width: 100%">
-							<input matInput [(ngModel)]="addProject.suffix" placeholder="Suffix">
+							<input matInput [(ngModel)]="addProject.project_code" placeholder="Project Code">
 						</mat-form-field>
 					</div>
 					<!-- <div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
@@ -136,11 +138,11 @@
 				</div>
 				<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="padding: 5px;">
 					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
-								display: flex;
-								justify-content: left;
-								align-items: center; padding:10px;">
+						display: flex;
+						justify-content: left;
+						align-items: center; padding:10px;">
 						<mat-form-field style="width: 100%">
-							<input matInput [(ngModel)]="addProject.project_code" placeholder="Project Code" >
+							<input matInput [(ngModel)]="addProject.suffix" placeholder="Suffix">
 						</mat-form-field>
 					</div>
 					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
@@ -148,7 +150,7 @@
 								justify-content: left;
 								align-items: center; padding:10px; visibility: hidden;">
 						<mat-form-field style="width: 100%">
-							<input matInput [(ngModel)]="addProject.project_code" placeholder="Project Code" >
+							<input matInput [(ngModel)]="addProject.project_code" placeholder="Project Code">
 						</mat-form-field>
 					</div>
 					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
@@ -156,7 +158,7 @@
 								justify-content: left;
 								align-items: center; padding:10px; visibility: hidden;">
 						<mat-form-field style="width: 100%">
-							<input matInput [(ngModel)]="addProject.project_code" placeholder="Project Code" >
+							<input matInput [(ngModel)]="addProject.project_code" placeholder="Project Code">
 						</mat-form-field>
 					</div>
 				</div>
@@ -195,8 +197,8 @@
 								justify-content: left;
 								align-items: center; padding:10px;">
 						<mat-form-field style="width: 100%">
-							<!-- <input matInput [(ngModel)]="selectedProject.project_category" placeholder="Project Category" [disabled]="disableEditFields"> -->
-							<mat-select placeholder="Project Category" [(value)]="selectedProject.project_category" [disabled]="disableEditFields">
+							<!-- <input matInput [(ngModel)]="selectedProject.project_category" placeholder="Project Category" [disabled]="!showEditOptions"> -->
+							<mat-select placeholder="Project Category" [(value)]="selectedProject.project_category" disabled>
 								<mat-option value="Smart Phone (CA)">Smart Phone (CA)</mat-option>
 								<mat-option value="OS Upgrade">OS Upgrade</mat-option>
 								<mat-option value="Feature Phone">Feature Phone</mat-option>
@@ -209,17 +211,17 @@
 								justify-content: left;
 								align-items: center; padding:10px;">
 						<mat-form-field style="width: 100%">
-							<input matInput [(ngModel)]="selectedProject.os_version" placeholder="OS Version" [disabled]="disableEditFields">
+							<input matInput [(ngModel)]="selectedProject.os_version" placeholder="OS Version" disabled>
 						</mat-form-field>
 					</div>
 				</div>
 				<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="padding: 5px;">
 					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
-								display: flex;
-								justify-content: left;
-								align-items: center; padding:10px;">
+						display: flex;
+						justify-content: left;
+						align-items: center; padding:10px;">
 						<mat-form-field style="width: 100%">
-							<input matInput [(ngModel)]="selectedProject.suffix" placeholder="Suffix" [disabled]="disableEditFields">
+							<input matInput [(ngModel)]="selectedProject.project_code" placeholder="Project Code" disabled>
 						</mat-form-field>
 					</div>
 					<!-- <div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
@@ -227,7 +229,7 @@
 								justify-content: left;
 								align-items: center; padding:10px;">
 						<mat-form-field style="width: 100%">
-							<mat-select placeholder="Active" [(value)]="selectedProject.active" [disabled]="disableEditFields">
+							<mat-select placeholder="Active" [(value)]="selectedProject.active" [disabled]="!showEditOptions">
 								<mat-option value="yes">YES</mat-option>
 								<mat-option value="no">NO</mat-option>
 							</mat-select>
@@ -238,7 +240,7 @@
 								justify-content: left;
 								align-items: center; padding:10px;">
 						<mat-form-field style="width: 100%">
-							<input matInput [(ngModel)]="selectedProject.project_leader" placeholder="Project Leader" [disabled]="disableEditFields">
+							<input matInput [(ngModel)]="selectedProject.project_leader" placeholder="Project Leader" [disabled]="!showEditOptions">
 						</mat-form-field>
 					</div>
 					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
@@ -247,7 +249,7 @@
 								align-items: center; padding:10px;">
 						<mat-form-field style="font-size: 0.9em; width:100%">
 							<input matInput [(ngModel)]="selectedProject.base_ta" [matDatepicker]="baseTADatepicker" placeholder="Base TA" (keypress)="key_press($event)"
-							 [disabled]="disableEditFields">
+							 [disabled]="!showEditOptions">
 							<mat-datepicker-toggle matSuffix [for]="baseTADatepicker"></mat-datepicker-toggle>
 							<mat-datepicker #baseTADatepicker></mat-datepicker>
 						</mat-form-field>
@@ -260,7 +262,7 @@
 								align-items: center; padding:10px;">
 						<mat-form-field style="font-size: 0.9em; width:100%">
 							<input matInput [(ngModel)]="selectedProject.start_date" [matDatepicker]="startDatepicker" placeholder="Dev Start Date" (keypress)="key_press($event)"
-							 [disabled]="disableEditFields">
+							 [disabled]="!showEditOptions">
 							<mat-datepicker-toggle matSuffix [for]="startDatepicker"></mat-datepicker-toggle>
 							<mat-datepicker #startDatepicker></mat-datepicker>
 						</mat-form-field>
@@ -271,7 +273,7 @@
 						align-items: center; padding:10px;">
 						<mat-form-field style="font-size: 0.9em; width:100%">
 							<input matInput [(ngModel)]="selectedProject.end_date" [matDatepicker]="endDatepicker" placeholder="Dev End Date" (keypress)="key_press($event)"
-							 [disabled]="disableEditFields">
+							 [disabled]="!showEditOptions">
 							<mat-datepicker-toggle matSuffix [for]="endDatepicker"></mat-datepicker-toggle>
 							<mat-datepicker #endDatepicker></mat-datepicker>
 						</mat-form-field>
@@ -281,17 +283,18 @@
 								justify-content: left;
 								align-items: center; padding:10px;">
 						<mat-form-field style="width: 100%">
-							<input matInput [(ngModel)]="selectedProject.description" placeholder="Description" [disabled]="disableEditFields">
+							<input matInput [(ngModel)]="selectedProject.description" placeholder="Description" [disabled]="!showEditOptions">
 						</mat-form-field>
 					</div>
 				</div>
 				<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" style="padding: 5px;">
+
 					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
 								display: flex;
 								justify-content: left;
 								align-items: center; padding:10px;">
 						<mat-form-field style="width: 100%">
-							<input matInput [(ngModel)]="selectedProject.project_code" placeholder="Project Code" disabled>
+							<input matInput [(ngModel)]="selectedProject.suffix" placeholder="Suffix" [disabled]="!showEditOptions">
 						</mat-form-field>
 					</div>
 					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
@@ -299,7 +302,7 @@
 								justify-content: left;
 								align-items: center; padding:10px; visibility: hidden;">
 						<mat-form-field style="width: 100%">
-							<input matInput [(ngModel)]="selectedProject.project_code" placeholder="Project Code" >
+							<input matInput [(ngModel)]="selectedProject.project_code" placeholder="Project Code">
 						</mat-form-field>
 					</div>
 					<div fxFlex="30%" style=" background-color:rgba(0,0,0,.04); 
@@ -307,7 +310,7 @@
 								justify-content: left;
 								align-items: center; padding:10px; visibility: hidden;">
 						<mat-form-field style="width: 100%">
-							<input matInput [(ngModel)]="selectedProject.project_code" placeholder="Project Code" >
+							<input matInput [(ngModel)]="selectedProject.project_code" placeholder="Project Code">
 						</mat-form-field>
 					</div>
 				</div>
