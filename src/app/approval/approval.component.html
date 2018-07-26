@@ -78,19 +78,19 @@
 							<mat-card style="width: 30%; display: flex;
                                                 justify-content: center;
                                                 align-items: center; padding: 4px; background-color:rgba(0,0,0,.04)">
-								<canvas baseChart [data]="approval.projectEffort" [labels]="approval.projectName" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+								<canvas baseChart [data]="approval.projectEffort" [labels]="approval.projectName" [options]="projectOptions" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
 								 (chartClick)="chartClicked($event)"></canvas>
 							</mat-card>
 							<mat-card style="width: 30%; display: flex;
                                                 justify-content: center;
                                                 align-items: center; padding: 4px; background-color:rgba(0,0,0,.04)">
-								<canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+								<canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [options]="projectOptions" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
 								 (chartClick)="chartClicked($event)"></canvas>
 							</mat-card>
 							<mat-card style="width: 30%; display: flex;
                                                 justify-content: center;
                                                 align-items: center; padding: 4px; background-color:rgba(0,0,0,.04)">
-								<canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
+								<canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [options]="projectOptions" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
 								 (chartClick)="chartClicked($event)"></canvas>
 							</mat-card>
 						</div>

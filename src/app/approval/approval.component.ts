@@ -196,9 +196,9 @@ export class ApprovalComponent implements OnInit {
 			item.report = self.chartReport(dummyReport);
 			item.projectName = [];
 			item.projectEffort = [];
-			item.report.forEach(function(project){
+			item.report.forEach(function (project) {
 				item.projectName.push(project.project_name);
-				item.projectEffort.push( parseFloat(project.time.replace(":", ".")).toFixed(2) );
+				item.projectEffort.push(parseFloat(project.time.replace(":", ".")).toFixed(2));
 			})
 		});
 
@@ -206,7 +206,7 @@ export class ApprovalComponent implements OnInit {
 		return obj;
 	}
 
-	chartReport(array){
+	chartReport(array) {
 		var self = this;
 		var output = [];
 
@@ -371,6 +371,27 @@ export class ApprovalComponent implements OnInit {
 	public doughnutChartLabels: string[] = ['Emma Plus', 'CV1 Prime', 'Joan O'];
 	public doughnutChartData: number[] = [350, 450, 100];
 	public doughnutChartType: string = 'doughnut';
+	public projectOptions = {
+		legend: {
+			display: true,
+			position: 'right',
+			labels: {
+				fontColor: 'black',
+				fontSize: 12,
+				position: 'bottom',
+				usePointStyle: true,
+				boxWidth: 100
+			}
+		},
+		title: {
+			display: true,
+			position: 'top',
+			text: 'Project Wise Analysis'
+		},
+		elements: {
+			radius: 20
+		}
+	};
 
 	// events
 	public chartClicked(e: any): void {
