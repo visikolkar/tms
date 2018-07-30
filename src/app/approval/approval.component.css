@@ -7,8 +7,8 @@
     right: 0;
 }
 .navigation {
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 100px;
     bottom: 0;
     margin: 0;
     max-width: 120px;
@@ -24,6 +24,7 @@
     -moz-transition: all 350ms ease;
     -o-transition: all 350ms ease;
     transition: all 350ms ease;
+    background-color: rgba(0,0,0,.10);
 }
 
 .navigation:hover, .navigation-prev:hover, .navigation-next:hover a{

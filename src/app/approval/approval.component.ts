@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, ChangeDetectorRef, ViewChild, ElementRef, Renderer } from '@angular/core';
 import { APPROVAL } from '../shared/approval';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatTabChangeEvent } from '@angular/material';
 import { ApprovalService } from './approval.service';
 import { LoaderService } from '../loader/loader.service';
 import { ActivatedRoute } from '@angular/router';
@@ -23,8 +23,10 @@ export class ApprovalComponent implements OnInit {
 	approvals: any;
 	selectedTab: number;
 	windowheight: number;
-	STATES: any;
+	STATES: any = STATE;
 	widthPerMin: any;
+	showApprovalAll: number;
+	showNotifyAll: number;
 
 	//@ViewChild('widthToMeasure', {read: ElementRef} )elementView: ElementRef;
 	employee = JSON.parse(localStorage.getItem('employeeInfo'));
@@ -39,7 +41,7 @@ export class ApprovalComponent implements OnInit {
 		public dialog: MatDialog,
 		public cdRef: ChangeDetectorRef,
 		el: ElementRef,
-		public renderer: Renderer
+		public renderer: Renderer,
 	) {
 		this.el = el.nativeElement;
 		this.renderer = renderer;
@@ -70,7 +72,7 @@ export class ApprovalComponent implements OnInit {
 	}
 
 	postApproverAction(data: any, message): void {
-		this.loaderService.show()
+		this.loaderService.show();
 		this.approvalService.postApproverAction(data)
 			.subscribe(
 				(response) => {
@@ -221,7 +223,7 @@ export class ApprovalComponent implements OnInit {
 			item.skillName = [];
 			item.skillEffort = [];
 			item.skillReport.forEach(function (skill) {
-				item.skillName.push(skill.skill_set);
+				item.skillName.push(skill.skill_set == '' ? 'Common' : skill.skill_set);
 				item.skillEffort.push(parseFloat(skill.time.replace(":", ".")).toFixed(2));
 			});
 		});
@@ -365,17 +367,36 @@ export class ApprovalComponent implements OnInit {
 		return prepareArray;
 	}
 
+	onTabClick(event: MatTabChangeEvent): void {
+        let self = this;
+		console.log('Mat tab change ', event);
+		this.showApproveNotifyAllCheck(event.index);
+    }
+
+	showApproveNotifyAllCheck(index: number): void {
+		this.showApprovalAll = this.approvals.approval[index].empEfforts.findIndex(function(item){
+			return item.filled_state == STATE.SUBMITTED
+		});
+		this.showNotifyAll = this.approvals.approval[index].empEfforts.findIndex(function(item){
+			return item.filled_state == STATE.SAVED || item.filled_state == STATE.NOT_FILLED;
+		});
+	}
+
 	ngOnInit() {
 		// this.window.showSidenav = true;
 		this.windowheight = (73 * window.screen.height) / 100;
 		// this.approvals = this.effortSumarry(APPROVAL.data);
 		// this.selectedTab = this.activeTab(this.approvals);
 		this.STATES = STATE;
+		
 		this.route.data
 			.subscribe((res: any) => {
 				console.log('resolved approvals are ', res);
 				this.approvals = this.effortSumarry(res.approvals.data);
 				this.selectedTab = this.activeTab(this.approvals.approval);
+				this.selectedTab = this.selectedTab == -1 ? 0 : this.selectedTab;
+				console.log('selected tab is ', this.selectedTab);
+				this.showApproveNotifyAllCheck(this.selectedTab);
 			});
 	}
 
@@ -422,8 +443,6 @@ export class ApprovalComponent implements OnInit {
 
 
 	// Doughnut
-	public doughnutChartLabels: string[] = ['Emma Plus', 'CV1 Prime', 'Joan O'];
-	public doughnutChartData: number[] = [350, 450, 100];
 	public doughnutChartType: string = 'doughnut';
 	public projectOptions = {
 		legend: {

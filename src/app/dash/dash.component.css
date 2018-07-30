@@ -5,6 +5,7 @@
     left: 0;
     right: 0;
     background-color: transparent;
+    -ms-overflow-style: none;
   }
   
   .example-sidenav {
@@ -14,6 +15,12 @@
     min-width: 227px;
     background: #333;
     padding: 10px;
+    -ms-overflow-style: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
   }
 
   .side-list{

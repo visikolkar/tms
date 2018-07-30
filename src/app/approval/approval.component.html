@@ -1,9 +1,9 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0" fxLayoutAlign="center" style="background-color:transparent; margin-top:40px;">
 	<!-- <a fxFlex="5%">prev</a> -->
-	<div fxFlex="90%">
+	<div fxFlex="90%" style="overflow: hidden;">
 		<!-- [selectedIndex]="selectedTab" -->
 		<!-- <div class="container"> -->
-		<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectedTab" [@.disabled]="true">
+		<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectedTab" [@.disabled]="true" (selectedTabChange)="onTabClick($event)">
 			<mat-tab *ngFor="let approval of approvals.approval; let j = index;" label={{approval.displayDate}}>
 				<!-- background-color:rgba(0,0,0,.04); use it if needed for the tab background -->
 				<div class="container" style=" padding:10px;overflow-y:auto;" [style.height.px]="windowheight">
@@ -17,13 +17,16 @@
 							</div>
 							<div fxFlex="70%" style=" background-color:rgba(0,0,0,.04);display: flex;
                                 justify-content: left;
-                                align-items: center; overflow-x: auto; padding: 10px; overflow-x: visible!important; width:100%" (window:resize)="onResize()">
-								<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1px" *ngIf="effort.effort.length else notFilled" >
+                                align-items: center; overflow-x: auto; padding: 10px; overflow-x: visible!important; width:100%"
+							 (window:resize)="onResize()">
+								<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1px" *ngIf="effort.effort.length else notFilled">
 									<mat-card [style.width.px]="(+task.hours * 60 + +task.mins) * widthPerMin" style="height: 40px; display: flex;
                                             justify-content: center;
-                                            align-items: center; padding: 4px;" *ngFor="let task of effort.effort" #widthToMeasure matTooltip="{{task.task_name}}">
+                                            align-items: center; padding: 4px;" *ngFor="let task of effort.effort" #widthToMeasure
+									 matTooltip="{{task.task_name}}">
 										<mat-card-header style="margin: 0px;">
-											<mat-card-title style="margin: 0px;  display: block;" [style.font-size.em]="( ((+task.hours * 60 + +task.mins) * widthPerMin) <= 70 ? 0.5 : 0.8)"> {{task.project_name}}</mat-card-title>
+											<mat-card-title style="margin: 0px;  display: block;" [style.font-size.em]="( ((+task.hours * 60 + +task.mins) * widthPerMin) <= 70 ? 0.5 : 0.8)">
+											{{task.project_name}}</mat-card-title>
 											<mat-card-subtitle style="margin: 0px; font-size: 0.8em; display: block; color: teal"> {{task.hours}}:{{task.mins}} </mat-card-subtitle>
 										</mat-card-header>
 									</mat-card>
@@ -40,10 +43,11 @@
 										<mat-icon>desktop_windows</mat-icon>
 									</button>
 									<button *ngIf="effort.filled_state == '2'" mat-stroked-button mat-icon-button color="primary" style="margin-left: 0.2em;"
-									 class="done" (click)="approverAction(STATES.APPROVED, approval.iris_date, effort, 0)" >
+									 class="done" (click)="approverAction(STATES.APPROVED, approval.iris_date, effort, 0)">
 										<mat-icon>done</mat-icon>
 									</button>
-									<button *ngIf="effort.filled_state == '2'" mat-stroked-button mat-icon-button color="warn" style="margin-left: 0.2em;" class="clear" (click)="approverAction(STATES.REJECTED, approval.iris_date, effort, 0)">
+									<button *ngIf="effort.filled_state == '2'" mat-stroked-button mat-icon-button color="warn" style="margin-left: 0.2em;" class="clear"
+									 (click)="approverAction(STATES.REJECTED, approval.iris_date, effort, 0)">
 										<mat-icon>clear</mat-icon>
 									</button>
 									<button *ngIf="effort.filled_state == '3'" mat-raised-button style="margin-left: 0.2em;padding: 0 10px 0 10px;color:green; font-size: 0.8em"
@@ -54,7 +58,8 @@
 									 disabled>
 										<mat-icon>clear</mat-icon> REJECTED
 									</button>
-									<a href="mailto:{{effort.emp_email}}?subject=Fill your logefforts for [{{approval.displayDate}}]!&amp;body=Dear {{effort.emp_name}},%0D%0A%0D%0AKindly fill the Timesheet for {{approval.displayDate}}.%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A{{employee.empinfo.emp_name}}" class="button" *ngIf="effort.filled_state == '0' || effort.filled_state == '1'" mat-raised-button style="margin-left: 0.2em;padding: 0 10px 0 10px;color:teal; font-size: 0.8em">
+									<a href="mailto:{{effort.emp_email}}?subject=Fill your logefforts for [{{approval.displayDate}}]!&amp;body=Dear {{effort.emp_name}},%0D%0A%0D%0AKindly fill the Timesheet for {{approval.displayDate}}.%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A{{employee.empinfo.emp_name}}"
+									 class="button" *ngIf="effort.filled_state == '0' || effort.filled_state == '1'" mat-raised-button style="margin-left: 0.2em;padding: 0 10px 0 10px;color:teal; font-size: 0.8em">
 										<mat-icon>notifications_none</mat-icon> NOTIFY
 									</a>
 								</div>
@@ -62,38 +67,38 @@
 							<!-- <mat-divider></mat-divider> -->
 						</div>
 						<mat-card-actions style="text-align: right; margin-right: 25px; margin-left: 0px" *ngIf="approval.empEfforts.length">
-							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color:teal;" (click)="notify(approval)" >
+							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color:teal;" (click)="notify(approval)" *ngIf="showNotifyAll >=0">
 								<mat-icon>notification_important</mat-icon> Notify All
 							</button>
-							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color: green" (click)="approverAction(STATES.APPROVED, approval.iris_date, approval.empEfforts, 1)">
+							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color: green" (click)="approverAction(STATES.APPROVED, approval.iris_date, approval.empEfforts, 1)" *ngIf = "showApprovalAll >= 0">
 								<!-- #3f51B5 -->
 								<mat-icon>done_all</mat-icon> Approve All</button>
 						</mat-card-actions>
 					</mat-card>
 					<br/>
 					<!-- <mat-card style="padding-left: 4px; padding-right: 4px;"> -->
-						<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5%" style=" padding:10px; display: flex;
+					<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5%" style=" padding:10px; display: flex;
                                 justify-content: center;
                                 align-items: center;">
-							<mat-card style="width: 30%; display: flex;
+						<mat-card style="width: 30%; display: flex;
                                                 justify-content: center;
                                                 align-items: center; padding: 4px;">
-								<canvas baseChart [data]="approval.projectEffort" [labels]="approval.projectName" [options]="projectOptions" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
-								 (chartClick)="chartClicked($event)"></canvas>
-							</mat-card>
-							<mat-card style="width: 30%; display: flex;
+							<canvas baseChart [data]="approval.projectEffort" [labels]="approval.projectName" [options]="projectOptions" [chartType]="doughnutChartType"
+							 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+						</mat-card>
+						<mat-card style="width: 30%; display: flex;
                                                 justify-content: center;
                                                 align-items: center; padding: 4px;">
-								<canvas baseChart [data]="approval.taskEffort" [labels]="approval.taskName" [options]="taskOptions" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
-								 (chartClick)="chartClicked($event)"></canvas>
-							</mat-card>
-							<mat-card style="width: 30%; display: flex;
+							<canvas baseChart [data]="approval.taskEffort" [labels]="approval.taskName" [options]="taskOptions" [chartType]="doughnutChartType"
+							 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+						</mat-card>
+						<mat-card style="width: 30%; display: flex;
                                                 justify-content: center;
                                                 align-items: center; padding: 4px;">
-								<canvas baseChart [data]="approval.skillEffort" [labels]="approval.skillName" [options]="skillOptions" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)"
-								 (chartClick)="chartClicked($event)"></canvas>
-							</mat-card>
-						</div>
+							<canvas baseChart [data]="approval.skillEffort" [labels]="approval.skillName" [options]="skillOptions" [chartType]="doughnutChartType"
+							 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+						</mat-card>
+					</div>
 					<!-- </mat-card> -->
 				</div>
 			</mat-tab>
