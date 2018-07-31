@@ -48,7 +48,7 @@ import { DashService } from './dash/dash.service';
 import { SharedService } from './shared/shared.service';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { DialogApproveAll, DialogReject } from './approval/approval.component';
-import { DialogLeave } from './logeffort/logeffort.component';
+import { DialogLeave, DialogClearAll } from './logeffort/logeffort.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminService } from './admin/admin.service';
 import { AdminResolve } from './admin/admin.resolve';
@@ -66,6 +66,7 @@ import { AdminResolve } from './admin/admin.resolve';
         DialogApproveAll,
         DialogReject,
         DialogLeave,
+        DialogClearAll,
         LoaderComponent,
         NotfoundComponent,
         AdminComponent,
@@ -126,7 +127,8 @@ import { AdminResolve } from './admin/admin.resolve';
         EmployeeProfileComponent,
         DialogApproveAll,
         DialogReject,
-        DialogLeave
+        DialogLeave,
+        DialogClearAll
     ]
 })
 export class AppModule { }

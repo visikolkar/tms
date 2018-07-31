@@ -7,6 +7,29 @@
 			<mat-tab *ngFor="let approval of approvals.approval; let j = index;" label={{approval.displayDate}}>
 				<!-- background-color:rgba(0,0,0,.04); use it if needed for the tab background -->
 				<div class="container" style=" padding:10px;overflow-y:auto;" [style.height.px]="windowheight">
+					<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5%" style=" padding:10px; display: flex;
+						justify-content: center;
+						align-items: center;">
+						<mat-card style="width: 30%; display: flex;
+										justify-content: center;
+										align-items: center; padding: 4px;">
+							<canvas baseChart [data]="approval.projectEffort" [labels]="approval.projectName" [options]="projectOptions" [chartType]="doughnutChartType"
+							 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+						</mat-card>
+						<mat-card style="width: 30%; display: flex;
+										justify-content: center;
+										align-items: center; padding: 4px;">
+							<canvas baseChart [data]="approval.taskEffort" [labels]="approval.taskName" [options]="taskOptions" [chartType]="doughnutChartType"
+							 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+						</mat-card>
+						<mat-card style="width: 30%; display: flex;
+										justify-content: center;
+										align-items: center; padding: 4px;">
+							<canvas baseChart [data]="approval.skillEffort" [labels]="approval.skillName" [options]="skillOptions" [chartType]="doughnutChartType"
+							 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+						</mat-card>
+					</div>
+					<br/>
 					<mat-card style="padding-left: 4px; padding-right: 4px; padding-top: 4px;">
 						<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0.5%" fxLayoutAlign="center" *ngFor="let effort of approval.empEfforts"
 						 style="padding: 5px;">
@@ -26,7 +49,7 @@
 									 matTooltip="{{task.task_name}}">
 										<mat-card-header style="margin: 0px;">
 											<mat-card-title style="margin: 0px;  display: block;" [style.font-size.em]="( ((+task.hours * 60 + +task.mins) * widthPerMin) <= 70 ? 0.5 : 0.8)">
-											{{task.project_name}}</mat-card-title>
+												{{task.project_name}}</mat-card-title>
 											<mat-card-subtitle style="margin: 0px; font-size: 0.8em; display: block; color: teal"> {{task.hours}}:{{task.mins}} </mat-card-subtitle>
 										</mat-card-header>
 									</mat-card>
@@ -70,14 +93,15 @@
 							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color:teal;" (click)="notify(approval)" *ngIf="showNotifyAll >=0">
 								<mat-icon>notification_important</mat-icon> Notify All
 							</button>
-							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color: green" (click)="approverAction(STATES.APPROVED, approval.iris_date, approval.empEfforts, 1)" *ngIf = "showApprovalAll >= 0">
+							<button mat-raised-button style="background-color:rgba(0,0,0,.04);color: green" (click)="approverAction(STATES.APPROVED, approval.iris_date, approval.empEfforts, 1)"
+							 *ngIf="showApprovalAll >= 0">
 								<!-- #3f51B5 -->
 								<mat-icon>done_all</mat-icon> Approve All</button>
 						</mat-card-actions>
 					</mat-card>
-					<br/>
+					<!-- <br/> -->
 					<!-- <mat-card style="padding-left: 4px; padding-right: 4px;"> -->
-					<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5%" style=" padding:10px; display: flex;
+					<!-- <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5%" style=" padding:10px; display: flex;
                                 justify-content: center;
                                 align-items: center;">
 						<mat-card style="width: 30%; display: flex;
@@ -98,7 +122,7 @@
 							<canvas baseChart [data]="approval.skillEffort" [labels]="approval.skillName" [options]="skillOptions" [chartType]="doughnutChartType"
 							 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 						</mat-card>
-					</div>
+					</div> -->
 					<!-- </mat-card> -->
 				</div>
 			</mat-tab>

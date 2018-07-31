@@ -76,7 +76,7 @@ export class MyProjectListComponent implements OnInit {
 		for (var key in this.results) {
 			this.results[key].forEach(function (item) {
 				if (item.project_name == obj.project_name && item.project_category == obj.project_category) {
-					if (item.selected) {
+					if (item.selected && item.project_name != 'Common') {
 						item.selected = false;
 						var idx = self.favProjects.findIndex(o => o.project_name == obj.project_name && o.project_category == obj.project_category);
 						if (idx >= 0) {
@@ -89,7 +89,7 @@ export class MyProjectListComponent implements OnInit {
 								return o;
 							}
 						});
-						if (!!idx) {
+						if (idx == -1) {
 							self.favProjects.push(item);
 						}
 					}

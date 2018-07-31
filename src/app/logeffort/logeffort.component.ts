@@ -93,12 +93,20 @@ export class LogeffortComponent implements OnInit {
         } else if (state === "mins" && (Number(time) >= 60 || Number(time) < 0)) {
             arr[index].mins = '';
             this.openNotificationbar('Enter value between 0 and 59!', 'Close');
+        } else {
+            // console.log('task name is ', arr[index].task_name);
+            // if(arr[index].task_name == 'Leave' && (time != '4' || time != '8') && state === "hours"){
+            //     arr[index].hours = '';
+            //     arr[index].hours = JSON.parse(JSON.stringify(arr[index].hours));
+            //     console.log('array is ', arr);
+            //     this.openNotificationbar('Enter either 4 or 8 hours only', 'Close');
+            // }
         }
     }
 
     keyPress(event: any) {
-        const pattern = /[0-9\+\-\ ]/;
-
+        // const pattern = /[0-9\+\-\ ]/;
+        const pattern = /[0-9]/;
         let inputChar = String.fromCharCode(event.charCode);
         if (event.keyCode != 8 && !pattern.test(inputChar)) {
             event.preventDefault();
@@ -107,19 +115,21 @@ export class LogeffortComponent implements OnInit {
 
     disableOption(selected, index, arr): void { //this function is not required
         console.log('selected value is', selected);
-        if (selected.value === 'Common') {
-            //this.disableSelect = true;
-            arr[index].skill_set = '';
-        } else {
-            //this.disableSelect = false;
-        }
+        arr[index].skill_set = '';
+        arr[index].task_name = '';
+        // if (selected.value === 'Common') {
+        //     //this.disableSelect = true;
+        //     arr[index].skill_set = '';
+        // } else {
+        //     //this.disableSelect = false;
+        // }
     }
 
     addUserEffort(index, obj, j): void {
         console.log('adding item to the array ', obj);
         console.log('j value is ', j);
         var arr = obj.effort;
-        if (arr[index].project_name && arr[index].task_name && (arr[index].hours !== '' || arr[index].mins !== '')) {
+        if (arr[index].project_name && arr[index].task_name && (arr[index].hours !== '' || arr[index].mins !== '') && (+arr[index].hours > 0 || +arr[index].mins > 0)) {
             //push an empty object
             if(arr[index].project_name != "Common" && !arr[index].skill_set){
                 this.openNotificationbar('Fill all the required fields!', 'Close');
@@ -175,7 +185,7 @@ export class LogeffortComponent implements OnInit {
         let self = this;
         let prepareArray = [];
         array.forEach(function (item) {
-            if (item.project_name !== '' && item.task_name !== '' && (item.hours !== '' || item.mins !== '')) {
+            if (item.project_name !== '' && item.task_name !== '' && (item.hours !== '' || item.mins !== '') && (+item.hours > 0 || +item.mins > 0)) {
                 prepareArray.push(item);
             }
         });
@@ -302,6 +312,37 @@ export class LogeffortComponent implements OnInit {
 
     postUserEffort(state, obj): void {
         var arr = obj.effort;
+        // var check = arr.findIndex(function(item){
+        //     if(item.project_name !== 'Common'){
+        //         return (item.project_name == '' || item.task_name == '' || item.hours == '' || item.mins == '' || +item.hours < 0 || +item.mins < 0 || item.skill_set == '');
+        //     } else {
+        //         return (item.project_name == '' || item.task_name == '' || item.hours == '' || item.mins == '' || +item.hours < 0 || +item.mins < 0);
+        //     }
+        // })
+        // if(check >= 0){
+        //     this.openNotificationbar('Check all the required fields', 'Close');
+        //     return;
+        // }
+
+        //clear all
+        if(state == STATE.NOT_FILLED){
+
+            //approve all
+            const dialogRef = this.dialog.open(DialogClearAll, {
+                width: '250px',
+            });
+
+            dialogRef.afterClosed().subscribe(result => {
+                console.log('The dialog was closed', result);
+                if (result) {
+                    //console.log('save data is ', arr);
+                    var message = "Effort data cleared successfuly.!"
+                    this.postData(state, obj, [], message);
+                } else {
+                    console.log('approve all aborted');
+                }
+            });
+        }
         this.postUserData = this.prepareUserEffort(arr);
         console.log('post data is ', this.postUserData);
         if (this.postUserData.length) {
@@ -555,6 +596,9 @@ export class LogeffortComponent implements OnInit {
                                 this.minDate = new Date(leaveData.from_date);
                                 console.log('min date is ', this.minDate);
                             }
+                        } else {
+                            this.minDate = new Date(restrictYear, 0, 1);
+                            console.log('min date is ', this.minDate);
                         }
                     } else {
                         if (leaveData.to_date) {
@@ -565,6 +609,9 @@ export class LogeffortComponent implements OnInit {
                                 this.maxDate = new Date(leaveData.to_date);
                                 console.log('max date is ', this.maxDate);
                             }
+                        } else {
+                            this.maxDate = new Date(restrictYear, 11, 31);
+                            console.log('max date is ', this.maxDate);
                         }
                     }
                 }
@@ -592,6 +639,22 @@ export class LogeffortComponent implements OnInit {
         });
 
     }
+
+}
+
+@Component({
+	selector: 'dialog-clear-all',
+	templateUrl: './dialog-clear-all.html',
+})
+export class DialogClearAll {
+
+	constructor(
+		public dialogRef: MatDialogRef<DialogClearAll>,
+		@Inject(MAT_DIALOG_DATA) public data: any) { }
+
+	onNoClick(): void {
+		this.dialogRef.close();
+	}
 
 }
 

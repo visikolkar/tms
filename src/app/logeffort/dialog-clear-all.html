@@ -1,0 +1,7 @@
+<h2 mat-dialog-title>Clear All Efforts, are you sure?</h2>
+<!-- <mat-dialog-content>Are you sure?</mat-dialog-content> -->
+<mat-dialog-actions style="float: right;">
+    <button mat-raised-button mat-dialog-close>Cancel</button>
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button mat-raised-button color="primary" [mat-dialog-close]="true">Clear All</button>
+</mat-dialog-actions>
