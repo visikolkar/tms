@@ -31,7 +31,7 @@ import {
     MatDatepickerModule,
     MatNativeDateModule,
 } from '@angular/material';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { DashModule } from './dash/dash.module';
 import { AdminModule } from './admin/admin.module';
 import { LoginComponent } from './login/login.component';
@@ -52,6 +52,11 @@ import { DialogLeave, DialogClearAll } from './logeffort/logeffort.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminService } from './admin/admin.service';
 import { AdminResolve } from './admin/admin.resolve';
+import { ReportsComponent } from './reports/reports.component';
+
+import { ReportModule } from './reports/reports.module';
+import { ReportsService } from './reports/reports.service';
+import { ReportsResolve } from './reports/reports.resolve';
 // import { ProjectStatusComponent } from './project-status/project-status.component';
 // import { JobTaskListComponent } from './job-task-list/job-task-list.component';
 
@@ -70,6 +75,7 @@ import { AdminResolve } from './admin/admin.resolve';
         LoaderComponent,
         NotfoundComponent,
         AdminComponent,
+        ReportsComponent,
     ],
     imports: [
         BrowserModule,
@@ -103,6 +109,7 @@ import { AdminResolve } from './admin/admin.resolve';
         AppRoutingModule,
         DashModule,
         AdminModule,
+        ReportModule
     ],
     providers: [
         LoginService,
@@ -115,6 +122,8 @@ import { AdminResolve } from './admin/admin.resolve';
         DashResolve,
         AdminService,
         AdminResolve,
+        ReportsService,
+        ReportsResolve,
         ProjectResolve,
         FavProjectResolve,
         ActiveProjectResolve,

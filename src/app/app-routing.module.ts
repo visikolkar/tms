@@ -13,6 +13,9 @@ import { AdminComponent } from './admin/admin.component';
 import { ProjectStatusComponent } from './project-status/project-status.component';
 import { JobTaskListComponent } from './job-task-list/job-task-list.component';
 import { AdminResolve } from './admin/admin.resolve';
+import { ReportsComponent } from './reports/reports.component';
+import { MyReportComponent } from './my-report/my-report.component';
+import { ReportsResolve } from './reports/reports.resolve';
 
 const routes: Routes = [
 	{
@@ -53,8 +56,7 @@ const routes: Routes = [
 				}
 			}
 		]
-	},
-	{
+	}, {
 		path: 'admin',
 		component: AdminComponent,
 		canActivate: [AuthUserGuard, AuthRoleGuard],
@@ -72,6 +74,20 @@ const routes: Routes = [
 				resolve: {
 					tasks: AdminResolve
 				}
+			}
+		]
+	}, {
+		path: 'reports',
+		component: ReportsComponent,
+		canActivate: [AuthUserGuard],
+		children: [
+			{
+				path: 'my-report',
+				component: MyReportComponent,
+				resolve : {
+					logeffort: ReportsResolve
+				}
+
 			}
 		]
 	},

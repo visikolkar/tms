@@ -1,6 +1,6 @@
 <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0" fxLayoutAlign="center" style="background-color:transparent; margin-top:40px;">
 	<!-- <a fxFlex="5%">prev</a> -->
-	<div fxFlex="90%" style="overflow: hidden;">
+	<div fxFlex="90%">
 		<!-- [selectedIndex]="selectedTab" -->
 		<!-- <div class="container"> -->
 		<mat-tab-group [selectedIndex]="selectedTab" (selectedIndexChange)="selectedTab" [@.disabled]="true" (selectedTabChange)="onTabClick($event)">
