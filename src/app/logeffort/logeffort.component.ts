@@ -94,13 +94,29 @@ export class LogeffortComponent implements OnInit {
             arr[index].mins = '';
             this.openNotificationbar('Enter value between 0 and 59!', 'Close');
         } else {
-            // console.log('task name is ', arr[index].task_name);
-            // if(arr[index].task_name == 'Leave' && (time != '4' || time != '8') && state === "hours"){
-            //     arr[index].hours = '';
-            //     arr[index].hours = JSON.parse(JSON.stringify(arr[index].hours));
-            //     console.log('array is ', arr);
-            //     this.openNotificationbar('Enter either 4 or 8 hours only', 'Close');
-            // }
+            console.log('task name is ', arr[index].task_name);
+            if(arr[index].task_name == 'Leave' && state === "hours"){
+                if(Number(time) == 4){
+                    arr[index].mins = '0';
+                } else if (Number(time) == 8){
+                    arr[index].mins = '0';
+                } else {
+                    arr[index].hours = '';
+                    // arr[index].hours = JSON.parse(JSON.stringify(arr[index].hours));
+                    console.log('array is ', arr);
+                    this.openNotificationbar('Enter either 4 or 8 hours only', 'Close');
+                }
+            }
+            if(arr[index].task_name == 'Leave' && state === "mins"){
+                if(Number(time) == 0){ //|| time =="" || time == " "
+                   
+                } else {
+                    arr[index].mins = '';
+                    // arr[index].hours = JSON.parse(JSON.stringify(arr[index].hours));
+                    console.log('array is ', arr);
+                    this.openNotificationbar('mins are ignored ', 'Close');
+                }
+            }
         }
     }
 
@@ -337,7 +353,13 @@ export class LogeffortComponent implements OnInit {
                 if (result) {
                     //console.log('save data is ', arr);
                     var message = "Effort data cleared successfuly.!"
-                    this.postData(state, obj, [], message);
+                    this.postData(state, obj, [{
+                        project_name: ' ',
+                        skill_set: ' ',
+                        task_name: ' ',
+                        hours: '0',
+                        mins: '0'
+                    }], message);
                 } else {
                     console.log('approve all aborted');
                 }

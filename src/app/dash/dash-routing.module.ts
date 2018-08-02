@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LogeffortComponent } from '../logeffort/logeffort.component';
 import { ApprovalComponent } from '../approval/approval.component';
 import { MyProjectListComponent } from '../my-project-list/my-project-list.component';
+import { AboutUsComponent } from '../about-us/about-us.component';
 
 const dashRoutes: Routes = [
     { 
@@ -15,7 +16,10 @@ const dashRoutes: Routes = [
     }, { 
         path: 'my-project-list', 
         component: MyProjectListComponent
-    },
+    }, { 
+        path: 'about', 
+        component: AboutUsComponent
+    }
 ];
 
 //taken from angular.io

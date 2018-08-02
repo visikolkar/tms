@@ -16,6 +16,7 @@ import { AdminResolve } from './admin/admin.resolve';
 import { ReportsComponent } from './reports/reports.component';
 import { MyReportComponent } from './my-report/my-report.component';
 import { ReportsResolve } from './reports/reports.resolve';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const routes: Routes = [
 	{
@@ -54,6 +55,9 @@ const routes: Routes = [
 					projects: ActiveProjectResolve,
 					favorites: FavProjectResolve
 				}
+			}, {
+				path: 'about',
+				component: AboutUsComponent,
 			}
 		]
 	}, {

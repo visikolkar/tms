@@ -1,0 +1,49 @@
+.team-card {
+    width: 100%;
+    padding-bottom: 5px;
+  }
+  
+  .team-header-image-1 {
+    background-image: url('/assets/img/chetan.jpg');
+    background-size: cover;
+  }
+
+  .team-header-image-2 {
+    background-image: url('/assets/img/vijay.jpg');
+    background-size: cover;
+  }
+
+  .team-header-image-3 {
+    background-image: url('/assets/img/ramesh.jpg');
+    background-size: cover;
+  }
+
+  .team-header-image-4 {
+    background-image: url('/assets/img/trupti.jpg');
+    background-size: cover;
+  }
+
+  .team-header-image-5 {
+    background-image: url('/assets/img/vishwa.jpg');
+    background-size: cover;
+  }
+
+  .team-header-image-6 {
+    background-image: url('/assets/img/sajal.jpg');
+    background-size: cover;
+  }
+
+  .team-header-image-7 {
+    background-image: url('/assets/img/user.png');
+    background-size: cover;
+  }
+
+  .team-header-image-8 {
+    background-image: url('/assets/img/neo.jpg');
+    background-size: cover;
+  }
+
+  .team-header-image-9 {
+    background-image: url('/assets/img/prat.jpg');
+    background-size: cover;
+  }
