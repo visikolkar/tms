@@ -40,7 +40,7 @@
 							</div>
 							<div fxFlex="70%" style=" background-color:rgba(0,0,0,.04);display: flex;
                                 justify-content: left;
-                                align-items: center; overflow-x: auto; padding: 10px; overflow-x: visible!important; width:100%"
+                                align-items: center; overflow-x: auto; padding: 10px; overflow-x: auto;"
 							 (window:resize)="onResize()">
 								<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="1px" *ngIf="effort.effort.length else notFilled">
 									<mat-card [style.width.px]="(+task.hours * 60 + +task.mins) * widthPerMin" style="height: 40px; display: flex;
@@ -81,7 +81,7 @@
 									 disabled>
 										<mat-icon>clear</mat-icon> REJECTED
 									</button>
-									<a href="mailto:{{effort.emp_email}}?subject=Fill your logefforts for [{{approval.displayDate}}]!&amp;body=Dear {{effort.emp_name}},%0D%0A%0D%0AKindly fill the Timesheet for {{approval.displayDate}}.%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A{{employee.empinfo.emp_name}}"
+									<a href="mailto:{{effort.emp_email}}?subject=[TMS2.0 Reminder!!] Fill your logefforts for [{{approval.displayDate}}]&amp;body=Dear {{effort.emp_name}},%0D%0A%0D%0AKindly fill the Timesheet for {{approval.displayDate}}.%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A{{employee.empinfo.emp_name}}"
 									 class="button" *ngIf="effort.filled_state == '0' || effort.filled_state == '1'" mat-raised-button style="margin-left: 0.2em;padding: 0 10px 0 10px;color:teal; font-size: 0.8em">
 										<mat-icon>notifications_none</mat-icon> NOTIFY
 									</a>

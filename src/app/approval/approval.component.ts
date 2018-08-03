@@ -98,7 +98,7 @@ export class ApprovalComponent implements OnInit {
 				recipients += item.emp_email + ';';
 			}
 		})
-		location.href = ("mailto:" + recipients + "?subject=Fill your logefforts for [" + approval.displayDate + "]" + "!&body=Dears,%0D%0A%0D%0AKinldy fill the Timesheet for " + approval.displayDate + ".%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A" + this.employee.empinfo.emp_name);
+		location.href = ("mailto:" + recipients + "?subject=[TMS2.0 Reminder!!] Fill your logefforts for [" + approval.displayDate + "]" + "&body=Dears,%0D%0A%0D%0AKinldy fill the Timesheet for " + approval.displayDate + ".%0D%0A%0D%0Ahttp://10.221.31.34:8080/TMS2/ %0D%0AThank you!%0D%0A" + this.employee.empinfo.emp_name);
 	}
 
 	approverAction(state: string, date: string, emp: any, all: boolean): void {
