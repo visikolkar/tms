@@ -35,7 +35,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DashModule } from './dash/dash.module';
 import { AdminModule } from './admin/admin.module';
 import { LoginComponent } from './login/login.component';
-import { DashComponent } from './dash/dash.component';
+import { DashComponent, DialogLogout } from './dash/dash.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
 import { LoaderComponent } from './loader/loader.component';
@@ -71,6 +71,7 @@ import { ReportsResolve } from './reports/reports.resolve';
         DialogApproveAll,
         DialogReject,
         DialogLeave,
+        DialogLogout,
         DialogClearAll,
         LoaderComponent,
         NotfoundComponent,
@@ -137,6 +138,7 @@ import { ReportsResolve } from './reports/reports.resolve';
         DialogApproveAll,
         DialogReject,
         DialogLeave,
+        DialogLogout,
         DialogClearAll
     ]
 })

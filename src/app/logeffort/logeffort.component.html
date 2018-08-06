@@ -21,7 +21,7 @@
                                         align-items: center; padding:10px 0 10px 0;">
                                         <mat-select style="font-size: .9em" placeholder="Project List" [(value)]="effort.project_name" (change)="disableOption($event, i, logeffort.effort)"
                                             [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
-                                            <mat-option value="">Choose Project</mat-option>
+                                            <mat-option value="" style="color: #C3003C">Select Project</mat-option>
                                             <mat-optgroup *ngFor="let key of Object.keys(logeffort.favProjects);" [label]="key">
                                                 <mat-option *ngFor="let project of logeffort.favProjects[key]" [value]="project.value">
                                                     {{ project.value }}
@@ -34,7 +34,7 @@
                                         align-items: center; padding:10px 0 10px 0;">
                                         <mat-select style="font-size: .9em" placeholder="Skill List" [(value)]="effort.skill_set" [matTooltip]="(effort.project_name === 'Common') ? 'Disabled': ''"
                                             [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED || effort.project_name === 'Common') ? true : false">
-                                            <mat-option value="" *ngIf="effort.project_name !== 'Common'" >Choose Skill</mat-option>
+                                            <mat-option value="" *ngIf="effort.project_name !== 'Common'" style="color: #C3003C" >Select Skill</mat-option>
                                             <mat-option value="{{employee.skill.primary_skill_three}}">{{employee.skill.primary_skill_three}}</mat-option>
                                             <mat-option value="{{employee.skill.secondary_skill_three}}">{{employee.skill.secondary_skill_three}}</mat-option>
                                         </mat-select>
@@ -43,7 +43,7 @@
                                         justify-content: left;
                                         align-items: center; overflow-x: auto; padding:10px 0 10px 0;">
                                         <mat-select style="font-size: .9em" placeholder="Task List" [(value)]="effort.task_name" [disabled]="(logeffort.filled_state == STATE.SUBMITTED || logeffort.filled_state == STATE.APPROVED) ? true : false">
-                                            <mat-option value="">Choose Task</mat-option>
+                                            <mat-option value="" style="color: #C3003C" >Select Task</mat-option>
                                             <div *ngIf="effort.project_name === 'Common'; else projectTaskOptions">
                                                 <mat-option *ngFor="let cTask of commonTasks" [value]="cTask.value">
                                                     {{ cTask.value }}
@@ -83,7 +83,7 @@
                                     </div>
                                 </div>
                                 <mat-card-actions style="text-align: right; margin-right: 0px; margin-left: 0px" *ngIf="logeffort.filled_state !== STATE.SUBMITTED && logeffort.filled_state !== STATE.APPROVED">
-                                    <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: rgb(181, 63, 63); position: absolute;left: 10px"
+                                    <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #C3003C; position: absolute;left: 10px"
                                         (click)="applyLeave()">Apply Leave</button>
                                     <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #C3003C" (click)="postUserEffort(STATE.NOT_FILLED, logeffort)">Clear All</button>
                                     <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #3f51B5" (click)="postUserEffort(STATE.SAVED, logeffort)">SAVE</button>

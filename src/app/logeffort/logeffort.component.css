@@ -64,6 +64,10 @@
     border-color: #C3003C;
 }
 
+:host ::ng-deep .mat-select-content.mat-optgroup-label{
+    color: palevioletred!important;
+}
+
 /* /deep/ .mat-form-field-wrapper{
     font-size: 4px!important; this is just a workaround
     padding-bottom: 0.8em!important;
@@ -81,7 +85,9 @@
 }
 
 .mat-expansion-panel-header {
-  height: 48px;
+  /* height: 48px; */
+  min-height: 48px;
+  height: auto!important;
 }
 :host ::ng-deep .mat-expansion-panel-content:not(.mat-expanded):not(.ng-animating){
   display: none;
@@ -100,11 +106,7 @@
     text-align: inherit;
 }
 
-
-
 .note {
-    
-    
     color: #fff;
     background: #C3003C;
     overflow: hidden;
