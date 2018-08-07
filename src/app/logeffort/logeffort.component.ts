@@ -32,9 +32,10 @@ export class LogeffortComponent implements OnInit {
     skillSet: string;
     taskName: string;
     time: string;
-    workingDay:boolean = true;
+    workingDay: boolean = true;
     panelOpenState: boolean = false;
     checked: boolean = false;
+    noDuplicates: boolean = true;
     employee: any;
     projects = [];
     projectTasks = [];
@@ -79,10 +80,10 @@ export class LogeffortComponent implements OnInit {
         let self = this;
         console.log('Mat tab change ', event);
         this.checked = false; //make the on site false on each tab click
-        this.logefforts.time_sheet.forEach(function(item){
+        this.logefforts.time_sheet.forEach(function (item) {
             self.onSite(item);
         });
-        
+
     }
 
     getEffortTime(time, state, index, arr): void {
@@ -95,10 +96,10 @@ export class LogeffortComponent implements OnInit {
             this.openNotificationbar('Enter value between 0 and 59!', 'Close');
         } else {
             console.log('task name is ', arr[index].task_name);
-            if(arr[index].task_name == 'Leave' && state === "hours"){
-                if(Number(time) == 4){
+            if (arr[index].task_name == 'Leave' && state === "hours") {
+                if (Number(time) == 4) {
                     arr[index].mins = '0';
-                } else if (Number(time) == 8){
+                } else if (Number(time) == 8) {
                     arr[index].mins = '0';
                 } else {
                     arr[index].hours = '';
@@ -107,9 +108,9 @@ export class LogeffortComponent implements OnInit {
                     this.openNotificationbar('Enter either 4 or 8 hours only', 'Close');
                 }
             }
-            if(arr[index].task_name == 'Leave' && state === "mins"){
-                if(Number(time) == 0){ //|| time =="" || time == " "
-                   
+            if (arr[index].task_name == 'Leave' && state === "mins") {
+                if (Number(time) == 0) { //|| time =="" || time == " "
+
                 } else {
                     arr[index].mins = '';
                     // arr[index].hours = JSON.parse(JSON.stringify(arr[index].hours));
@@ -147,7 +148,7 @@ export class LogeffortComponent implements OnInit {
         var arr = obj.effort;
         if (arr[index].project_name && arr[index].task_name && (arr[index].hours !== '' || arr[index].mins !== '') && (+arr[index].hours > 0 || +arr[index].mins > 0)) {
             //push an empty object
-            if(arr[index].project_name != "Common" && !arr[index].skill_set){
+            if (arr[index].project_name != "Common" && !arr[index].skill_set) {
                 this.openNotificationbar('Fill all the required fields!', 'Close');
                 return;
             }
@@ -158,7 +159,8 @@ export class LogeffortComponent implements OnInit {
                 hours: '',
                 mins: ''
             });
-            arr = this.filterUserEffort(arr);
+            //arr = this.filterUserEffort(arr);
+            this.duplicateEffort(arr);
             console.log('user filled data after filter is', arr);
             this.postUserData = this.prepareUserEffort(arr);
 
@@ -176,6 +178,21 @@ export class LogeffortComponent implements OnInit {
             this.openNotificationbar('Fill all the required fields!', 'Close');
         }
 
+    }
+
+    duplicateEffort(array): any {
+        var self = this;
+        array.some(function (item, index, arr) {
+            let i = arr.findIndex(function (obj) { return (obj.project_name === item.project_name && obj.skill_set === item.skill_set && obj.task_name === item.task_name) });
+            if (index === i) {
+                //return true;
+                self.noDuplicates = true;
+            } else {
+                self.noDuplicates = false;
+                self.openNotificationbar(arr[index].project_name + ' ' + arr[index].task_name + ' is duplicated ', 'Close');
+                return 1; //break the loop
+            }
+        });
     }
 
     filterUserEffort(array): any {
@@ -205,7 +222,7 @@ export class LogeffortComponent implements OnInit {
                 prepareArray.push(item);
             }
         });
-        prepareArray = this.filterUserEffort(prepareArray);
+        //prepareArray = this.filterUserEffort(prepareArray);
         return prepareArray;
     }
 
@@ -341,9 +358,9 @@ export class LogeffortComponent implements OnInit {
         // }
 
         //clear all
-        if(state == STATE.NOT_FILLED){
+        if (state == STATE.NOT_FILLED) {
 
-            //approve all
+            //clear all
             const dialogRef = this.dialog.open(DialogClearAll, {
                 width: '250px',
             });
@@ -352,7 +369,7 @@ export class LogeffortComponent implements OnInit {
                 console.log('The dialog was closed', result);
                 if (result) {
                     //console.log('save data is ', arr);
-                    var message = "Effort data cleared successfuly.!"
+                    var message = "Effort data Cleared.!"
                     this.postData(state, obj, [{
                         project_name: ' ',
                         skill_set: ' ',
@@ -361,60 +378,65 @@ export class LogeffortComponent implements OnInit {
                         mins: '0'
                     }], message);
                 } else {
-                    console.log('approve all aborted');
+                    console.log('Clear all aborted');
                 }
             });
         }
+        this.duplicateEffort(arr);
         this.postUserData = this.prepareUserEffort(arr);
         console.log('post data is ', this.postUserData);
-        if (this.postUserData.length) {
-            //post data to the server
-            if (state === STATE.SAVED) {
-                // save the data
-                console.log('save data is ', arr);
-                var message = "Effort data Saved successfuly.!"
-                this.postData(state, obj, this.postUserData, message);
-            } else if (state === STATE.SUBMITTED) { //check for the total time 
-                //submit the data
-                console.log('obj is ', obj);
-                var user_mins = +obj.total_log_time.split(':')[0] * 60 + +obj.total_log_time.split(':')[1];
-                var iris_time = obj.iris_time.split(' ')[0];
-                var iris_mins = +iris_time.split(':')[0] * 60 + +iris_time.split(':')[1];
-                console.log('user minutes are ', user_mins);
-                console.log('iris minutes are ', iris_mins);
-                if( +obj.onsite && obj.iris_time == "0:0 Hours"){
-                    //on site employee
-                    if (user_mins < 1440) {
-                        var message = "Effort data Submitted successfuly.!"
-                        this.postData(state, obj, this.postUserData, message);
-                    } else {
-                        this.openNotificationbar("Your total log time is more than 23:59 Hours. Please take a break!", 'Close');
-                    }
-                } else {
-                    //lgsi employee
-                    if (user_mins < 1440) {
-                        if (user_mins > iris_mins && obj.comments) {
-                            var message = "Effort data Submitted successfuly.!"
-                            this.postData(state, obj, this.postUserData, message);
-                        } else if (user_mins <= iris_mins) {
+        if (!this.noDuplicates) {
+            this.openNotificationbar('There are duplicate efforts', 'Kindly Remove!');
+        } else {
+            if (this.postUserData.length) {
+                //post data to the server
+                if (state === STATE.SAVED) {
+                    // save the data
+                    console.log('save data is ', arr);
+                    var message = "Effort data Saved successfuly.!"
+                    this.postData(state, obj, this.postUserData, message);
+                } else if (state === STATE.SUBMITTED) { //check for the total time 
+                    //submit the data
+                    console.log('obj is ', obj);
+                    var user_mins = +obj.total_log_time.split(':')[0] * 60 + +obj.total_log_time.split(':')[1];
+                    var iris_time = obj.iris_time.split(' ')[0];
+                    var iris_mins = +iris_time.split(':')[0] * 60 + +iris_time.split(':')[1];
+                    console.log('user minutes are ', user_mins);
+                    console.log('iris minutes are ', iris_mins);
+                    if (+obj.onsite && obj.iris_time == "0:0 Hours") {
+                        //on site employee
+                        if (user_mins < 1440) {
                             var message = "Effort data Submitted successfuly.!"
                             this.postData(state, obj, this.postUserData, message);
                         } else {
-                            this.openNotificationbar("Your total log time is more than IRIS Time. Please provide comments!", 'Close');
+                            this.openNotificationbar("Your total log time is more than 23:59 Hours. Please take a break!", 'Close');
                         }
                     } else {
-                        this.openNotificationbar("Your total log time is more than 23:59 Hours. Please take a break!", 'Close');
+                        //lgsi employee
+                        if (user_mins < 1440) {
+                            if (user_mins > iris_mins && obj.comments) {
+                                var message = "Effort data Submitted successfuly.!"
+                                this.postData(state, obj, this.postUserData, message);
+                            } else if (user_mins <= iris_mins) {
+                                var message = "Effort data Submitted successfuly.!"
+                                this.postData(state, obj, this.postUserData, message);
+                            } else {
+                                this.openNotificationbar("Your total log time is more than IRIS Time. Please provide comments!", 'Close');
+                            }
+                        } else {
+                            this.openNotificationbar("Your total log time is more than 23:59 Hours. Please take a break!", 'Close');
+                        }
                     }
+                } else if (state === STATE.REJECTED) {
+                    // self rejection
+                    var message = "Effort data Rejected successfuly.!"
+                    //after self reject make the state to saved
+                    this.postData(STATE.SAVED, obj, this.postUserData, message);
                 }
-            } else if (state === STATE.REJECTED) {
-                // self rejection
-                var message = "Effort data Rejected successfuly.!"
-                //after self reject make the state to saved
-                this.postData(STATE.SAVED, obj, this.postUserData, message);
+            } else {
+                //no data availble to post
+                this.openNotificationbar('No effort data available!', 'Close');
             }
-        } else {
-            //no data availble to post
-            this.openNotificationbar('No effort data available!', 'Close');
         }
     }
 
@@ -493,7 +515,7 @@ export class LogeffortComponent implements OnInit {
     }
 
     onSite(item: any): void {
-        if((item.displayDate.split(" ")[0]== 'Sun' || item.displayDate.split(" ")[0] == 'Sat') && item.iris_time == "0:0 Hours" && ! +item.onsite){
+        if ((item.displayDate.split(" ")[0] == 'Sun' || item.displayDate.split(" ")[0] == 'Sat') && item.iris_time == "0:0 Hours" && ! +item.onsite) {
             item.workingDay = false;
         } else {
             item.workingDay = true;
@@ -665,18 +687,18 @@ export class LogeffortComponent implements OnInit {
 }
 
 @Component({
-	selector: 'dialog-clear-all',
-	templateUrl: './dialog-clear-all.html',
+    selector: 'dialog-clear-all',
+    templateUrl: './dialog-clear-all.html',
 })
 export class DialogClearAll {
 
-	constructor(
-		public dialogRef: MatDialogRef<DialogClearAll>,
-		@Inject(MAT_DIALOG_DATA) public data: any) { }
+    constructor(
+        public dialogRef: MatDialogRef<DialogClearAll>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-	onNoClick(): void {
-		this.dialogRef.close();
-	}
+    onNoClick(): void {
+        this.dialogRef.close();
+    }
 
 }
 
