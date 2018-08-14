@@ -1,0 +1,15 @@
+.selected {
+    background-color: teal;
+    color: white;
+}
+
+.save:hover{
+    background-color:#C3003C;
+    color: white!important;
+}
+
+.save:disabled {
+    background-color:grey;
+    color: white!important;
+    border-color: grey!important;
+}

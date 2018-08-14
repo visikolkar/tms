@@ -12,7 +12,7 @@ import { MyProjectListComponent } from './my-project-list/my-project-list.compon
 import { AdminComponent } from './admin/admin.component';
 import { ProjectStatusComponent } from './project-status/project-status.component';
 import { JobTaskListComponent } from './job-task-list/job-task-list.component';
-import { AdminResolve } from './admin/admin.resolve';
+import { AdminResolve , JobTaskListResolve} from './admin/admin.resolve';
 import { ReportsComponent } from './reports/reports.component';
 import { MyReportComponent } from './my-report/my-report.component';
 import { ReportsResolve } from './reports/reports.resolve';
@@ -76,7 +76,7 @@ const routes: Routes = [
 				path: 'job-task-list',
 				component: JobTaskListComponent,
 				resolve: {
-					tasks: AdminResolve
+					tasks: JobTaskListResolve,
 				}
 			}
 		]

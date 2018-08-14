@@ -51,7 +51,7 @@ import { DialogApproveAll, DialogReject } from './approval/approval.component';
 import { DialogLeave, DialogClearAll } from './logeffort/logeffort.component';
 import { AdminComponent } from './admin/admin.component';
 import { AdminService } from './admin/admin.service';
-import { AdminResolve } from './admin/admin.resolve';
+import { AdminResolve, JobTaskListResolve } from './admin/admin.resolve';
 import { ReportsComponent } from './reports/reports.component';
 
 import { ReportModule } from './reports/reports.module';
@@ -130,7 +130,8 @@ import { ReportsResolve } from './reports/reports.resolve';
         ActiveProjectResolve,
         ApprovalResolve,
         SharedService,
-        MatDatepickerModule
+        MatDatepickerModule,
+        JobTaskListResolve,
     ],
     bootstrap: [AppComponent],
     entryComponents: [
