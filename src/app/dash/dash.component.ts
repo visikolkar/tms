@@ -1,4 +1,4 @@
-import { Component, OnInit,Inject } from '@angular/core';
+import { Component, OnInit,Inject, Compiler } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 // import { Employee } from '../shared/employee';
 import { EMPLOYEEDETAILS } from '../shared/mock-employee';
@@ -7,6 +7,9 @@ import { DashService } from './dash.service';
 import { LoaderService } from '../loader/loader.service';
 import { ROLES } from '../shared/config';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
     selector: 'app-dash',
@@ -18,7 +21,7 @@ export class DashComponent implements OnInit {
     window: any = window;
     ROLES: any;
 
-    constructor(private router: Router,public dialog: MatDialog, private dashService: DashService, private loaderService: LoaderService) { }
+    constructor(private router: Router,public dialog: MatDialog, private dashService: DashService, private loaderService: LoaderService, private _compiler: Compiler) { }
 
     openDialog(): void {
         const dialogConfig = new MatDialogConfig();
@@ -53,10 +56,13 @@ export class DashComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe(result => {
             if(result){
+                this.loaderService.show();
                 localStorage.clear();
-        //        window.location.reload();
-        this.router.navigate(['/login'], { replaceUrl: true });
-		console.log("logout successfull");
+                window.location.reload();
+                this._compiler.clearCache();
+                Observable.interval(500).takeWhile(function(){ return this.loaderService.hide()})
+                //this.router.navigate(['/login'], { replaceUrl: true });
+                console.log("logout successfull");
             }else{
                 console.log("logout failed");
             }

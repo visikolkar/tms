@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit {
 
 	openNotificationbar(message: string, action: string) {
         this.notificationBar.open(message, action, {
-            duration: 5000,
+			duration: 5000,
+			verticalPosition: 'top'
         });
 	}
 

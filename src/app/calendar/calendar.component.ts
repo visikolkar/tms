@@ -45,6 +45,7 @@ export class CalendarComponent implements OnInit, OnChanges {
 	openNotificationbar(message: string, action: string) {
 		this.notificationBar.open(message, action, {
 			duration: 5000,
+			verticalPosition: 'top'
 		});
 	}
 

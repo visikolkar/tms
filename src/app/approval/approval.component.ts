@@ -64,6 +64,7 @@ export class ApprovalComponent implements OnInit {
 	openNotificationbar(message: string, action: string) {
 		this.notificationBar.open(message, action, {
 			duration: 5000,
+			verticalPosition: 'top'
 		});
 	}
 
