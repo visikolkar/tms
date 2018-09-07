@@ -48,7 +48,8 @@
                 <button mat-button color="accent" style="min-width:auto; margin-top:8px;" (click)="openDialog()">edit</button>
             </div>
             <mat-list-item class="list-item">
-                <img matListAvatar src="/TMS2/assets/img/user.png" alt="men">
+                <!-- <img matListAvatar src="/TMS2/assets/img/user.png" alt="men"> -->
+                <img matListAvatar src="http://portal/NewPortal/Images/PICS/{{empIDImage}}.jpg" onError="this.src='/TMS2/assets/img/user.png'" alt="men">
                 <h4 mat-line> {{employee.empinfo.emp_name}} </h4>
                 <p mat-line> {{employee.empinfo.emp_id}} </p>
             </mat-list-item>

@@ -20,6 +20,7 @@ export class DashComponent implements OnInit {
 
     window: any = window;
     ROLES: any;
+    empIDImage: any;
 
     constructor(private router: Router,public dialog: MatDialog, private dashService: DashService, private loaderService: LoaderService, private _compiler: Compiler) { }
 
@@ -43,6 +44,8 @@ export class DashComponent implements OnInit {
         console.log('loadEffort is called');
         console.log(JSON.parse(localStorage.getItem('employeeInfo')));
         this.ROLES = ROLES;
+        //extract the last 4 digits of emp_id
+        this.empIDImage = this.employee.empinfo.emp_id.substr(this.employee.empinfo.emp_id.length - 4);
     }
 
     logout():void{
