@@ -6,7 +6,9 @@
             <mat-tab *ngFor="let logeffort of logefforts.time_sheet; let j = index;" label={{logeffort.displayDate}}>
                 <!-- background-color:rgba(0,0,0,.04); use it if needed for the tab background -->
                 <div class="container" style="text-align:center; padding:10px; overflow-y:auto" [style.height.px]="windowheight">
-                    <div style="text-align: right; padding: 0; margin: 0">
+                    <div style="text-align: right; padding: 0; margin: 0; height: 50px">
+                        <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #C3003C; position: absolute;left: 10px"
+                            (click)="applyLeave()">Apply Leave</button>
                         <h4 style="text-align: right; padding: 0; margin:0 50px 0 0; color:#C3003C; display: inline;">IRIS TIME {{logeffort.iris_time}}</h4>
                         <mat-checkbox style="text-align: right;padding: 0; margin:0;color:#C3003C!important; font-size: 16px; display: inline;" [(ngModel)]="+logeffort.onsite" [disabled]="(logeffort.iris_time !== '0:0 Hours')" (ngModelChange)="onSite(logeffort)" >On Site</mat-checkbox>    
                     </div>
@@ -83,8 +85,8 @@
                                     </div>
                                 </div>
                                 <mat-card-actions style="text-align: right; margin-right: 0px; margin-left: 0px" *ngIf="logeffort.filled_state !== STATE.SUBMITTED && logeffort.filled_state !== STATE.APPROVED">
-                                    <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #C3003C; position: absolute;left: 10px"
-                                        (click)="applyLeave()">Apply Leave</button>
+                                    <!-- <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #C3003C; position: absolute;left: 10px"
+                                        (click)="applyLeave()">Apply Leave</button> -->
                                     <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #C3003C" (click)="postUserEffort(STATE.NOT_FILLED, logeffort)">Clear All</button>
                                     <button mat-raised-button style="background-color:rgba(0,0,0,.04);color: #3f51B5" (click)="postUserEffort(STATE.SAVED, logeffort)">SAVE</button>
                                 </mat-card-actions>
