@@ -107,6 +107,7 @@
 }
 
 .note {
+    margin-top: 10px;
     color: #fff;
     background: #C3003C;
     overflow: hidden;

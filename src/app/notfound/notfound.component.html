@@ -1,3 +1,21 @@
-<h1>
+<!-- <h1>
   Ooops! Something doesn't look good. <span>Contact Administrator!</span>
-</h1>
+</h1> -->
+
+<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="0" fxLayoutAlign="center"  style="text-align:center; padding:10px; overflow-y:auto; background-color: rgb(0, 0, 0, 0.04); height: 100vh;">
+	<div fxFlex="30%" style=" background-color:transparent; display: flex;
+      	justify-content: center;
+  		align-items: center; padding:10px 0 10px 0;">
+		<a (click)="goBackHome()" style="cursor:pointer ">
+			<img matListAvatar src="/TMS2/assets/img/lg.png" width="150" height="150" alt="logo">
+		</a>
+	</div>
+	<div fxFlex="30%" style=" background-color:transparent; display: flex;
+      	justify-content: center;
+  		align-items: center; padding:10px 0 10px 0;">
+		<h1 class="mat-display-1" style="font-size:1.8em;color:teal;padding-top: 50px">
+			Oh Oh! You're lost some where. Click on the icon to go back to home!
+		</h1>
+	</div>
+
+</div>
