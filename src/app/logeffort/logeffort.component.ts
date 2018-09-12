@@ -36,6 +36,7 @@ export class LogeffortComponent implements OnInit {
     panelOpenState: boolean = false;
     checked: boolean = false;
     noDuplicates: boolean = true;
+    requiredFields: boolean = false;
     employee: any;
     projects = [];
     projectTasks = [];
@@ -192,6 +193,21 @@ export class LogeffortComponent implements OnInit {
                 self.noDuplicates = false;
                 self.openNotificationbar(arr[index].project_name + ' ' + arr[index].task_name + ' is duplicated ', 'Close');
                 return 1; //break the loop
+            }
+        });
+    }
+
+    requiredFiledsCheck(array): any {
+        var self = this;
+        array.some(function(item){
+            if (item.project_name && item.task_name && (item.hours !== '' || item.mins !== '') && (+item.hours > 0 || +item.mins > 0)) {
+                // exclude common project for skill_set 
+                if (item.project_name != "Common" && !item.skill_set) {
+                    self.requiredFields = false;
+                    return 1;
+                } else {
+                    self.requiredFields = true;
+                }
             }
         });
     }
@@ -389,12 +405,14 @@ export class LogeffortComponent implements OnInit {
         if (!this.noDuplicates) {
             this.openNotificationbar('There are duplicate efforts', 'Kindly Remove!');
         } else {
-            if (this.postUserData.length) {
+            this.requiredFiledsCheck(this.postUserData);
+            console.log('requiredFields ', this.requiredFields);
+            if (this.postUserData.length && this.requiredFields) {
                 //post data to the server
                 if (state === STATE.SAVED) {
                     // save the data
                     console.log('save data is ', arr);
-                    var message = "Effort data Saved successfuly.!"
+                    var message = "Effort data Saved!"
                     this.postData(state, obj, this.postUserData, message);
                 } else if (state === STATE.SUBMITTED) { //check for the total time 
                     //submit the data
@@ -407,7 +425,7 @@ export class LogeffortComponent implements OnInit {
                     if (+obj.onsite && obj.iris_time == "0:0 Hours") {
                         //on site employee
                         if (user_mins < 1440) {
-                            var message = "Effort data Submitted successfuly.!"
+                            var message = "Effort data Submitted!"
                             this.postData(state, obj, this.postUserData, message);
                         } else {
                             this.openNotificationbar("Your total log time is more than 23:59 Hours. Please take a break!", 'Close');
@@ -416,10 +434,10 @@ export class LogeffortComponent implements OnInit {
                         //lgsi employee
                         if (user_mins < 1440) {
                             if (user_mins > iris_mins && obj.comments) {
-                                var message = "Effort data Submitted successfuly.!"
+                                var message = "Effort data Submitted!"
                                 this.postData(state, obj, this.postUserData, message);
                             } else if (user_mins <= iris_mins) {
-                                var message = "Effort data Submitted successfuly.!"
+                                var message = "Effort data Submitted!"
                                 this.postData(state, obj, this.postUserData, message);
                             } else {
                                 this.openNotificationbar("Your total log time is more than IRIS Time. Please provide comments!", 'Close');
@@ -430,13 +448,13 @@ export class LogeffortComponent implements OnInit {
                     }
                 } else if (state === STATE.REJECTED) {
                     // self rejection
-                    var message = "Effort data Rejected successfuly.!"
+                    var message = "You've Self Rejected the efforts!"
                     //after self reject make the state to saved
                     this.postData(STATE.SAVED, obj, this.postUserData, message);
                 }
             } else {
                 //no data availble to post
-                this.openNotificationbar('No effort data available!', 'Close');
+                this.openNotificationbar('Fill all the required fields!', 'Close');
             }
         }
     }
