@@ -329,8 +329,10 @@ export class LogeffortComponent implements OnInit {
             iris_time: obj.iris_time.split(' ')[0],
             filled_state: state,
             effort: arr,
-            comments: obj.comments
+            comments: obj.comments,
+            onsite: obj.onsite
         };
+        console.log('final post data is ', finalSubmitData);
         this.loaderService.show();
         this.logeffortService.postEffort(finalSubmitData, state)
             .subscribe(
@@ -534,6 +536,11 @@ export class LogeffortComponent implements OnInit {
     }
 
     onSite(item: any): void {
+        console.log('ngModelChange is detected', item);
+        if(+item.onsite){
+            item.onsite = "1"
+            console.log('onsite efforts ', item);
+        }
         if ((item.displayDate.split(" ")[0] == 'Sun' || item.displayDate.split(" ")[0] == 'Sat') && item.iris_time == "0:0 Hours" && ! +item.onsite) {
             item.workingDay = false;
         } else {
