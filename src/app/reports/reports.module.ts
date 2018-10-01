@@ -31,10 +31,12 @@ import {
     MatTooltipModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTableModule
 } from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 import { SharedService } from '../shared/shared.service';
+import { TeamStatsComponent } from '../team-stats/team-stats.component';
 
 @NgModule({
     imports: [
@@ -67,11 +69,13 @@ import { SharedService } from '../shared/shared.service';
         MatTooltipModule,
         ChartsModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatTableModule
     ],
     declarations: [
         // FilterPipe,
-        MyReportComponent
+        MyReportComponent,
+        TeamStatsComponent
     ],
     providers: [
         SharedService,

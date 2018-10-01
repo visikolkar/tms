@@ -1,0 +1,223 @@
+<div class="container" style="text-align:center; padding:10px; overflow-y:auto" [style.height.px]="windowHeight">
+	<div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutGap="5px" fxLayoutAlign="left" style="padding:0; width:800px;margin:20px auto;background-color: transparent">
+		<div fxFlex="70%" style=" background-color:transparent; display: flex;
+			justify-content: center;
+			align-items: center; padding:10px 0 10px 0;">
+			<mat-radio-group [(ngModel)]="options.reports" style=" display: inline-flex;flex-direction: row; font-size: 0.8em;">
+				<mat-radio-button color="primary" value="project" style="padding-right: 15px">Project</mat-radio-button>
+				<mat-radio-button color="primary" value="domain" style="padding-right: 15px">Domain</mat-radio-button>
+				<mat-radio-button color="primary" value="skillset" style="padding-right: 15px">Skillset</mat-radio-button>
+			</mat-radio-group>
+			<mat-select style="font-size: .9em; width:30%" placeholder="Select Year" [(value)]="year.selected">
+				<!-- <mat-option value="" style="color: #C3003C">Select Year</mat-option> -->
+				<mat-option value="2018">
+					2018
+				</mat-option>
+			</mat-select>
+		</div>
+		<div fxFlex="15%" style=" background-color:transparent; display: flex;
+								justify-content: center;
+								align-items: center; padding:0;">
+			<button mat-stroked-button (click)="generateReport()">Report</button>
+		</div>
+		<div fxFlex="15%" style=" background-color:transparent; display: flex;
+								justify-content: center;
+								align-items: center; padding:0;">
+			<!-- <button mat-stroked-button>Download</button> -->
+			<a mat-button [matMenuTriggerFor]="downloadMenu" style="font-size: 16px">Download
+				<mat-icon>arrow_drop_down</mat-icon>
+			</a>
+			<mat-menu #downloadMenu="matMenu" [overlapTrigger]="false">
+				<a button mat-menu-item href="http://qtms.lge.com:8080/TMS2/api/reports/analysis/download/{{year.selected}}/1"
+				 download>Project Report</a>
+				<a button mat-menu-item href="http://qtms.lge.com:8080/TMS2/api/reports/analysis/download/{{year.selected}}/2"
+				 download>Skillset (Group vs Domain)</a>
+				<a button mat-menu-item href="http://qtms.lge.com:8080/TMS2/api/reports/analysis/download/{{year.selected}}/3"
+				 download>Skillset Level wise Report</a>
+				<a button mat-menu-item href="http://qtms.lge.com:8080/TMS2/api/reports/analysis/download/{{year.selected}}/4"
+				 download>Download All</a>
+			</mat-menu>
+		</div>
+	</div>
+
+	<!-- Data Table  -->
+	<div class="projectReport-container mat-elevation-z8">
+		<mat-table #table [dataSource]="dataSource">
+
+			<!--- Note that these columns can be defined in any order.
+					The actual rendered columns are set as a property on the row definition" -->
+
+			<!-- Category Column -->
+			<ng-container matColumnDef="col1Projection">
+				<mat-header-cell *matHeaderCellDef style="min-width:124px!important">
+					<h3>Category</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element" [attr.rowspan]="element.monthsInfo.length" style="min-width:100px!important"> {{element.col1Projection}}
+				</mat-cell>
+			</ng-container>
+
+			<!-- Project Name Column -->
+			<ng-container matColumnDef="col2Projection">
+				<mat-header-cell *matHeaderCellDef style="min-width:180px!important;">
+					<h3>Project Name</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element" style="border-left:1px solid rgba(0,0,0,.12); min-width:180px!important">
+					<!-- ; let i = index; trackBy: trackByIndex  -->
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						{{name.col2Projection}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="JAN">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>JAN</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.JAN}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="FEB">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>FEB</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.FEB}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="MAR">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>MAR</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.MAR}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="APR">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>APR</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.APR}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="MAY">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>MAY</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.MAY}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="JUN">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>JUN</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.JUN}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="JUL">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>JUL</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.JUL}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="AUG">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>AUG</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.AUG}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="SEP">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>SEP</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.SEP}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="OCT">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>OCT</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.OCT}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="NOV">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>NOV</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.NOV}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+			<!-- Months Column -->
+			<ng-container matColumnDef="DEC">
+				<mat-header-cell *matHeaderCellDef>
+					<h3>DEC</h3>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let element">
+					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
+						<!-- ; let i = index; trackBy: trackByIndex  -->
+						{{name.months.DEC}}
+					</mat-cell>
+				</mat-cell>
+			</ng-container>
+
+			<mat-header-row *matHeaderRowDef="displayedColumnsProject"></mat-header-row>
+			<mat-row *matRowDef="let row; columns: displayedColumnsProject;"></mat-row>
+		</mat-table>
+	</div>
+
+
+
+</div>

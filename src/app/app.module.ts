@@ -30,6 +30,7 @@ import {
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTableModule,
 } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { DashModule } from './dash/dash.module';
@@ -56,7 +57,7 @@ import { ReportsComponent } from './reports/reports.component';
 
 import { ReportModule } from './reports/reports.module';
 import { ReportsService } from './reports/reports.service';
-import { ReportsResolve } from './reports/reports.resolve';
+import { ReportsResolve, ReportsProjectResolve } from './reports/reports.resolve';
 // import { ProjectStatusComponent } from './project-status/project-status.component';
 // import { JobTaskListComponent } from './job-task-list/job-task-list.component';
 
@@ -107,6 +108,7 @@ import { ReportsResolve } from './reports/reports.resolve';
         MatTooltipModule,
         MatDatepickerModule,
         MatNativeDateModule,
+        MatTableModule,
         AppRoutingModule,
         DashModule,
         AdminModule,
@@ -132,6 +134,7 @@ import { ReportsResolve } from './reports/reports.resolve';
         SharedService,
         MatDatepickerModule,
         JobTaskListResolve,
+        ReportsProjectResolve
     ],
     bootstrap: [AppComponent],
     entryComponents: [

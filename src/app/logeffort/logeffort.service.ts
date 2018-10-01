@@ -15,10 +15,15 @@ export class LogeffortService {
 
     //logEffortUrl = SERVER_URL + 'api/effort/add/' + this.empID;
 
+    headers = new HttpHeaders({
+        'Content-Type': 'text/plain'
+    });
+    options = { headers: this.headers };
+
     postEffort(effortData: any, state: number): Observable<any> {
         var logEffortUrl = SERVER_URL + 'api/effort/add/' +state;
         console.log('logEffort api url is', logEffortUrl);
-        return this.http.post<any>(logEffortUrl, effortData);
+        return this.http.post<any>(logEffortUrl, effortData, this.options);
     }
 
     

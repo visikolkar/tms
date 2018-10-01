@@ -15,8 +15,9 @@ import { JobTaskListComponent } from './job-task-list/job-task-list.component';
 import { AdminResolve , JobTaskListResolve} from './admin/admin.resolve';
 import { ReportsComponent } from './reports/reports.component';
 import { MyReportComponent } from './my-report/my-report.component';
-import { ReportsResolve } from './reports/reports.resolve';
+import { ReportsResolve, ReportsProjectResolve } from './reports/reports.resolve';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { TeamStatsComponent } from './team-stats/team-stats.component';
 
 const routes: Routes = [
 	{
@@ -92,6 +93,12 @@ const routes: Routes = [
 					logeffort: ReportsResolve
 				}
 
+			}, {
+				path: 'team-stats',
+				component: TeamStatsComponent,
+				resolve: {
+					project: ReportsProjectResolve
+				}
 			}
 		]
 	},

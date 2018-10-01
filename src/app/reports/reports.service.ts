@@ -22,4 +22,10 @@ export class ReportsService {
         return this.http.get<any>(this.loadEffortUrl);
     }
 
+    reportsProjectUrl = SERVER_URL + 'api/reports/analysis/project/';
+    reportsProject(year: string): Observable<any> {
+        this.reportsProjectUrl += year;
+        return this.http.get<any>(this.reportsProjectUrl);
+    }
+
 }

@@ -1,0 +1,33 @@
+:host ::ng-deep .mat-select-placeholder {
+    color: #c3003c;
+}
+
+:host ::ng-deep .mat-header-row {
+    padding: 0px!important;
+}
+
+:host ::ng-deep .mat-row {
+    padding: 0px!important;
+}
+
+.cell-customized {
+    display: block;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    align-items: center;
+    padding: 0;
+    box-sizing: border-box;
+    border-right: 1px solid rgba(0,0,0,.12);
+}
+.cell-customized {
+    min-height: 48px;
+}
+.cell-customized {
+    border-bottom-color: rgba(0,0,0,.12);
+}
+.cell-customized:last-child{
+    border-bottom: none;
+}
+.cell-customized:first-child{
+    /* width: 180px!important; */
+}
