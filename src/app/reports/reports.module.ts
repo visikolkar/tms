@@ -32,7 +32,8 @@ import {
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule
 } from '@angular/material';
 import { ChartsModule } from 'ng2-charts';
 import { SharedService } from '../shared/shared.service';
@@ -70,7 +71,8 @@ import { TeamStatsComponent } from '../team-stats/team-stats.component';
         ChartsModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        MatTableModule
+        MatTableModule,
+        MatPaginatorModule
     ],
     declarations: [
         // FilterPipe,

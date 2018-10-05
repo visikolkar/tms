@@ -7,9 +7,9 @@ import { DashService } from './dash.service';
 import { LoaderService } from '../loader/loader.service';
 import { ROLES } from '../shared/config';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/takeWhile';
+import { Observable, interval } from 'rxjs';
+
+
 
 @Component({
     selector: 'app-dash',
@@ -63,7 +63,9 @@ export class DashComponent implements OnInit {
                 localStorage.clear();
                 window.location.reload();
                 this._compiler.clearCache();
-                Observable.interval(500).takeWhile(function(){ return this.loaderService.hide()})
+                //Observable.interval(500).takeWhile(function(){ return this.loaderService.hide()})
+                interval(500).subscribe(function(){ return this.loaderService.hide()});
+                //Observable.interval(500).takeWhile(function(){ return this.loaderService.hide()})
                 //this.router.navigate(['/login'], { replaceUrl: true });
                 console.log("logout successfull");
             }else{

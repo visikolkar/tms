@@ -41,7 +41,8 @@
 	</div>
 
 	<!-- Data Table  -->
-	<div class="projectReport-container mat-elevation-z8">
+	<div class="projectReport-container mat-elevation-z8" [style.height.px]="tableHeight">
+		
 		<mat-table #table [dataSource]="dataSource">
 
 			<!--- Note that these columns can be defined in any order.
@@ -49,19 +50,20 @@
 
 			<!-- Category Column -->
 			<ng-container matColumnDef="col1Projection">
-				<mat-header-cell *matHeaderCellDef style="min-width:124px!important">
+				<mat-header-cell *matHeaderCellDef >
 					<h3>Category</h3>
 				</mat-header-cell>
-				<mat-cell *matCellDef="let element" [attr.rowspan]="element.monthsInfo.length" style="min-width:100px!important"> {{element.col1Projection}}
+				<mat-cell *matCellDef="let element" [attr.rowspan]="element.monthsInfo.length" >
+					{{element.col1Projection}}
 				</mat-cell>
 			</ng-container>
 
 			<!-- Project Name Column -->
 			<ng-container matColumnDef="col2Projection">
-				<mat-header-cell *matHeaderCellDef style="min-width:180px!important;">
-					<h3>Project Name</h3>
+				<mat-header-cell *matHeaderCellDef >
+					<h3>Project</h3>
 				</mat-header-cell>
-				<mat-cell *matCellDef="let element" style="border-left:1px solid rgba(0,0,0,.12); min-width:180px!important">
+				<mat-cell *matCellDef="let element" style="border-left:1px solid rgba(0,0,0,.12);">
 					<!-- ; let i = index; trackBy: trackByIndex  -->
 					<mat-cell class="cell-customized" *ngFor="let name of element.monthsInfo">
 						{{name.col2Projection}}
@@ -213,9 +215,12 @@
 				</mat-cell>
 			</ng-container>
 
-			<mat-header-row *matHeaderRowDef="displayedColumnsProject"></mat-header-row>
+			<mat-header-row *matHeaderRowDef="displayedColumnsProject; sticky: true"></mat-header-row>
 			<mat-row *matRowDef="let row; columns: displayedColumnsProject;"></mat-row>
 		</mat-table>
+		<mat-paginator #paginator (page)="getUpdate($event)" [pageSize]="1" [pageSizeOptions]="[1, 3, 5]"
+		 showFirstLastButtons>
+		</mat-paginator>
 	</div>
 
 

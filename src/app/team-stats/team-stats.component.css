@@ -1,9 +1,29 @@
+.projectReport-container{
+    overflow: auto;
+}
+
 :host ::ng-deep .mat-select-placeholder {
     color: #c3003c;
 }
 
 :host ::ng-deep .mat-header-row {
-    padding: 0px!important;
+    padding-left: 0px!important;
+}
+
+:host ::ng-deep .mat-header-cell {
+    text-align: center!important;
+    border: 1px solid white;
+    display: block!important;
+    color: #c3003c;
+    background-color: rgba(0,0,0,.12);
+}
+
+:host ::ng-deep .mat-cell {
+    display: block!important;
+}
+
+:host ::ng-deep .mat-cell:last-of-type, mat-footer-cell:last-of-type, mat-header-cell:last-of-type {
+    padding-right: 0px;
 }
 
 :host ::ng-deep .mat-row {
@@ -27,7 +47,4 @@
 }
 .cell-customized:last-child{
     border-bottom: none;
-}
-.cell-customized:first-child{
-    /* width: 180px!important; */
 }

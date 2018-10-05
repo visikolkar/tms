@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, ChangeDetectorRef, ViewChild, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { APPROVAL } from '../shared/approval';
 import { MatSnackBar, MatTabChangeEvent } from '@angular/material';
 import { ApprovalService } from './approval.service';
@@ -41,7 +41,7 @@ export class ApprovalComponent implements OnInit {
 		public dialog: MatDialog,
 		public cdRef: ChangeDetectorRef,
 		el: ElementRef,
-		public renderer: Renderer,
+		public renderer: Renderer2,
 	) {
 		this.el = el.nativeElement;
 		this.renderer = renderer;

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatTableDataSource, MatSort } from '@angular/material';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { DataSource } from '@angular/cdk/table';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
 	selector: 'app-team-stats',
@@ -11,11 +12,12 @@ import { DataSource } from '@angular/cdk/table';
 
 export class TeamStatsComponent implements OnInit {
 
-	windowheight: any;
+	windowHeight: any;
 	windowWidth: any;
+	tableHeight: any;
 	displayedColumnsProject: string[] = ['col1Projection', 'col2Projection', 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-	// displayedColumnsProject: string[] = ['col1Projection', 'col2Projection', 'JAN'];
-	dataSource: any; 
+	// displayedColumnsProject: string[] = ['col1Projection', 'col2Projection'];
+	dataSource: any;
 	options = {
 		reports: 'project'
 	};
@@ -23,13 +25,23 @@ export class TeamStatsComponent implements OnInit {
 		selected: '2018'
 	};
 	projects = [];
+
+	paginationDetail = new BehaviorSubject({
+		length: 1,
+		pageIndex: 0,
+		pageSize: 1,
+	})
 	constructor(private route: ActivatedRoute) { }
 
 	trackByIndex = i => i;
 	//trackByIndex = function(i) { return i; }
+
+	@ViewChild(MatPaginator) paginator: MatPaginator;
+
 	ngOnInit() {
-		this.windowheight = (73 * window.screen.height) / 100;
+		this.windowHeight = (73 * window.screen.height) / 100;
 		this.windowWidth = (10 * window.screen.width) / 100;
+		this.tableHeight = (73 * this.windowHeight) / 100;
 		this.route.data
 			.subscribe((res: any) => {
 				console.log('resolved project report is ', res);
@@ -43,8 +55,16 @@ export class TeamStatsComponent implements OnInit {
 		this.dataSource = new MatTableDataSource(this.projects);
 	}
 
+	ngAfterViewInit(){
+		this.dataSource.paginator = this.paginator;
+	}
+
 	generateReport(): void {
 		console.log(this.options, this.year);
+	}
+
+	getUpdate(event) {
+		this.paginationDetail.next(event);
 	}
 
 }
