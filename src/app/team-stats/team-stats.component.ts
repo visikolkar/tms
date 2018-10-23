@@ -26,6 +26,7 @@ export class TeamStatsComponent implements OnInit {
 	};
 	projectDisplay = true;
 	domainDisplay = false;
+	skillDisplay = false;
 	projects = [];
 	domain = [];
 	skill = [];
@@ -58,17 +59,18 @@ export class TeamStatsComponent implements OnInit {
 					console.log('key is ', key);
 					return res.domain.data[key];
 				});
-				// this.skill = Object.keys(res.skill.data).map(function (key) {
-				// 	console.log('key is ', key);
-				// 	return res.skill.data[key];
-				// });
+				this.skill = Object.keys(res.skill.data).map(function (key) {
+					console.log('key is ', key);
+					return res.skill.data[key];
+				});
 			});
 		console.log('proj data is ', this.projects);
 		console.log('domain data is ', this.domain);
-		// console.log('skill level data is ', this.skill);
+		console.log('skill level data is ', this.skill);
 		this.dataSource = new MatTableDataSource(this.projects);
 		this.projectDisplay = true;
 		this.domainDisplay = false;
+		this.skillDisplay = false;
 	}
 
 	ngAfterViewInit(){
@@ -82,10 +84,17 @@ export class TeamStatsComponent implements OnInit {
 				this.dataSource = new MatTableDataSource(this.domain);
 				this.projectDisplay = false;
 				this.domainDisplay = true;
+				this.skillDisplay = false;
 			} else if(this.options.reports == 'project'){
 				this.dataSource = new MatTableDataSource(this.projects);
 				this.projectDisplay = true;
 				this.domainDisplay = false;
+				this.skillDisplay = false;
+			} else if(this.options.reports == 'skillset'){
+				this.dataSource = new MatTableDataSource(this.skill);
+				this.projectDisplay = false;
+				this.domainDisplay = false;
+				this.skillDisplay = true;
 			}
 		}
 	}

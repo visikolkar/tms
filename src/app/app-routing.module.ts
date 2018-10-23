@@ -99,7 +99,7 @@ const routes: Routes = [
 				resolve: {
 					project: ReportsProjectResolve,
 					domain: ReportsDomainResolve,
-					//skill: ReportsSkillResolve
+					skill: ReportsSkillResolve
 				}
 			}
 		]

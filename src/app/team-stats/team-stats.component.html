@@ -53,6 +53,7 @@
 				<mat-header-cell *matHeaderCellDef >
 					<h3 *ngIf="projectDisplay">Category</h3>
 					<h3 *ngIf="domainDisplay">Group</h3>
+					<h3 *ngIf="skillDisplay">Domain</h3>
 				</mat-header-cell>
 				<mat-cell *matCellDef="let element" [attr.rowspan]="element.monthsInfo.length" >
 					{{element.col1Projection}}
@@ -64,6 +65,7 @@
 				<mat-header-cell *matHeaderCellDef >
 					<h3 *ngIf="projectDisplay">Project</h3>
 					<h3 *ngIf="domainDisplay">Domain</h3>
+					<h3 *ngIf="skillDisplay">Skill</h3>
 				</mat-header-cell>
 				<mat-cell *matCellDef="let element" style="border-left:1px solid rgba(0,0,0,.12);">
 					<!-- ; let i = index; trackBy: trackByIndex  -->
