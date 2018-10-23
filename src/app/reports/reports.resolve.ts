@@ -27,3 +27,27 @@ export class ReportsProjectResolve implements Resolve<any> {
         return this.reportService.reportsProject('2018'); //fetch 2018 year report by default
     }
 }
+
+@Injectable()
+export class ReportsDomainResolve implements Resolve<any> {
+    constructor(private reportService: ReportsService) { }
+
+    resolve(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
+
+        return this.reportService.reportsDomain('2018'); //fetch 2018 year report by default
+    }
+}
+
+@Injectable()
+export class ReportsSkillResolve implements Resolve<any> {
+    constructor(private reportService: ReportsService) { }
+
+    resolve(
+        route: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
+
+        return this.reportService.reportsSkill('2018'); //fetch 2018 year report by default
+    }
+}

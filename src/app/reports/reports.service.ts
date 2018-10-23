@@ -28,4 +28,16 @@ export class ReportsService {
         return this.http.get<any>(this.reportsProjectUrl);
     }
 
+    reportsDomainUrl = SERVER_URL + 'api/reports/analysis/skillset/group/';
+    reportsDomain(year: string): Observable<any> {
+        this.reportsDomainUrl += year;
+        return this.http.get<any>(this.reportsDomainUrl);
+    }
+
+    reportsSkillUrl = SERVER_URL + 'api/reports/analysis/skillset/level/';
+    reportsSkill(year: string): Observable<any> {
+        this.reportsSkillUrl += year;
+        return this.http.get<any>(this.reportsSkillUrl);
+    }
+
 }

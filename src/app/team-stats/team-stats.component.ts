@@ -15,7 +15,7 @@ export class TeamStatsComponent implements OnInit {
 	windowHeight: any;
 	windowWidth: any;
 	tableHeight: any;
-	displayedColumnsProject: string[] = ['col1Projection', 'col2Projection', 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+	displayedColumns: string[] = ['col1Projection', 'col2Projection', 'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 	// displayedColumnsProject: string[] = ['col1Projection', 'col2Projection'];
 	dataSource: any;
 	options = {
@@ -24,7 +24,11 @@ export class TeamStatsComponent implements OnInit {
 	year = {
 		selected: '2018'
 	};
+	projectDisplay = true;
+	domainDisplay = false;
 	projects = [];
+	domain = [];
+	skill = [];
 
 	paginationDetail = new BehaviorSubject({
 		length: 1,
@@ -50,9 +54,21 @@ export class TeamStatsComponent implements OnInit {
 					console.log('key is ', key);
 					return res.project.data[key];
 				});
+				this.domain = Object.keys(res.domain.data).map(function (key) {
+					console.log('key is ', key);
+					return res.domain.data[key];
+				});
+				// this.skill = Object.keys(res.skill.data).map(function (key) {
+				// 	console.log('key is ', key);
+				// 	return res.skill.data[key];
+				// });
 			});
 		console.log('proj data is ', this.projects);
+		console.log('domain data is ', this.domain);
+		// console.log('skill level data is ', this.skill);
 		this.dataSource = new MatTableDataSource(this.projects);
+		this.projectDisplay = true;
+		this.domainDisplay = false;
 	}
 
 	ngAfterViewInit(){
@@ -61,6 +77,17 @@ export class TeamStatsComponent implements OnInit {
 
 	generateReport(): void {
 		console.log(this.options, this.year);
+		if(this.options.reports && this.year.selected){
+			if(this.options.reports == 'domain'){
+				this.dataSource = new MatTableDataSource(this.domain);
+				this.projectDisplay = false;
+				this.domainDisplay = true;
+			} else if(this.options.reports == 'project'){
+				this.dataSource = new MatTableDataSource(this.projects);
+				this.projectDisplay = true;
+				this.domainDisplay = false;
+			}
+		}
 	}
 
 	getUpdate(event) {

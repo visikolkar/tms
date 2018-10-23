@@ -57,7 +57,7 @@ import { ReportsComponent } from './reports/reports.component';
 
 import { ReportModule } from './reports/reports.module';
 import { ReportsService } from './reports/reports.service';
-import { ReportsResolve, ReportsProjectResolve } from './reports/reports.resolve';
+import { ReportsResolve, ReportsProjectResolve, ReportsDomainResolve, ReportsSkillResolve } from './reports/reports.resolve';
 // import { ProjectStatusComponent } from './project-status/project-status.component';
 // import { JobTaskListComponent } from './job-task-list/job-task-list.component';
 
@@ -134,7 +134,9 @@ import { ReportsResolve, ReportsProjectResolve } from './reports/reports.resolve
         SharedService,
         MatDatepickerModule,
         JobTaskListResolve,
-        ReportsProjectResolve
+        ReportsProjectResolve,
+        ReportsDomainResolve,
+        ReportsSkillResolve
     ],
     bootstrap: [AppComponent],
     entryComponents: [

@@ -26,6 +26,10 @@
     padding-right: 0px;
 }
 
+:host ::ng-deep mat-cell:first-of-type, mat-footer-cell:first-of-type, mat-header-cell:first-of-type {
+    padding-left: 0px;
+}
+
 :host ::ng-deep .mat-row {
     padding: 0px!important;
 }
