@@ -2,7 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/app",
-    "baseUrl": "/TMS2",
+    "baseUrl": "./",
     "module": "es2015",
     "types": []
   },
